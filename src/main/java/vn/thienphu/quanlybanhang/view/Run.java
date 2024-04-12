@@ -21,7 +21,7 @@ import vn.thienphu.quanlybanhang.util.HibernateUtil;
 
 public class Run {
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPA_ORM_QLBanHang");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPA_ORM_QLMuaBan");
 //		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 //		Session session = sessionFactory.openSession();
 //		session.beginTransaction();
@@ -48,18 +48,18 @@ public class Run {
 //		session.close();
 	}
 	
-	public static String convertImageToBase64(String imagePath) {
-        File file = new File(imagePath);
-        try (FileInputStream fis = new FileInputStream(file)) {
-            // Read image into byte array
-            byte[] imageData = new byte[(int) file.length()];
-            fis.read(imageData);
-
-            // Encode byte array to Base64 string
-            return Base64.getEncoder().encodeToString(imageData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//	public static String convertImageToBase64(String imagePath) {
+//        File file = new File(imagePath);
+//        try (FileInputStream fis = new FileInputStream(file)) {
+//            // Read image into byte array
+//            byte[] imageData = new byte[(int) file.length()];
+//            fis.read(imageData);
+//
+//            // Encode byte array to Base64 string
+//            return Base64.getEncoder().encodeToString(imageData);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }
