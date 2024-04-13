@@ -1,23 +1,7 @@
 package vn.thienphu.quanlybanhang.view;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Base64;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import vn.thienphu.quanlybanhang.model.Anh;
-import vn.thienphu.quanlybanhang.model.LoaiSanPham;
-import vn.thienphu.quanlybanhang.model.NhanVien;
-import vn.thienphu.quanlybanhang.model.Quyen;
-import vn.thienphu.quanlybanhang.model.SanPham;
-import vn.thienphu.quanlybanhang.model.TaiKhoan;
-import vn.thienphu.quanlybanhang.util.HibernateUtil;
 
 public class Run {
 	public static void main(String[] args) {

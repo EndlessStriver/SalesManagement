@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import vn.thienphu.quanlybanhang.controller.MouseControllerFormIndex;
 import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuHoaDon;
 import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuThongTin;
-import vn.thienphu.quanlybanhang.model.HoaDon;
 
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;

@@ -9,10 +9,10 @@ import java.util.concurrent.CountDownLatch;
 import vn.thienphu.quanlybanhang.item.FormTimKiemHoaDon;
 import vn.thienphu.quanlybanhang.item.FormTimKiemNhanVien;
 import vn.thienphu.quanlybanhang.item.FormTimKiemSanPham;
-import vn.thienphu.quanlybanhang.model.HoaDon;
-import vn.thienphu.quanlybanhang.model.NhanVien;
-import vn.thienphu.quanlybanhang.model.SanPham;
 import vn.thienphu.quanlybanhang.view.FormTraCuuThongTin;
+import vn.thienphu.serverquanlybanhang.model.HoaDon;
+import vn.thienphu.serverquanlybanhang.model.NhanVien;
+import vn.thienphu.serverquanlybanhang.model.SanPham;
 
 public class MouseControllerFormTraCuuThongTin implements MouseListener {
 
