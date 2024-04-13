@@ -1,98 +1,90 @@
 package vn.thienphu.quanlybanhang.item;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.util.List;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import vn.thienphu.quanlybanhang.model.HoaDon;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
-public class FormTimKiemHoaDon extends JFrame {
+public class FormTimKiemHoaDon extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private List<HoaDon> danhSachHoaDon;
+	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					FormTimKiemHoaDon frame = new FormTimKiemHoaDon();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		try {
+			FormTimKiemHoaDon dialog = new FormTimKiemHoaDon();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
-	 * Create the frame.
+	 * Create the dialog.
 	 */
-	public FormTimKiemHoaDon(List<HoaDon> danhSachHoaDon) {
-		this.danhSachHoaDon = danhSachHoaDon;
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 422, 227);
+	public FormTimKiemHoaDon() {
+		setModal(true);
+		setBounds(100, 100, 409, 228);
 		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Tìm kiếm");
-		btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnNewButton.setBounds(139, 131, 186, 38);
-		contentPane.add(btnNewButton);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
 		
 		JLabel lblMaHoan = new JLabel("Mã hóa đơn");
 		lblMaHoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblMaHoan.setBounds(35, 11, 94, 29);
-		contentPane.add(lblMaHoan);
+		lblMaHoan.setBounds(10, 11, 94, 29);
+		contentPanel.add(lblMaHoan);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textField.setColumns(10);
-		textField.setBounds(139, 11, 186, 29);
-		contentPane.add(textField);
+		textField.setBounds(114, 11, 186, 29);
+		contentPanel.add(textField);
 		
 		JLabel lblMaNhnVin = new JLabel("Mã nhân viên");
 		lblMaNhnVin.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblMaNhnVin.setBounds(35, 51, 94, 29);
-		contentPane.add(lblMaNhnVin);
+		lblMaNhnVin.setBounds(10, 51, 94, 29);
+		contentPanel.add(lblMaNhnVin);
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textField_1.setColumns(10);
-		textField_1.setBounds(139, 51, 186, 29);
-		contentPane.add(textField_1);
-		
-		JLabel lblNgayLp = new JLabel("Ngày lập");
-		lblNgayLp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblNgayLp.setBounds(35, 91, 94, 29);
-		contentPane.add(lblNgayLp);
+		textField_1.setBounds(114, 51, 186, 29);
+		contentPanel.add(textField_1);
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd/MM/yyyy");
-		dateChooser.setBounds(139, 91, 186, 29);
-		contentPane.add(dateChooser);
+		dateChooser.setBounds(114, 91, 186, 29);
+		contentPanel.add(dateChooser);
+		
+		JLabel lblNgayLp = new JLabel("Ngày lập");
+		lblNgayLp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		lblNgayLp.setBounds(10, 91, 94, 29);
+		contentPanel.add(lblNgayLp);
+		
+		JButton btnNewButton = new JButton("Tìm kiếm");
+		btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnNewButton.setBounds(114, 131, 186, 38);
+		contentPanel.add(btnNewButton);
 		
 		JButton btnTim = new JButton("Tìm");
 		btnTim.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnTim.setBounds(335, 51, 58, 29);
-		contentPane.add(btnTim);
+		btnTim.setBounds(310, 51, 58, 29);
+		contentPanel.add(btnTim);
+		
 	}
 }

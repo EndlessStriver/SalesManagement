@@ -26,6 +26,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	private JTable table;
 	private JPasswordField passwordField;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
+	public JButton btnTimKiem;
 
 	/**
 	 * Create the panel.
@@ -156,10 +157,11 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
-		JButton btnNewButton = new JButton("Tìm kiếm");
-		btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnNewButton.setBounds(676, 6, 89, 23);
-		panel_2.add(btnNewButton);
+		btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnTimKiem.setBounds(676, 6, 89, 23);
+		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
+		panel_2.add(btnTimKiem);
 		
 	}
 }

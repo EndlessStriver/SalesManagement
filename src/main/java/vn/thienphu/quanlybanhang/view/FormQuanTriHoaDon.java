@@ -32,13 +32,14 @@ public class FormQuanTriHoaDon  extends JPanel {
 	private JPopupMenu popupMenu;
 	private MouseControllerFormQuanTriHoaDon controllerFormQuanTriHoaDon;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
+	public JButton btnTimKiem;
 
 	/**
 	 * Create the panel.
 	 */
 	public FormQuanTriHoaDon (MouseControllerFormQuanTri mouseControllerFormQuanTri) {
 		controllerFormQuanTriHoaDon = new MouseControllerFormQuanTriHoaDon(this);
-		this.mouseControllerFormQuanTri = mouseControllerFormQuanTri;
+		mouseControllerFormQuanTri = mouseControllerFormQuanTri;
 		setSize(1120, 680);
 		setLayout(null);
 		
@@ -164,9 +165,10 @@ public class FormQuanTriHoaDon  extends JPanel {
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
-		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiem.setBounds(676, 6, 89, 23);
+		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
 		
 	}

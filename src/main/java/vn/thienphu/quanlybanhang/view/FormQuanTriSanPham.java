@@ -24,6 +24,7 @@ public class FormQuanTriSanPham  extends JPanel {
 	private JTextField txtLoaiSP;
 	private JTable table;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
+	public JButton btnTimKiem;
 
 	/**
 	 * Create the panel.
@@ -162,9 +163,10 @@ public class FormQuanTriSanPham  extends JPanel {
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
-		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiem.setBounds(676, 6, 89, 23);
+		btnTimKiem.addMouseListener(controllerFormQuanTri);
 		panel_2.add(btnTimKiem);
 		
 	}

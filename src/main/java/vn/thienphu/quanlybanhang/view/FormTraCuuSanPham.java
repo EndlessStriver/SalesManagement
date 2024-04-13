@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 
 import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuThongTin;
 import vn.thienphu.quanlybanhang.model.SanPham;
-import vn.thienphu.quanlybanhang.thread.ThreadTimKiemSanPham;
 
 import javax.swing.JRadioButton;
 import java.awt.Component;

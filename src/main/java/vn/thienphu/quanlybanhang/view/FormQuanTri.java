@@ -13,10 +13,10 @@ public class FormQuanTri extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
-	private FormQuanTriNhanVien formQuanTriNhanVien;
-	private FormQuanTriTaiKhoan formQuanTriTaiKhoan;
-	private FormQuanTriHoaDon formQuanTriHoaDon;
-	private FormQuanTriSanPham formQuanTriSanPham;
+	public FormQuanTriNhanVien formQuanTriNhanVien;
+	public FormQuanTriTaiKhoan formQuanTriTaiKhoan;
+	public FormQuanTriHoaDon formQuanTriHoaDon;
+	public FormQuanTriSanPham formQuanTriSanPham;
 
 	/**
 	 * Create the panel.
