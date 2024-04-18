@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormIndex;
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuThongTin;
+import controller.MouseControllerFormIndex;
+import controller.MouseControllerFormTraCuuThongTin;
 
 public class FormTraCuuThongTin extends JPanel {
 

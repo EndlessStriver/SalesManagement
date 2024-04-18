@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

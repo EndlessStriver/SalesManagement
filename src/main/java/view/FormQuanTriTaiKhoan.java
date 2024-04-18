@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormQuanTri;
+import controller.MouseControllerFormQuanTri;
 
 import javax.swing.JButton;
 import javax.swing.JScrollBar;

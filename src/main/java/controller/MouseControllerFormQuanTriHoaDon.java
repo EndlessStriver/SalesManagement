@@ -1,24 +1,25 @@
-package vn.thienphu.quanlybanhang.controller;
+package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.SwingUtilities;
 
-import vn.thienphu.quanlybanhang.view.FormTraCuuHoaDon;
+import view.FormQuanTriHoaDon;
+import view.FormTraCuuHoaDon;
 
-public class MouseControllerFormTraCuuHoaDon implements MouseListener{
+public class MouseControllerFormQuanTriHoaDon implements MouseListener{
 	
-	private FormTraCuuHoaDon formTraCuuHoaDon;
+	private FormQuanTriHoaDon formQuanTriHoaDon;
 
-	public MouseControllerFormTraCuuHoaDon(FormTraCuuHoaDon formTraCuuHoaDon) {
-		this.formTraCuuHoaDon = formTraCuuHoaDon;
+	public MouseControllerFormQuanTriHoaDon(FormQuanTriHoaDon formQuanTriHoaDon) {
+		this.formQuanTriHoaDon = formQuanTriHoaDon;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e)) {
-			this.formTraCuuHoaDon.showPopupMenu(e);
+			this.formQuanTriHoaDon.showPopupMenu(e);
 		}
 		
 	}

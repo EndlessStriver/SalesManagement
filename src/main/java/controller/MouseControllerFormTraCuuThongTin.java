@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.controller;
+package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import vn.thienphu.quanlybanhang.item.FormTimKiemHoaDon;
-import vn.thienphu.quanlybanhang.item.FormTimKiemNhanVien;
-import vn.thienphu.quanlybanhang.item.FormTimKiemSanPham;
-import vn.thienphu.quanlybanhang.view.FormTraCuuThongTin;
+import item.FormTimKiemHoaDon;
+import item.FormTimKiemNhanVien;
+import item.FormTimKiemSanPham;
+import view.FormTraCuuThongTin;
 import vn.thienphu.serverquanlybanhang.model.HoaDon;
 import vn.thienphu.serverquanlybanhang.model.NhanVien;
 import vn.thienphu.serverquanlybanhang.model.SanPham;

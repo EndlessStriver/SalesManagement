@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
@@ -36,19 +37,24 @@ public class FormTrangChu extends JPanel {
 	}
 	
 	private void addImageCarousel() {
-		for (int i = 1; i <= 5; i++) {
-            ImageIcon icon = new ImageIcon(FormTrangChu.class.getResource("/vn/thienphu/quanlybanhang/view/images/banner" + i + ".jpg"));
-            JLabel label = new JLabel(icon);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            this.panel.add(label, "banner" + i);
-        }
-		
-		Timer timer = new Timer(5000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                showNextImage();
-            }
-        });
-        timer.start();
+	    for (int i = 1; i <= 5; i++) {
+	        URL imageUrl = FormTrangChu.class.getResource("/images/banner" + i + ".jpg");
+	        if (imageUrl != null) {
+	            ImageIcon icon = new ImageIcon(imageUrl);
+	            JLabel label = new JLabel(icon);
+	            label.setHorizontalAlignment(SwingConstants.CENTER);
+	            this.panel.add(label, "banner" + i);
+	        } else {
+	            System.out.println("Image not found: /images/banner" + i + ".jpg");
+	        }
+	    }
+
+	    Timer timer = new Timer(5000, new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            showNextImage();
+	        }
+	    });
+	    timer.start();
 	}
 	
 	private void showNextImage() {

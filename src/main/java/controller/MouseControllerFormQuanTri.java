@@ -1,14 +1,14 @@
-package vn.thienphu.quanlybanhang.controller;
+package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import vn.thienphu.quanlybanhang.item.FormTimKiemHoaDon;
-import vn.thienphu.quanlybanhang.item.FormTimKiemNhanVien;
-import vn.thienphu.quanlybanhang.item.FormTimKiemSanPham;
-import vn.thienphu.quanlybanhang.item.FormTimKiemTaiKhoan;
-import vn.thienphu.quanlybanhang.view.FormQuanTri;
-import vn.thienphu.quanlybanhang.view.FormQuanTriSanPham;
+import item.FormTimKiemHoaDon;
+import item.FormTimKiemNhanVien;
+import item.FormTimKiemSanPham;
+import item.FormTimKiemTaiKhoan;
+import view.FormQuanTri;
+import view.FormQuanTriSanPham;
 
 public class MouseControllerFormQuanTri implements MouseListener {
 	

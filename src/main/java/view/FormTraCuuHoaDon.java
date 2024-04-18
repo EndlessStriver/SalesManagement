@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,11 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormIndex;
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuHoaDon;
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuThongTin;
-
 import com.toedter.calendar.JDateChooser;
+
+import controller.MouseControllerFormIndex;
+import controller.MouseControllerFormTraCuuHoaDon;
+import controller.MouseControllerFormTraCuuThongTin;
+
 import javax.swing.JRadioButton;
 import java.awt.Component;
 import java.awt.event.ActionListener;

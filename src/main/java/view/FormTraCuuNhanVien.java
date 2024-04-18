@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -14,8 +14,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuThongTin;
-import vn.thienphu.quanlybanhang.item.FormTimKiemNhanVien;
+import controller.MouseControllerFormTraCuuThongTin;
+import item.FormTimKiemNhanVien;
 
 import javax.swing.JRadioButton;
 import java.awt.Component;

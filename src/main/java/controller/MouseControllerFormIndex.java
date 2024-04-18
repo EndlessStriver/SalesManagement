@@ -1,11 +1,11 @@
-package vn.thienphu.quanlybanhang.controller;
+package controller;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.Normalizer.Form;
 
-import vn.thienphu.quanlybanhang.view.FormIndex;
+import view.FormIndex;
 
 public class MouseControllerFormIndex implements MouseListener{
 	

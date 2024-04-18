@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import java.awt.EventQueue;
 
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormIndex;
+import controller.MouseControllerFormIndex;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -100,7 +100,7 @@ public class FormIndex extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(
-				FormIndex.class.getResource("/vn/thienphu/quanlybanhang/view/images/cart-remove-icon.png")));
+				FormIndex.class.getResource("/images/cart-remove-icon.png")));
 		lblNewLabel_1.setBounds(66, 11, 128, 128);
 		menu.add(lblNewLabel_1);
 
@@ -158,7 +158,7 @@ public class FormIndex extends JFrame {
 
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(
-				new ImageIcon(FormIndex.class.getResource("/vn/thienphu/quanlybanhang/view/images/User-icon.png")));
+				new ImageIcon(FormIndex.class.getResource("/images/User-icon.png")));
 		lblNewLabel_3.setBounds(10, 648, 48, 48);
 		menu.add(lblNewLabel_3);
 

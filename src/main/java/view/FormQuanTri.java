@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormQuanTri;
+import controller.MouseControllerFormQuanTri;
 
 public class FormQuanTri extends JPanel {
 

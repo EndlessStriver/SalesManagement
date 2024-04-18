@@ -1,4 +1,4 @@
-package vn.thienphu.quanlybanhang.view;
+package view;
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -18,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormQuanTri;
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormQuanTriHoaDon;
-import vn.thienphu.quanlybanhang.controller.MouseControllerFormTraCuuHoaDon;
+import controller.MouseControllerFormQuanTri;
+import controller.MouseControllerFormQuanTriHoaDon;
+import controller.MouseControllerFormTraCuuHoaDon;
 
 public class FormQuanTriHoaDon  extends JPanel {
 
