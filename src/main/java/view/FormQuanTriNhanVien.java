@@ -12,9 +12,16 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
+import model.NhanVien;
+import model.Quyen;
+import util.ConnectServer;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FormQuanTriNhanVien extends JPanel {
@@ -25,15 +32,17 @@ public class FormQuanTriNhanVien extends JPanel {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTable table;
+	private JTable tableNhanVien;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
+	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 */
-	public FormQuanTriNhanVien(MouseControllerFormQuanTri mouseControllerFormQuanTri) {
-		this.mouseControllerFormQuanTri = mouseControllerFormQuanTri;
+	public FormQuanTriNhanVien(MouseControllerFormQuanTri mouseControllerFormQuanTri1,	ConnectServer connectServer1) {
+		connectServer = connectServer1;
+		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
 		setSize(1120, 680);
 		setLayout(null);
 		
@@ -177,20 +186,18 @@ public class FormQuanTriNhanVien extends JPanel {
 		lblDanhSachNhn.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachNhn);
 		
-		table = new JTable();
-		table.setRowHeight(25);
-		table.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-			},
+		tableNhanVien = new JTable();
+		tableNhanVien.setRowHeight(25);
+		tableNhanVien.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableNhanVien.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableNhanVien.setForeground(new Color(0, 0, 0));
+		tableNhanVien.setModel(new DefaultTableModel(
+			new Object[][] {},
 			new String[] {
-				"Mã nhân viên", "Họ và tên", "Số điện thoại", "Email", "Địa chỉ", "Giới tính", "Ảnh đại diện"
+				"Mã nhân viên", "Họ và tên", "Số điện thoại", "Email", "Địa chỉ", "Giới tính"
 			}
 		));
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = new JScrollPane(tableNhanVien);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
@@ -199,6 +206,29 @@ public class FormQuanTriNhanVien extends JPanel {
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
-		
+		layDanhSachNhanVien();
+	}
+	
+	public void layDanhSachNhanVien() {
+		ObjectInputStream ois = connectServer.getObjectInputStream();
+		ObjectOutputStream oos = connectServer.getObjectOutputStream();
+
+		try {
+			oos.writeObject("layDanhSachNhanVien");
+			oos.flush();
+
+			Object result = ois.readObject();
+//			System.out.println(result);
+			List<NhanVien> danhSachNhanVien = (List<NhanVien>) result;
+			
+			for (NhanVien nhanVien : danhSachNhanVien) {
+				DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+				model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
+						nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

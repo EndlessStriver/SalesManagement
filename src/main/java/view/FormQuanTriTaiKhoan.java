@@ -3,6 +3,7 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
@@ -31,7 +32,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	private JPasswordField passwordField;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
-	private JComboBox comboBoxQuyenHan;
+	private JComboBox<String> comboBoxQuyenHan;
 	private ConnectServer connectServer;
 
 	/**
@@ -127,7 +128,6 @@ public class FormQuanTriTaiKhoan extends JPanel {
 
 		comboBoxQuyenHan = new JComboBox();
 		comboBoxQuyenHan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		comboBoxQuyenHan.setEditable(true);
 		comboBoxQuyenHan.setBounds(117, 167, 186, 29);
 		panel.add(comboBoxQuyenHan);
 
