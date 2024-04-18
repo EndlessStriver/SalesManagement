@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.MouseControllerFormQuanTri;
 import util.ConnectServer;
 import model.Quyen;
+import model.TaiKhoan;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -28,7 +29,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
-	private JTable table;
+	private JTable tableTaiKhoan;
 	private JPasswordField passwordField;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
@@ -147,14 +148,14 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		lblDanhSachNhn.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachNhn);
 
-		table = new JTable();
-		table.setRowHeight(25);
-		table.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null }, },
+		tableTaiKhoan = new JTable();
+		tableTaiKhoan.setRowHeight(25);
+		tableTaiKhoan.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableTaiKhoan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableTaiKhoan.setForeground(new Color(0, 0, 0));
+		tableTaiKhoan.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }));
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = new JScrollPane(tableTaiKhoan);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 
@@ -164,6 +165,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
 		layDanhSachQuyenHan();
+		layDanhSachTaiKhoan();
 	}
 
 	private void layDanhSachQuyenHan() {
@@ -181,6 +183,30 @@ public class FormQuanTriTaiKhoan extends JPanel {
 			for (Quyen quyen : danhSachQuyenHan) {
 //				System.out.println(quyen.getTenQuyen());
 				comboBoxQuyenHan.addItem(quyen.getTenQuyen());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void layDanhSachTaiKhoan() {
+		ObjectInputStream ois = connectServer.getObjectInputStream();
+		ObjectOutputStream oos = connectServer.getObjectOutputStream();
+
+		try {
+			oos.writeObject("layDanhSachTaiKhoan");
+			oos.flush();
+
+			Object result = ois.readObject();
+//			System.out.println(result);
+			List<TaiKhoan> danhSachTaiKhoan = (List<TaiKhoan>) result;
+			
+			for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
+//				System.out.println(quyen.getTenQuyen());
+				DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
+				model.addRow(new Object[] { taiKhoan.getTenTaiKhoan(), taiKhoan.getMatKhau(),
+						taiKhoan.getQuyen().getTenQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
 			}
 			
 		} catch (Exception e) {
