@@ -80,7 +80,7 @@ public class FormIndex extends JFrame {
 		trangChu = new FormTrangChu();
 		quanTri = new FormQuanTri(connectServer);
 		thanhToan = new FormThanhToan();
-		traCuuThongTin = new FormTraCuuThongTin();
+		traCuuThongTin = new FormTraCuuThongTin(connectServer);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1412, 792);
 		setLocationRelativeTo(null);

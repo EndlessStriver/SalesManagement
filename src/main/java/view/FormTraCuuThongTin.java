@@ -9,6 +9,7 @@ import javax.swing.JTabbedPane;
 
 import controller.MouseControllerFormIndex;
 import controller.MouseControllerFormTraCuuThongTin;
+import util.ConnectServer;
 
 public class FormTraCuuThongTin extends JPanel {
 
@@ -17,13 +18,15 @@ public class FormTraCuuThongTin extends JPanel {
 	public FormTraCuuNhanVien formTraCuuNhanVien;
 	public FormTraCuuSanPham formTraCuuSanPham;
 	public FormTraCuuHoaDon formTraCuuHoaDon;
+	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 */
-	public FormTraCuuThongTin() {
+	public FormTraCuuThongTin(ConnectServer connectServer1) {
+		connectServer = connectServer1;
 		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
-		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin);
+		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin, connectServer);
 		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin);
 		formTraCuuHoaDon = new FormTraCuuHoaDon(mouseControllerFormTraCuuThongTin);
 		setSize(1133, 753);
