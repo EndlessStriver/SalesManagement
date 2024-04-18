@@ -15,6 +15,7 @@ import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
@@ -55,43 +56,43 @@ public class FormQuanTriHoaDon  extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblMaHD = new JLabel("Mã hóa đơn");
-		lblMaHD.setBounds(13, 105, 94, 29);
+		lblMaHD.setBounds(13, 82, 94, 29);
 		panel.add(lblMaHD);
 		lblMaHD.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
 		txtMaHD = new JTextField();
 		txtMaHD.setEditable(false);
-		txtMaHD.setBounds(117, 105, 186, 29);
+		txtMaHD.setBounds(117, 82, 186, 29);
 		panel.add(txtMaHD);
 		txtMaHD.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		txtMaHD.setColumns(10);
 		
 		JLabel lblTenNV = new JLabel("Mã nhân viên");
-		lblTenNV.setBounds(13, 145, 94, 29);
+		lblTenNV.setBounds(13, 122, 94, 29);
 		panel.add(lblTenNV);
 		lblTenNV.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
 		txtTenNV = new JTextField();
 		txtTenNV.setEditable(false);
-		txtTenNV.setBounds(117, 145, 186, 29);
+		txtTenNV.setBounds(117, 122, 186, 29);
 		panel.add(txtTenNV);
 		txtTenNV.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		txtTenNV.setColumns(10);
 		
 		JLabel lblNgayLap = new JLabel("Ngày Lập");
-		lblNgayLap.setBounds(13, 185, 94, 29);
+		lblNgayLap.setBounds(13, 162, 94, 29);
 		panel.add(lblNgayLap);
 		lblNgayLap.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
 		txtTongTien = new JTextField();
 		txtTongTien.setEditable(false);
-		txtTongTien.setBounds(117, 225, 186, 29);
+		txtTongTien.setBounds(117, 202, 186, 29);
 		panel.add(txtTongTien);
 		txtTongTien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		txtTongTien.setColumns(10);
 		
 		JLabel lblTongTien = new JLabel("Tổng Tiền");
-		lblTongTien.setBounds(13, 225, 94, 29);
+		lblTongTien.setBounds(13, 202, 94, 29);
 		panel.add(lblTongTien);
 		lblTongTien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
@@ -106,28 +107,32 @@ public class FormQuanTriHoaDon  extends JPanel {
 		panel_3.setBounds(10, 537, 293, 39);
 		panel.add(panel_3);
 		
-		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton("Cập nhật");
-		panel_3.add(rdbtnNewRadioButton_1_1);
-		rdbtnNewRadioButton_1_1.setBackground(new Color(255, 255, 255));
-		rdbtnNewRadioButton_1_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnCapNhat = new JRadioButton("Cập nhật");
+		panel_3.add(rdbtnCapNhat);
+		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
+		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
-		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton("Xóa");
-		panel_3.add(rdbtnNewRadioButton_1_1_1);
-		rdbtnNewRadioButton_1_1_1.setBackground(new Color(255, 255, 255));
-		rdbtnNewRadioButton_1_1_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnXoa = new JRadioButton("Xóa");
+		panel_3.add(rdbtnXoa);
+		rdbtnXoa.setBackground(new Color(255, 255, 255));
+		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		ButtonGroup buttonGroupFunction = new ButtonGroup();
+		buttonGroupFunction.add(rdbtnXoa);
+		buttonGroupFunction.add(rdbtnCapNhat);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(116, 185, 187, 29);
+		dateChooser.setBounds(116, 162, 187, 29);
 		panel.add(dateChooser);
 		
 		JLabel lblThngTinHoa = new JLabel("Thông Tin Hóa Đơn");
 		lblThngTinHoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		lblThngTinHoa.setBounds(55, 40, 201, 30);
+		lblThngTinHoa.setBounds(57, 31, 201, 30);
 		panel.add(lblThngTinHoa);
 		
 		JButton btnXacNhn = new JButton("Xác nhận");
 		btnXacNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnXacNhn.setBounds(117, 265, 100, 29);
+		btnXacNhn.setBounds(117, 242, 100, 29);
 		panel.add(btnXacNhn);
 		
 		JPanel panel_2 = new JPanel();

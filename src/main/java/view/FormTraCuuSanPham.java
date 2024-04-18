@@ -54,64 +54,54 @@ public class FormTraCuuSanPham extends JPanel {
 		
 		JLabel lblMaSanPhm = new JLabel("Mã sản phẩm");
 		lblMaSanPhm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblMaSanPhm.setBounds(10, 198, 94, 29);
+		lblMaSanPhm.setBounds(10, 79, 94, 29);
 		panel.add(lblMaSanPhm);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textField.setColumns(10);
-		textField.setBounds(114, 198, 186, 29);
+		textField.setBounds(114, 79, 186, 29);
 		panel.add(textField);
 		
 		JLabel lblTnSanPhm = new JLabel("Tên sản phẩm");
 		lblTnSanPhm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblTnSanPhm.setBounds(10, 238, 94, 29);
+		lblTnSanPhm.setBounds(10, 119, 94, 29);
 		panel.add(lblTnSanPhm);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textField_1.setColumns(10);
-		textField_1.setBounds(114, 238, 186, 29);
+		textField_1.setBounds(114, 119, 186, 29);
 		panel.add(textField_1);
 		
 		JLabel lblLoaiSanPhm = new JLabel("Loại sản phẩm");
 		lblLoaiSanPhm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblLoaiSanPhm.setBounds(10, 278, 94, 29);
+		lblLoaiSanPhm.setBounds(10, 159, 94, 29);
 		panel.add(lblLoaiSanPhm);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textField_3.setColumns(10);
-		textField_3.setBounds(114, 318, 186, 29);
+		textField_3.setBounds(114, 199, 186, 29);
 		panel.add(textField_3);
 		
 		JLabel lblGiaSanPhm = new JLabel("Giá sản phẩm");
 		lblGiaSanPhm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblGiaSanPhm.setBounds(10, 318, 94, 29);
+		lblGiaSanPhm.setBounds(10, 199, 94, 29);
 		panel.add(lblGiaSanPhm);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(114, 11, 186, 176);
-		panel.add(panel_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(0, 0, 186, 176);
-		panel_1.add(lblNewLabel_1);
-		
-		JLabel lblAnhaiDin = new JLabel("Ảnh đại diện");
-		lblAnhaiDin.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblAnhaiDin.setBounds(10, 158, 94, 29);
-		panel.add(lblAnhaiDin);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		comboBox.setBounds(114, 278, 186, 29);
+		comboBox.setBounds(114, 159, 186, 29);
 		panel.add(comboBox);
+		
+		JLabel lblThngTinSn = new JLabel("Thông Tin Sản Phẩm");
+		lblThngTinSn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		lblThngTinSn.setBounds(56, 38, 201, 30);
+		panel.add(lblThngTinSn);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);

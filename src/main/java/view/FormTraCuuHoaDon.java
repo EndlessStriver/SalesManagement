@@ -108,7 +108,7 @@ public class FormTraCuuHoaDon extends JPanel {
 		
 		JLabel lblThngTinHoa = new JLabel("Thông Tin Hóa Đơn");
 		lblThngTinHoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		lblThngTinHoa.setBounds(54, 24, 201, 30);
+		lblThngTinHoa.setBounds(62, 41, 201, 30);
 		panel.add(lblThngTinHoa);
 		
 		JDateChooser dateChooser = new JDateChooser();

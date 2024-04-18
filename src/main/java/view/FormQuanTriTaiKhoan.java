@@ -21,6 +21,7 @@ import util.ConnectServer;
 import model.Quyen;
 import model.TaiKhoan;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
@@ -83,17 +84,21 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel.add(lblGiiTinh);
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Kích hoạt");
-		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
-		rdbtnNewRadioButton.setBounds(117, 203, 109, 23);
-		panel.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnKichHoat = new JRadioButton("Kích hoạt");
+		rdbtnKichHoat.setBackground(new Color(255, 255, 255));
+		rdbtnKichHoat.setBounds(117, 203, 109, 23);
+		panel.add(rdbtnKichHoat);
+		rdbtnKichHoat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnN = new JRadioButton("Tắt");
-		rdbtnN.setBackground(new Color(255, 255, 255));
-		rdbtnN.setBounds(117, 239, 109, 23);
-		panel.add(rdbtnN);
-		rdbtnN.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnTat = new JRadioButton("Tắt");
+		rdbtnTat.setBackground(new Color(255, 255, 255));
+		rdbtnTat.setBounds(117, 239, 109, 23);
+		panel.add(rdbtnTat);
+		rdbtnTat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		ButtonGroup buttonGroupStatus = new ButtonGroup();
+		buttonGroupStatus.add(rdbtnKichHoat);
+		buttonGroupStatus.add(rdbtnTat);
 
 		JLabel lblChcNng = new JLabel("Chức năng");
 		lblChcNng.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
@@ -106,15 +111,19 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel_3.setBounds(10, 537, 293, 39);
 		panel.add(panel_3);
 
-		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton("Cập nhật");
-		panel_3.add(rdbtnNewRadioButton_1_1);
-		rdbtnNewRadioButton_1_1.setBackground(new Color(255, 255, 255));
-		rdbtnNewRadioButton_1_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnCapNhat = new JRadioButton("Cập nhật");
+		panel_3.add(rdbtnCapNhat);
+		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
+		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton("Xóa");
-		panel_3.add(rdbtnNewRadioButton_1_1_1);
-		rdbtnNewRadioButton_1_1_1.setBackground(new Color(255, 255, 255));
-		rdbtnNewRadioButton_1_1_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		JRadioButton rdbtnXoa = new JRadioButton("Xóa");
+		panel_3.add(rdbtnXoa);
+		rdbtnXoa.setBackground(new Color(255, 255, 255));
+		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		ButtonGroup buttonGroupFunction = new ButtonGroup();
+		buttonGroupFunction.add(rdbtnXoa);
+		buttonGroupFunction.add(rdbtnCapNhat);
 
 		JLabel lblThngTinTai = new JLabel("Thông Tin Tài Khoản");
 		lblThngTinTai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
