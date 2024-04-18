@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import controller.MouseControllerFormQuanTri;
+import util.ConnectServer;
 
 public class FormQuanTri extends JPanel {
 
@@ -17,14 +18,16 @@ public class FormQuanTri extends JPanel {
 	public FormQuanTriTaiKhoan formQuanTriTaiKhoan;
 	public FormQuanTriHoaDon formQuanTriHoaDon;
 	public FormQuanTriSanPham formQuanTriSanPham;
+	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 */
-	public FormQuanTri() {
-		this.mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
+	public FormQuanTri(ConnectServer connectserver) {
+		connectServer = connectserver;
+		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
 		formQuanTriNhanVien = new FormQuanTriNhanVien(mouseControllerFormQuanTri);
-		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri);
+		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri, connectServer);
 		formQuanTriHoaDon = new FormQuanTriHoaDon(mouseControllerFormQuanTri);
 		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri);
 		setSize(1131, 753);

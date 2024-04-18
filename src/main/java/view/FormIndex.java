@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.MouseControllerFormIndex;
+import util.ConnectServer;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -33,11 +34,11 @@ public class FormIndex extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public JTabbedPane tabbedPane;
-	private MouseControllerFormIndex mouseControllerFormIndex = new MouseControllerFormIndex(this);
-	private FormTrangChu trangChu = new FormTrangChu();
-	private FormQuanTri quanTri = new FormQuanTri();
-	private FormThanhToan thanhToan = new FormThanhToan();
-	private FormTraCuuThongTin traCuuThongTin = new FormTraCuuThongTin();
+	private MouseControllerFormIndex mouseControllerFormIndex;
+	private FormTrangChu trangChu;
+	private FormQuanTri quanTri;
+	private FormThanhToan thanhToan;
+	private FormTraCuuThongTin traCuuThongTin;
 	public JPanel panel_btnTrangChu;
 	public JPanel panel_btn_traCuuThongTin;
 	public JPanel panel_btnQuanTri;
@@ -49,6 +50,7 @@ public class FormIndex extends JFrame {
 	public JLabel lblCloclk;
 	private JSeparator separator;
 	private JPanel panel;
+	private ConnectServer connectServer;
 
 	/**
 	 * Launch the application.
@@ -59,7 +61,8 @@ public class FormIndex extends JFrame {
 				try {
 //					cấu hình giao diện look and feel của window
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					FormIndex frame = new FormIndex();
+					ConnectServer connectServer = new ConnectServer();
+					FormIndex frame = new FormIndex(connectServer);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,7 +74,13 @@ public class FormIndex extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormIndex() {
+	public FormIndex(ConnectServer connectserver) {
+		connectServer = connectserver;
+		mouseControllerFormIndex = new MouseControllerFormIndex(this);
+		trangChu = new FormTrangChu();
+		quanTri = new FormQuanTri(connectServer);
+		thanhToan = new FormThanhToan();
+		traCuuThongTin = new FormTraCuuThongTin();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1412, 792);
 		setLocationRelativeTo(null);
