@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.rmi.RemoteException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,8 +23,9 @@ public class FormTraCuuThongTin extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws RemoteException 
 	 */
-	public FormTraCuuThongTin(ConnectServer connectServer1) {
+	public FormTraCuuThongTin(ConnectServer connectServer1) throws RemoteException {
 		connectServer = connectServer1;
 		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin, connectServer);

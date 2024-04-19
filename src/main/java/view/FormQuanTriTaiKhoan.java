@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -39,8 +40,9 @@ public class FormQuanTriTaiKhoan extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws RemoteException 
 	 */
-	public FormQuanTriTaiKhoan(MouseControllerFormQuanTri mouseControllerFormQuanTri1, ConnectServer connectserver) {
+	public FormQuanTriTaiKhoan(MouseControllerFormQuanTri mouseControllerFormQuanTri1, ConnectServer connectserver) throws RemoteException {
 		connectServer = connectserver;
 		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
 		setSize(1120, 680);
@@ -95,7 +97,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		rdbtnTat.setBounds(117, 239, 109, 23);
 		panel.add(rdbtnTat);
 		rdbtnTat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		ButtonGroup buttonGroupStatus = new ButtonGroup();
 		buttonGroupStatus.add(rdbtnKichHoat);
 		buttonGroupStatus.add(rdbtnTat);
@@ -120,7 +122,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel_3.add(rdbtnXoa);
 		rdbtnXoa.setBackground(new Color(255, 255, 255));
 		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		ButtonGroup buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
 		buttonGroupFunction.add(rdbtnCapNhat);
@@ -177,49 +179,22 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		layDanhSachTaiKhoan();
 	}
 
-	private void layDanhSachQuyenHan() {
-		ObjectInputStream ois = connectServer.getObjectInputStream();
-		ObjectOutputStream oos = connectServer.getObjectOutputStream();
+	private void layDanhSachQuyenHan() throws RemoteException {
+		List<Quyen> danhSachQuyenHan = connectServer.getQuyenInf().layDanhSachQuyen();
 
-		try {
-			oos.writeObject("layDanhSachQuyen");
-			oos.flush();
-
-			Object result = ois.readObject();
-//			System.out.println(result);
-			List<Quyen> danhSachQuyenHan = (List<Quyen>) result;
-			
-			for (Quyen quyen : danhSachQuyenHan) {
-//				System.out.println(quyen.getTenQuyen());
-				comboBoxQuyenHan.addItem(quyen.getTenQuyen());
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Quyen quyen : danhSachQuyenHan) {
+			comboBoxQuyenHan.addItem(quyen.getTenQuyen());
 		}
 	}
-	
-	private void layDanhSachTaiKhoan() {
-		ObjectInputStream ois = connectServer.getObjectInputStream();
-		ObjectOutputStream oos = connectServer.getObjectOutputStream();
 
-		try {
-			oos.writeObject("layDanhSachTaiKhoan");
-			oos.flush();
+	private void layDanhSachTaiKhoan() throws RemoteException {
+		List<TaiKhoan> danhSachTaiKhoan = connectServer.getTaiKhoanInf().layDanhSachTaiKhoan();
 
-			Object result = ois.readObject();
-//			System.out.println(result);
-			List<TaiKhoan> danhSachTaiKhoan = (List<TaiKhoan>) result;
-			
-			for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
-//				System.out.println(quyen.getTenQuyen());
-				DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
-				model.addRow(new Object[] { taiKhoan.getTenTaiKhoan(), taiKhoan.getMatKhau(),
-						taiKhoan.getQuyen().getTenQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
+			DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
+			model.addRow(new Object[] { taiKhoan.getTenTaiKhoan(), taiKhoan.getMatKhau(),
+					taiKhoan.getQuyen().getTenQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
 		}
+
 	}
 }

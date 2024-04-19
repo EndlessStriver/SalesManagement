@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -73,8 +74,9 @@ public class FormIndex extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws RemoteException 
 	 */
-	public FormIndex(ConnectServer connectserver) {
+	public FormIndex(ConnectServer connectserver) throws RemoteException {
 		connectServer = connectserver;
 		mouseControllerFormIndex = new MouseControllerFormIndex(this);
 		trangChu = new FormTrangChu();
