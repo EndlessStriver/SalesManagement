@@ -10,8 +10,12 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,12 +34,12 @@ import javax.swing.JComboBox;
 public class FormQuanTriTaiKhoan extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
+	private JTextField textFieldTenTaiKhoan;
 	private JTable tableTaiKhoan;
 	private JPasswordField passwordField;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
-	private JComboBox<String> comboBoxQuyenHan;
+	private JComboBox<Quyen> comboBoxQuyenHan;
 	private ConnectServer connectServer;
 
 	/**
@@ -64,12 +68,12 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(117, 87, 186, 29);
-		panel.add(textField);
-		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		textField.setColumns(10);
+		textFieldTenTaiKhoan = new JTextField();
+		textFieldTenTaiKhoan.setEditable(false);
+		textFieldTenTaiKhoan.setBounds(117, 87, 186, 29);
+		panel.add(textFieldTenTaiKhoan);
+		textFieldTenTaiKhoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldTenTaiKhoan.setColumns(10);
 
 		JLabel lblHoVaTn = new JLabel("Mật khẩu");
 		lblHoVaTn.setBounds(13, 127, 94, 29);
@@ -166,6 +170,29 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		tableTaiKhoan.setForeground(new Color(0, 0, 0));
 		tableTaiKhoan.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }));
+		
+		ListSelectionModel selectionModel = tableTaiKhoan.getSelectionModel();
+		selectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tableTaiKhoan.getSelectedRow();
+                    String tenTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 0));
+                    String matKhau = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 1));
+                    String quyenHan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 2));
+                    String trangThai = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 3));
+                    
+                    textFieldTenTaiKhoan.setText(tenTaiKhoan);
+                    passwordField.setText(matKhau);
+                    comboBoxQuyenHan.setSelectedItem(quyenHan);
+					if (trangThai.equals("Kích hoạt")) {
+						rdbtnKichHoat.setSelected(true);
+					} else {
+						rdbtnTat.setSelected(true);
+					}
+                }
+            }
+        });
+		
 		JScrollPane scrollPane = new JScrollPane(tableTaiKhoan);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
@@ -183,7 +210,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		List<Quyen> danhSachQuyenHan = connectServer.getQuyenInf().layDanhSachQuyen();
 
 		for (Quyen quyen : danhSachQuyenHan) {
-			comboBoxQuyenHan.addItem(quyen.getTenQuyen());
+			comboBoxQuyenHan.addItem(quyen);
 		}
 	}
 

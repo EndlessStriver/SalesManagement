@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
@@ -13,6 +14,8 @@ import java.awt.Color;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,9 +37,9 @@ import java.awt.event.ActionEvent;
 public class FormTraCuuNhanVien extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldMaNhanVien;
+	private JTextField textFieldHoVaTen;
+	private JTextField textFieldSoDienThoai;
 	private JTable tableNhanVien;
 	public JButton btnTimKiemNhanVien;
 	private MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin;
@@ -69,36 +72,36 @@ public class FormTraCuuNhanVien extends JPanel {
 		lblNewLabel.setBounds(10, 85, 94, 29);
 		panel.add(lblNewLabel);
 
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(114, 85, 186, 29);
-		panel.add(textField);
+		textFieldMaNhanVien = new JTextField();
+		textFieldMaNhanVien.setEditable(false);
+		textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldMaNhanVien.setColumns(10);
+		textFieldMaNhanVien.setBounds(114, 85, 186, 29);
+		panel.add(textFieldMaNhanVien);
 
 		JLabel lblHoVaTn = new JLabel("Họ và tên");
 		lblHoVaTn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		lblHoVaTn.setBounds(10, 125, 94, 29);
 		panel.add(lblHoVaTn);
 
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(114, 125, 186, 29);
-		panel.add(textField_1);
+		textFieldHoVaTen = new JTextField();
+		textFieldHoVaTen.setEditable(false);
+		textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldHoVaTen.setColumns(10);
+		textFieldHoVaTen.setBounds(114, 125, 186, 29);
+		panel.add(textFieldHoVaTen);
 
 		JLabel lblSinThoai = new JLabel("Số điện thoại");
 		lblSinThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		lblSinThoai.setBounds(10, 165, 94, 29);
 		panel.add(lblSinThoai);
 
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(114, 165, 186, 29);
-		panel.add(textField_2);
+		textFieldSoDienThoai = new JTextField();
+		textFieldSoDienThoai.setEditable(false);
+		textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldSoDienThoai.setColumns(10);
+		textFieldSoDienThoai.setBounds(114, 165, 186, 29);
+		panel.add(textFieldSoDienThoai);
 
 		JLabel lblGiiTinh = new JLabel("Giới tính");
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
@@ -144,6 +147,25 @@ public class FormTraCuuNhanVien extends JPanel {
 		tableNhanVien.setForeground(new Color(0, 0, 0));
 		tableNhanVien.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính" }));
+		
+		ListSelectionModel selectionModel = tableNhanVien.getSelectionModel();
+		selectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tableNhanVien.getSelectedRow();
+                    String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
+                    String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
+                    String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
+                    String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
+                    
+                    textFieldMaNhanVien.setText(maNhanVien);
+                    textFieldHoVaTen.setText(hoVaTen);
+                    textFieldSoDienThoai.setText(soDienThoai);
+                    rdbtnNam.setSelected(gioiTinh.equals("Nam"));
+                    rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+                }
+            }
+        });
 
 		JScrollPane scrollPane = new JScrollPane(tableNhanVien);
 		scrollPane.setBounds(10, 41, 755, 554);
@@ -162,8 +184,7 @@ public class FormTraCuuNhanVien extends JPanel {
 
 		for (NhanVien nhanVien : danhSachNhanVien) {
 			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
-			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
-					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
+			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 	}
 }

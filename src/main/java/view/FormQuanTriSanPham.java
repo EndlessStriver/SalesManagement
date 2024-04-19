@@ -7,19 +7,25 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
+import model.LoaiSanPham;
 import model.SanPham;
 import util.ConnectServer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class FormQuanTriSanPham  extends JPanel {
 
@@ -27,11 +33,11 @@ public class FormQuanTriSanPham  extends JPanel {
 	private JTextField txtMaSP;
 	private JTextField txtTenSP;
 	private JTextField txtGiaSP;
-	private JTextField txtLoaiSP;
 	private JTable tableSanPham;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
 	private ConnectServer connectServer;
+	private JComboBox<LoaiSanPham> comboBoxLoaiSanPham;
 
 	/**
 	 * Create the panel.
@@ -87,12 +93,6 @@ public class FormQuanTriSanPham  extends JPanel {
 		txtGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		txtGiaSP.setColumns(10);
 		
-		txtLoaiSP = new JTextField();
-		txtLoaiSP.setBounds(117, 193, 186, 29);
-		panel.add(txtLoaiSP);
-		txtLoaiSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		txtLoaiSP.setColumns(10);
-		
 		JLabel lblLoaiSP = new JLabel("Loại Sản Phẩm");
 		lblLoaiSP.setBounds(13, 193, 94, 29);
 		panel.add(lblLoaiSP);
@@ -129,15 +129,19 @@ public class FormQuanTriSanPham  extends JPanel {
 		buttonGroupFunction.add(rdbtnCapNhat);
 		buttonGroupFunction.add(rdbtnThem);
 		
-		JButton btnXacNhn = new JButton("Xác nhận");
-		btnXacNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnXacNhn.setBounds(117, 233, 100, 29);
-		panel.add(btnXacNhn);
+		JButton btnXacNhan = new JButton("Xác nhận");
+		btnXacNhan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnXacNhan.setBounds(117, 233, 100, 29);
+		panel.add(btnXacNhan);
 		
 		JLabel lblThngTinSn = new JLabel("Thông Tin Sản Phẩm");
 		lblThngTinSn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblThngTinSn.setBounds(59, 25, 201, 30);
 		panel.add(lblThngTinSn);
+		
+		comboBoxLoaiSanPham = new JComboBox();
+		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
+		panel.add(comboBoxLoaiSanPham);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
@@ -161,6 +165,25 @@ public class FormQuanTriSanPham  extends JPanel {
 				"Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại"
 			}
 		));
+		
+		ListSelectionModel selectionModel = tableSanPham.getSelectionModel();
+		selectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tableSanPham.getSelectedRow();
+                    String maSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 0));
+                    String tenSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 1));
+                    String giaSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 2));
+                    String loaiSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 3));
+                    
+                    txtMaSP.setText(maSanPham);
+                    txtTenSP.setText(tenSanPham);
+                    txtGiaSP.setText(giaSanPham);
+                    comboBoxLoaiSanPham.setSelectedItem(loaiSanPham);
+                }
+            }
+        });
+		
 		JScrollPane scrollPane = new JScrollPane(tableSanPham);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
@@ -171,6 +194,7 @@ public class FormQuanTriSanPham  extends JPanel {
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
 		layDanhSachSanPham();
+		layDanhSachLoaiSanPham();
 	}
 	
 	private void layDanhSachSanPham() throws RemoteException {
@@ -179,6 +203,13 @@ public class FormQuanTriSanPham  extends JPanel {
 		
 		for (SanPham sanPham : listSanPham) {
 			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getGiaSanPham(), sanPham.getLoaiSanPham().getTenLoai() });
+		}
+	}
+	
+	public void layDanhSachLoaiSanPham() throws RemoteException {
+		List<LoaiSanPham> loaiSanPhams = connectServer.getLoaiSanPhamInf().layDanhSachLoaiSanPham();
+		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
+			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}
 	}
 }
