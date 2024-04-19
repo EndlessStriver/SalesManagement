@@ -29,7 +29,7 @@ public class FormTraCuuThongTin extends JPanel {
 		connectServer = connectServer1;
 		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin, connectServer);
-		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin);
+		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin, connectServer);
 		formTraCuuHoaDon = new FormTraCuuHoaDon(mouseControllerFormTraCuuThongTin);
 		setSize(1133, 753);
 		setLayout(null);

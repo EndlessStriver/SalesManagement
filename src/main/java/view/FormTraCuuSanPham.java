@@ -15,10 +15,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormTraCuuThongTin;
+import model.SanPham;
+import util.ConnectServer;
 
 import javax.swing.JRadioButton;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -32,12 +35,15 @@ public class FormTraCuuSanPham extends JPanel {
 	private JTable table;
 	private MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin;
 	public JButton btnTimKiemSanPham;
+	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
+	 * @throws RemoteException 
 	 */
-	public FormTraCuuSanPham(MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin) {
-		this.mouseControllerFormTraCuuThongTin = mouseControllerFormTraCuuThongTin;
+	public FormTraCuuSanPham(MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin1, ConnectServer connectServer1) throws RemoteException {
+		connectServer = connectServer1;
+		mouseControllerFormTraCuuThongTin = mouseControllerFormTraCuuThongTin1;
 		setSize(1120, 680);
 		setLayout(null);
 		
@@ -120,11 +126,9 @@ public class FormTraCuuSanPham extends JPanel {
 		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		table.setForeground(new Color(0, 0, 0));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-			},
+			new Object[][] {},
 			new String[] {
-				"Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Giá sản phẩm", "Ảnh đại diện"
+				"Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Giá sản phẩm"
 			}
 		));
 		
@@ -137,6 +141,16 @@ public class FormTraCuuSanPham extends JPanel {
 		btnTimKiemSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiemSanPham.setBounds(676, 6, 89, 23);
 		panel_2.add(btnTimKiemSanPham);
+		layDanhSachSanPham();
 		
 	}
+	
+	public void layDanhSachSanPham() throws RemoteException {
+        List<SanPham> sanPhams = connectServer.getSanPhamInf().layDanhSachSanPham();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (SanPham sanPham : sanPhams) {
+            model.addRow(new Object[] {sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham().getTenLoai(), sanPham.getGiaSanPham()});
+        }
+    }
 }

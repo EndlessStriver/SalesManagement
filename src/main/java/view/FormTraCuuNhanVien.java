@@ -143,7 +143,7 @@ public class FormTraCuuNhanVien extends JPanel {
 		tableNhanVien.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		tableNhanVien.setForeground(new Color(0, 0, 0));
 		tableNhanVien.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính", "Ảnh đại diện" }));
+				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính" }));
 
 		JScrollPane scrollPane = new JScrollPane(tableNhanVien);
 		scrollPane.setBounds(10, 41, 755, 554);

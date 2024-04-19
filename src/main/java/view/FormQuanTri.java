@@ -31,7 +31,7 @@ public class FormQuanTri extends JPanel {
 		formQuanTriNhanVien = new FormQuanTriNhanVien(mouseControllerFormQuanTri, connectServer);
 		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri, connectServer);
 		formQuanTriHoaDon = new FormQuanTriHoaDon(mouseControllerFormQuanTri);
-		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri);
+		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri, connectServer);
 		setSize(1131, 753);
 		setLayout(null);
 		

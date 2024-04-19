@@ -5,8 +5,10 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import dao.LoaiSanPhamInf;
 import dao.NhanVienInf;
 import dao.QuyenInf;
+import dao.SanPhamInf;
 import dao.TaiKhoanInf;
 
 public class ConnectServer {
@@ -16,6 +18,8 @@ public class ConnectServer {
 	private NhanVienInf nhanVienInf;
 	private QuyenInf quyenInf;
 	private TaiKhoanInf taiKhoanInf;
+	private SanPhamInf sanPhamInf;
+	private LoaiSanPhamInf loaiSanPhamInf;
 	
 	public NhanVienInf getNhanVienInf() {
 		return nhanVienInf;
@@ -29,6 +33,13 @@ public class ConnectServer {
 		return taiKhoanInf;
 	}
 
+	public SanPhamInf getSanPhamInf() {
+		return sanPhamInf;
+	}
+
+	public LoaiSanPhamInf getLoaiSanPhamInf() {
+		return loaiSanPhamInf;
+	}
 
 	public ConnectServer() throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry(SERVER_IP, SERVER_PORT);
@@ -36,6 +47,9 @@ public class ConnectServer {
 		nhanVienInf = (NhanVienInf) registry.lookup("nhanVienInf");
 		quyenInf = (QuyenInf) registry.lookup("quyenInf");
 		taiKhoanInf = (TaiKhoanInf) registry.lookup("taiKhoanInf");
+		sanPhamInf = (SanPhamInf) registry.lookup("sanPhamInf");
+		loaiSanPhamInf = (LoaiSanPhamInf) registry.lookup("loaiSanPhamInf");
+		
 	}
 	
 }

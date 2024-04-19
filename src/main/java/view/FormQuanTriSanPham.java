@@ -3,6 +3,9 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.rmi.RemoteException;
+import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
@@ -12,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
+import model.SanPham;
+import util.ConnectServer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,15 +28,18 @@ public class FormQuanTriSanPham  extends JPanel {
 	private JTextField txtTenSP;
 	private JTextField txtGiaSP;
 	private JTextField txtLoaiSP;
-	private JTable table;
+	private JTable tableSanPham;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
+	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
+	 * @throws RemoteException 
 	 */
-	public FormQuanTriSanPham (MouseControllerFormQuanTri controllerFormQuanTri) {
-		this.mouseControllerFormQuanTri = controllerFormQuanTri;
+	public FormQuanTriSanPham (MouseControllerFormQuanTri controllerFormQuanTri1, ConnectServer connectServer1) throws RemoteException {
+		connectServer = connectServer1;
+		mouseControllerFormQuanTri = controllerFormQuanTri1;
 		setSize(1120, 680);
 		setLayout(null);
 		
@@ -142,28 +150,35 @@ public class FormQuanTriSanPham  extends JPanel {
 		lblDanhSachSP.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachSP);
 		
-		table = new JTable();
-		table.setRowHeight(25);
-		table.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-			},
+		tableSanPham = new JTable();
+		tableSanPham.setRowHeight(25);
+		tableSanPham.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableSanPham.setForeground(new Color(0, 0, 0));
+		tableSanPham.setModel(new DefaultTableModel(
+			new Object[][] {},
 			new String[] {
-				"Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại","Ảnh sản phẩm"
+				"Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại"
 			}
 		));
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = new JScrollPane(tableSanPham);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
 		btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiem.setBounds(676, 6, 89, 23);
-		btnTimKiem.addMouseListener(controllerFormQuanTri);
+		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
+		layDanhSachSanPham();
+	}
+	
+	private void layDanhSachSanPham() throws RemoteException {
+		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
+		List<SanPham> listSanPham = connectServer.getSanPhamInf().layDanhSachSanPham();
 		
+		for (SanPham sanPham : listSanPham) {
+			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getGiaSanPham(), sanPham.getLoaiSanPham().getTenLoai() });
+		}
 	}
 }
