@@ -140,6 +140,7 @@ public class FormQuanTriSanPham  extends JPanel {
 		panel.add(lblThngTinSn);
 		
 		comboBoxLoaiSanPham = new JComboBox();
+		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
 		
@@ -156,8 +157,8 @@ public class FormQuanTriSanPham  extends JPanel {
 		
 		tableSanPham = new JTable();
 		tableSanPham.setRowHeight(25);
-		tableSanPham.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		tableSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+		tableSanPham.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		tableSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		tableSanPham.setForeground(new Color(0, 0, 0));
 		tableSanPham.setModel(new DefaultTableModel(
 			new Object[][] {},

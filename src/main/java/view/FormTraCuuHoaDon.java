@@ -38,7 +38,7 @@ public class FormTraCuuHoaDon extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_3;
-	private JTable table;
+	private JTable tableHoaDon;
 	public JButton btnTimKiemHoaDon;
 
 	/**
@@ -127,21 +127,19 @@ public class FormTraCuuHoaDon extends JPanel {
 		lblDanhSachHoa.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachHoa);
 		
-		table = new JTable();
-		table.setRowHeight(25);
-		table.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-			},
+		tableHoaDon = new JTable();
+		tableHoaDon.setRowHeight(25);
+		tableHoaDon.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		tableHoaDon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		tableHoaDon.setForeground(new Color(0, 0, 0));
+		tableHoaDon.setModel(new DefaultTableModel(
+			new Object[][] {},
 			new String[] {
 				"Mã hóa đơn", "Mã nhân viên", "Ngày lập", "Tổng tiền"
 			}
 		));
-		table.addMouseListener(mouseControllerFormTraCuuHoaDon);
-		JScrollPane scrollPane = new JScrollPane(table);
+		tableHoaDon.addMouseListener(mouseControllerFormTraCuuHoaDon);
+		JScrollPane scrollPane = new JScrollPane(tableHoaDon);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
@@ -153,9 +151,9 @@ public class FormTraCuuHoaDon extends JPanel {
 	}
 	
 	public void showPopupMenu(MouseEvent e) {
-        int row = table.rowAtPoint(e.getPoint());
-        if (row >= 0 && row < table.getRowCount()) {
-            table.setRowSelectionInterval(row, row);
+        int row = tableHoaDon.rowAtPoint(e.getPoint());
+        if (row >= 0 && row < tableHoaDon.getRowCount()) {
+            tableHoaDon.setRowSelectionInterval(row, row);
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }

@@ -29,7 +29,7 @@ public class FormQuanTriHoaDon  extends JPanel {
 	private JTextField txtMaHD;
 	private JTextField txtTenNV;
 	private JTextField txtTongTien;
-	private JTable table;
+	private JTable tableHoaDon;
 	private JPopupMenu popupMenu;
 	private MouseControllerFormQuanTriHoaDon controllerFormQuanTriHoaDon;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
@@ -152,21 +152,19 @@ public class FormQuanTriHoaDon  extends JPanel {
         popupMenu.add(menuItem1);
         popupMenu.add(menuItem2);
 		
-		table = new JTable();
-		table.setRowHeight(25);
-		table.getTableHeader().setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-			},
+		tableHoaDon = new JTable();
+		tableHoaDon.setRowHeight(25);
+		tableHoaDon.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		tableHoaDon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		tableHoaDon.setForeground(new Color(0, 0, 0));
+		tableHoaDon.setModel(new DefaultTableModel(
+			new Object[][] {},
 			new String[] {
 				"Mã hóa đơn", "Mã nhân viên", "Tổng tiền", "Ngày lập hóa đơn"
 			}
 		));
-		table.addMouseListener(controllerFormQuanTriHoaDon);
-		JScrollPane scrollPane = new JScrollPane(table);
+		tableHoaDon.addMouseListener(controllerFormQuanTriHoaDon);
+		JScrollPane scrollPane = new JScrollPane(tableHoaDon);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
 		
@@ -179,9 +177,9 @@ public class FormQuanTriHoaDon  extends JPanel {
 	}
 	
 	public void showPopupMenu(MouseEvent e) {
-        int row = table.rowAtPoint(e.getPoint());
-        if (row >= 0 && row < table.getRowCount()) {
-            table.setRowSelectionInterval(row, row);
+        int row = tableHoaDon.rowAtPoint(e.getPoint());
+        if (row >= 0 && row < tableHoaDon.getRowCount()) {
+            tableHoaDon.setRowSelectionInterval(row, row);
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
