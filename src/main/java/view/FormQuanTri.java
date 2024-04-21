@@ -14,7 +14,6 @@ import util.ConnectServer;
 public class FormQuanTri extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public FormQuanTriNhanVien formQuanTriNhanVien;
 	public FormQuanTriTaiKhoan formQuanTriTaiKhoan;
 	public FormQuanTriHoaDon formQuanTriHoaDon;
@@ -25,11 +24,10 @@ public class FormQuanTri extends JPanel {
 	 * @throws RemoteException 
 	 */
 	public FormQuanTri() throws RemoteException {
-		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
-		formQuanTriNhanVien = new FormQuanTriNhanVien(mouseControllerFormQuanTri);
-		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri);
-		formQuanTriHoaDon = new FormQuanTriHoaDon(mouseControllerFormQuanTri);
-		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri);
+		formQuanTriNhanVien = new FormQuanTriNhanVien();
+		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan();
+		formQuanTriHoaDon = new FormQuanTriHoaDon();
+		formQuanTriSanPham = new FormQuanTriSanPham();
 		setSize(1131, 753);
 		setLayout(null);
 		

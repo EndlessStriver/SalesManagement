@@ -27,7 +27,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class FormQuanTriSanPham extends JPanel {
+public class FormQuanTriSanPham extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtMaSP;
@@ -43,8 +43,8 @@ public class FormQuanTriSanPham extends JPanel {
 	 * 
 	 * @throws RemoteException
 	 */
-	public FormQuanTriSanPham(MouseControllerFormQuanTri controllerFormQuanTri1) throws RemoteException {
-		mouseControllerFormQuanTri = controllerFormQuanTri1;
+	public FormQuanTriSanPham() throws RemoteException {
+		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
 		setSize(1120, 680);
 		setLayout(null);
 

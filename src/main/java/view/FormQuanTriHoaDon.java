@@ -38,9 +38,9 @@ public class FormQuanTriHoaDon  extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public FormQuanTriHoaDon (MouseControllerFormQuanTri mouseControllerFormQuanTri) {
+	public FormQuanTriHoaDon () {
 		controllerFormQuanTriHoaDon = new MouseControllerFormQuanTriHoaDon(this);
-		mouseControllerFormQuanTri = mouseControllerFormQuanTri;
+		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
 		setSize(1120, 680);
 		setLayout(null);
 		

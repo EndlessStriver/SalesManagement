@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 
-public class FormQuanTriTaiKhoan extends JPanel {
+public class FormQuanTriTaiKhoan extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldTenTaiKhoan;
@@ -46,8 +46,8 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	 * 
 	 * @throws RemoteException
 	 */
-	public FormQuanTriTaiKhoan(MouseControllerFormQuanTri mouseControllerFormQuanTri1) throws RemoteException {
-		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
+	public FormQuanTriTaiKhoan() throws RemoteException {
+		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
 		setSize(1120, 680);
 		setLayout(null);
 
@@ -223,4 +223,5 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		}
 
 	}
+
 }

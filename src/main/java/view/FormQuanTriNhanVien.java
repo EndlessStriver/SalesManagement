@@ -17,38 +17,40 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
 import model.NhanVien;
-import model.Quyen;
 import util.ConnectServer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FormQuanTriNhanVien extends JPanel {
+public class FormQuanTriNhanVien extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textFieldMaNhanVien;
-	private JTextField textFieldHoVaTen;
-	private JTextField textFieldSoDienThoai;
-	private JTextField textFieldEmail;
-	private JTextField textFieldDiaChi;
+	public JTextField textFieldMaNhanVien;
+	public JTextField textFieldHoVaTen;
+	public JTextField textFieldSoDienThoai;
+	public JTextField textFieldEmail;
+	public JTextField textFieldDiaChi;
 	private JTable tableNhanVien;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
+	public JButton btnChucNang;
+	public JRadioButton rdbtnNam;
+	public JRadioButton rdbtnNu;
+	public JRadioButton rdbtnThem;
+	public JRadioButton rdbtnCapNhat;
+	public JRadioButton rdbtnXoa;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @throws RemoteException
 	 */
-	public FormQuanTriNhanVien(MouseControllerFormQuanTri mouseControllerFormQuanTri1) throws RemoteException {
-		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
+	public FormQuanTriNhanVien() throws RemoteException {
+		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
 		setSize(1120, 680);
 		setLayout(null);
 
@@ -69,6 +71,8 @@ public class FormQuanTriNhanVien extends JPanel {
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		textFieldMaNhanVien = new JTextField();
+		textFieldMaNhanVien.setEnabled(false);
+		textFieldMaNhanVien.setEditable(false);
 		textFieldMaNhanVien.setBounds(117, 81, 186, 29);
 		panel.add(textFieldMaNhanVien);
 		textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -117,13 +121,14 @@ public class FormQuanTriNhanVien extends JPanel {
 		panel.add(lblGiiTinh);
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnNam = new JRadioButton("Nam");
+		rdbtnNam = new JRadioButton("Nam");
+		rdbtnNam.setSelected(true);
 		rdbtnNam.setBackground(new Color(255, 255, 255));
 		rdbtnNam.setBounds(117, 281, 109, 23);
 		panel.add(rdbtnNam);
 		rdbtnNam.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnNu = new JRadioButton("Nữ");
+		rdbtnNu = new JRadioButton("Nữ");
 		rdbtnNu.setBackground(new Color(255, 255, 255));
 		rdbtnNu.setBounds(117, 317, 109, 23);
 		panel.add(rdbtnNu);
@@ -150,30 +155,86 @@ public class FormQuanTriNhanVien extends JPanel {
 		panel_3.setBounds(10, 537, 293, 39);
 		panel.add(panel_3);
 
-		JRadioButton rdbtnThem = new JRadioButton("Thêm");
+		rdbtnThem = new JRadioButton("Thêm");
 		panel_3.add(rdbtnThem);
 		rdbtnThem.setBackground(new Color(255, 255, 255));
 		rdbtnThem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		rdbtnThem.addItemListener(e -> {
+			if (rdbtnThem.isSelected()) {
+				
+				textFieldMaNhanVien.setText("");
+				textFieldHoVaTen.setText("");
+				textFieldSoDienThoai.setText("");
+				textFieldEmail.setText("");
+				textFieldDiaChi.setText("");
+				btnChucNang.setText("Thêm");
+				btnChucNang.setEnabled(true);
+				
+				textFieldMaNhanVien.enable();
+				textFieldHoVaTen.enable();
+				textFieldSoDienThoai.enable();
+				textFieldEmail.enable();
+				textFieldDiaChi.enable();
+				
+			}
+		});
 
-		JRadioButton rdbtnCapNhat = new JRadioButton("Cập nhật");
+		rdbtnCapNhat = new JRadioButton("Cập nhật");
 		panel_3.add(rdbtnCapNhat);
 		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
 		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		rdbtnCapNhat.addItemListener(e -> {
+			if (rdbtnCapNhat.isSelected()) {
+				
+				btnChucNang.setText("Cập nhật");
+				textFieldMaNhanVien.enable();
+				textFieldHoVaTen.enable();
+				textFieldSoDienThoai.enable();
+				textFieldEmail.enable();
+				textFieldDiaChi.enable();
+				btnChucNang.setEnabled(true);
+			}
+		});
 
-		JRadioButton rdbtnXoa = new JRadioButton("Xóa");
+		rdbtnXoa = new JRadioButton("Xóa");
 		panel_3.add(rdbtnXoa);
 		rdbtnXoa.setBackground(new Color(255, 255, 255));
 		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		
+		rdbtnXoa.addItemListener(e -> {
+			if (rdbtnXoa.isSelected()) {
+				
+				textFieldMaNhanVien.setText("");
+				textFieldHoVaTen.setText("");
+				textFieldSoDienThoai.setText("");
+				textFieldEmail.setText("");
+				textFieldDiaChi.setText("");
+				
+				btnChucNang.setText("Xóa");
+				btnChucNang.setEnabled(true);
+				
+				textFieldMaNhanVien.disable();
+				textFieldHoVaTen.disable();
+				textFieldSoDienThoai.disable();
+				textFieldEmail.disable();
+				textFieldDiaChi.disable();
+				
+			}
+		});
 
 		ButtonGroup buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
 		buttonGroupFunction.add(rdbtnCapNhat);
 		buttonGroupFunction.add(rdbtnThem);
 
-		JButton btnXacNhn = new JButton("Xác nhận");
-		btnXacNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnXacNhn.setBounds(117, 347, 100, 29);
-		panel.add(btnXacNhn);
+		btnChucNang = new JButton("................................");
+		btnChucNang.setEnabled(false);
+		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnChucNang.setBounds(13, 355, 290, 39);
+		panel.add(btnChucNang);
+		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
 		JLabel lblThngTinNhn = new JLabel("Thông Tin Nhân Viên");
 		lblThngTinNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
@@ -204,20 +265,26 @@ public class FormQuanTriNhanVien extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					int selectedRow = tableNhanVien.getSelectedRow();
-					String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
-					String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
-					String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
-					String email = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
-					String diaChi = String.valueOf(tableNhanVien.getValueAt(selectedRow, 4));
-					String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 5));
-
-					textFieldMaNhanVien.setText(maNhanVien);
-					textFieldHoVaTen.setText(hoVaTen);
-					textFieldSoDienThoai.setText(soDienThoai);
-					textFieldEmail.setText(email);
-					textFieldDiaChi.setText(diaChi);
-					rdbtnNam.setSelected(gioiTinh.equals("Nam"));
-					rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+					
+					if(selectedRow != -1) {
+						
+						String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
+						String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
+						String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
+						String email = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
+						String diaChi = String.valueOf(tableNhanVien.getValueAt(selectedRow, 4));
+						String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 5));
+						
+						textFieldMaNhanVien.setText(maNhanVien);
+						textFieldHoVaTen.setText(hoVaTen);
+						textFieldSoDienThoai.setText(soDienThoai);
+						textFieldEmail.setText(email);
+						textFieldDiaChi.setText(diaChi);
+						rdbtnNam.setSelected(gioiTinh.equals("Nam"));
+						rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+						
+					}
+					
 				}
 			}
 		});
@@ -231,15 +298,32 @@ public class FormQuanTriNhanVien extends JPanel {
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
+		
+		JButton btnLamMoi = new JButton("Làm Mới");
+		btnLamMoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					layDanhSachNhanVien();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoi.setBounds(577, 6, 89, 23);
+		panel_2.add(btnLamMoi);
 		layDanhSachNhanVien();
 	}
 
 	public void layDanhSachNhanVien() throws RemoteException {
 
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
-
+		
+		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+		model.setRowCount(0);
+		
 		for (NhanVien nhanVien : danhSachNhanVien) {
-			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
 					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
@@ -254,5 +338,14 @@ public class FormQuanTriNhanVien extends JPanel {
 					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 		
+	}
+	
+	public void lamMoiForm() {
+		textFieldMaNhanVien.setText("");
+		textFieldHoVaTen.setText("");
+		textFieldSoDienThoai.setText("");
+		textFieldEmail.setText("");
+		textFieldDiaChi.setText("");
+		rdbtnNam.setSelected(true);
 	}
 }

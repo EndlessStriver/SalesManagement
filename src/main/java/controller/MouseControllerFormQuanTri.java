@@ -2,69 +2,151 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
 
+import javax.swing.JPanel;
+
+import dao.NhanVienInf;
 import item.FormTimKiemHoaDon;
 import item.FormTimKiemNhanVien;
 import item.FormTimKiemSanPham;
-import item.FormTimKiemTaiKhoan;
-import view.FormQuanTri;
+import model.NhanVien;
+import util.ConnectServer;
+import view.FormQuanTriHoaDon;
+import view.FormQuanTriNhanVien;
 import view.FormQuanTriSanPham;
 
 public class MouseControllerFormQuanTri implements MouseListener {
-	
-	private FormQuanTri formQuanTri;
-	
-	public MouseControllerFormQuanTri(FormQuanTri formQuanTri) {
+
+	private JPanel formQuanTri;
+
+	public MouseControllerFormQuanTri(JPanel formQuanTri) {
 		this.formQuanTri = formQuanTri;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object object = e.getSource();
-		
-		if(object.equals(formQuanTri.formQuanTriHoaDon.btnTimKiem)) {
-			FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon();
-			formTimKiemHoaDon.setVisible(true);
+
+		if (formQuanTri instanceof FormQuanTriHoaDon) {
+
+			if (object.equals(((FormQuanTriHoaDon) formQuanTri).btnTimKiem)) {
+				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon();
+				formTimKiemHoaDon.setVisible(true);
+			}
+
+		}
+
+		if (formQuanTri instanceof FormQuanTriSanPham) {
+
+			if (object.equals(((FormQuanTriSanPham) formQuanTri).btnTimKiem)) {
+				FormTimKiemSanPham formTimKiemSanPham = new FormTimKiemSanPham();
+				formTimKiemSanPham.setVisible(true);
+			}
+
+		}
+
+		if (formQuanTri instanceof FormQuanTriNhanVien) {
+			
+			if (object.equals(((FormQuanTriNhanVien) formQuanTri).btnTimKiem)) {
+				FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien((FormQuanTriNhanVien) formQuanTri);
+				formTimKiemNhanVien.setVisible(true);
+			}
+			
+			if (object.equals(((FormQuanTriNhanVien) formQuanTri).btnChucNang)) {
+				FormQuanTriNhanVien formQuanTriNhanVien = (FormQuanTriNhanVien) formQuanTri;
+				
+				if (formQuanTriNhanVien.rdbtnThem.isSelected()) {
+					String hoVaTen = formQuanTriNhanVien.textFieldHoVaTen.getText();
+					String soDienThoai = formQuanTriNhanVien.textFieldSoDienThoai.getText();
+					String email = formQuanTriNhanVien.textFieldEmail.getText();
+					String diaChi = formQuanTriNhanVien.textFieldDiaChi.getText();
+					boolean gioiTinh = formQuanTriNhanVien.rdbtnNam.isSelected() ? true : false;
+					
+					NhanVien nhanVien = new NhanVien(hoVaTen, soDienThoai, email, diaChi, gioiTinh);
+					
+					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+					
+					try {
+						nhanVienInf.taoNhanVien(nhanVien);
+						formQuanTriNhanVien.layDanhSachNhanVien();
+						formQuanTriNhanVien.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+				if (formQuanTriNhanVien.rdbtnCapNhat.isSelected()) {
+					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
+					String hoVaTen = formQuanTriNhanVien.textFieldHoVaTen.getText();
+					String soDienThoai = formQuanTriNhanVien.textFieldSoDienThoai.getText();
+					String email = formQuanTriNhanVien.textFieldEmail.getText();
+					String diaChi = formQuanTriNhanVien.textFieldDiaChi.getText();
+					boolean gioiTinh = formQuanTriNhanVien.rdbtnNam.isSelected() ? true : false;
+
+					NhanVien nhanVien = new NhanVien(Long.parseLong(maNhanVien), hoVaTen, soDienThoai, email, diaChi, gioiTinh);
+
+					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+
+					try {
+						nhanVienInf.capNhatNhanVien(nhanVien);
+						formQuanTriNhanVien.layDanhSachNhanVien();
+						formQuanTriNhanVien.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+				if (formQuanTriNhanVien.rdbtnXoa.isSelected()) {
+					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
+
+					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+
+					try {
+						nhanVienInf.xoaNhanVien(maNhanVien);
+						formQuanTriNhanVien.layDanhSachNhanVien();
+						formQuanTriNhanVien.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+				
+			}
+
 		}
 		
-		if(object.equals(formQuanTri.formQuanTriNhanVien.btnTimKiem)) {
-			FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formQuanTri.formQuanTriNhanVien);
-			formTimKiemNhanVien.setVisible(true);
+		if (formQuanTri instanceof FormQuanTriSanPham) {
+			if (object.equals(((FormQuanTriSanPham) formQuanTri).btnTimKiem)) {
+				FormTimKiemSanPham formTimKiemSanPham = new FormTimKiemSanPham();
+				formTimKiemSanPham.setVisible(true);
+			}
 		}
-		
-		if(object.equals(formQuanTri.formQuanTriSanPham.btnTimKiem)) {
-			FormTimKiemSanPham formTimKiemSanPham = new FormTimKiemSanPham();
-			formTimKiemSanPham.setVisible(true);
-		}
-		
-		if(object.equals(formQuanTri.formQuanTriTaiKhoan.btnTimKiem)) {
-			FormTimKiemTaiKhoan formTimKiemTaiKhoan = new FormTimKiemTaiKhoan();
-			formTimKiemTaiKhoan.setVisible(true);
-		}
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
