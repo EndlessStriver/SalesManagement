@@ -12,6 +12,7 @@ import dao.NhanVienInf;
 import dao.implement.NhanVienImp;
 import model.NhanVien;
 import util.ConnectServer;
+import view.FormQuanTriNhanVien;
 import view.FormTraCuuNhanVien;
 import view.FormTraCuuThongTin;
 
@@ -133,6 +134,11 @@ public class FormTimKiemNhanVien extends JDialog {
 						if(viewShow instanceof FormTraCuuNhanVien) {
 							((FormTraCuuNhanVien) viewShow).hienThiDanhSachNhanVien(danhSachNhanVien);
 							dispose();
+						}
+						
+						if(viewShow instanceof FormQuanTriNhanVien) {
+							((FormQuanTriNhanVien) viewShow).hienThiDanhSachNhanVien(danhSachNhanVien);
+                            dispose();
 						}
 					} catch (RemoteException e1) {
 						e1.printStackTrace();

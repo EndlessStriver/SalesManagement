@@ -51,7 +51,6 @@ public class FormIndex extends JFrame {
 	public JLabel lblCloclk;
 	private JSeparator separator;
 	private JPanel panel;
-	private ConnectServer connectServer;
 
 	/**
 	 * Launch the application.

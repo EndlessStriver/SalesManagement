@@ -245,4 +245,14 @@ public class FormQuanTriNhanVien extends JPanel {
 		}
 
 	}
+
+	public void hienThiDanhSachNhanVien(List<NhanVien> danhSachNhanVien) {
+		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+		model.setRowCount(0);
+		for (NhanVien nhanVien : danhSachNhanVien) {
+			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
+					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
+		}
+		
+	}
 }

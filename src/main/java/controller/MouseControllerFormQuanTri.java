@@ -28,7 +28,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 		}
 		
 		if(object.equals(formQuanTri.formQuanTriNhanVien.btnTimKiem)) {
-			FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formQuanTri);
+			FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formQuanTri.formQuanTriNhanVien);
 			formTimKiemNhanVien.setVisible(true);
 		}
 		
