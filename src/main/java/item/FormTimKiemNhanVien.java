@@ -7,37 +7,53 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.NhanVienInf;
+import dao.implement.NhanVienImp;
+import model.NhanVien;
+import util.ConnectServer;
+import view.FormTraCuuNhanVien;
+import view.FormTraCuuThongTin;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class FormTimKiemNhanVien extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldMaNhanVien;
+	private JTextField textFieldHoVaTen;
+	private JTextField textFieldSoDienThoai;
+	private JPanel viewShow;
+	private JRadioButton rdbtnNam;
+	private JRadioButton rdbtnNu;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			FormTimKiemNhanVien dialog = new FormTimKiemNhanVien();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			FormTimKiemNhanVien dialog = new FormTimKiemNhanVien();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public FormTimKiemNhanVien() {
+	public FormTimKiemNhanVien(JPanel viewShow1) {
+		viewShow = viewShow1;
 		setModal(true);
 		setBounds(100, 100, 329, 300);
 		setLocationRelativeTo(null);
@@ -52,18 +68,18 @@ public class FormTimKiemNhanVien extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			textField = new JTextField();
-			textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			textField.setColumns(10);
-			textField.setBounds(114, 11, 186, 29);
-			contentPanel.add(textField);
+			textFieldMaNhanVien = new JTextField();
+			textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			textFieldMaNhanVien.setColumns(10);
+			textFieldMaNhanVien.setBounds(114, 11, 186, 29);
+			contentPanel.add(textFieldMaNhanVien);
 		}
 		{
-			textField_1 = new JTextField();
-			textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			textField_1.setColumns(10);
-			textField_1.setBounds(114, 51, 186, 29);
-			contentPanel.add(textField_1);
+			textFieldHoVaTen = new JTextField();
+			textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			textFieldHoVaTen.setColumns(10);
+			textFieldHoVaTen.setBounds(114, 51, 186, 29);
+			contentPanel.add(textFieldHoVaTen);
 		}
 		{
 			JLabel lblHoVaTn = new JLabel("Họ và tên");
@@ -78,11 +94,11 @@ public class FormTimKiemNhanVien extends JDialog {
 			contentPanel.add(lblSinThoai);
 		}
 		{
-			textField_2 = new JTextField();
-			textField_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			textField_2.setColumns(10);
-			textField_2.setBounds(114, 91, 186, 29);
-			contentPanel.add(textField_2);
+			textFieldSoDienThoai = new JTextField();
+			textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			textFieldSoDienThoai.setColumns(10);
+			textFieldSoDienThoai.setBounds(114, 91, 186, 29);
+			contentPanel.add(textFieldSoDienThoai);
 		}
 		{
 			JLabel lblGiiTinh = new JLabel("Giới tính");
@@ -91,24 +107,41 @@ public class FormTimKiemNhanVien extends JDialog {
 			contentPanel.add(lblGiiTinh);
 		}
 		{
-			JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
-			rdbtnNewRadioButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-			rdbtnNewRadioButton.setBackground(Color.WHITE);
-			rdbtnNewRadioButton.setBounds(114, 131, 109, 23);
-			contentPanel.add(rdbtnNewRadioButton);
+			rdbtnNam = new JRadioButton("Nam");
+			rdbtnNam.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+			rdbtnNam.setBackground(Color.WHITE);
+			rdbtnNam.setBounds(114, 131, 109, 23);
+			contentPanel.add(rdbtnNam);
 		}
 		{
-			JRadioButton rdbtnN = new JRadioButton("Nữ");
-			rdbtnN.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-			rdbtnN.setBackground(Color.WHITE);
-			rdbtnN.setBounds(114, 167, 109, 23);
-			contentPanel.add(rdbtnN);
+			rdbtnNu = new JRadioButton("Nữ");
+			rdbtnNu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+			rdbtnNu.setBackground(Color.WHITE);
+			rdbtnNu.setBounds(114, 167, 109, 23);
+			contentPanel.add(rdbtnNu);
 		}
 		{
-			JButton btnNewButton = new JButton("Tìm kiếm");
-			btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			btnNewButton.setBounds(114, 211, 186, 38);
-			contentPanel.add(btnNewButton);
+			JButton btnTimKiem = new JButton("Tìm kiếm");
+			btnTimKiem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+					try {
+						List<NhanVien> danhSachNhanVien = nhanVienInf.timKiemNhanVien(textFieldMaNhanVien.getText(),
+								textFieldHoVaTen.getText(), textFieldSoDienThoai.getText(),
+								rdbtnNam.isSelected() ? "Nam" : rdbtnNu.isSelected() ? "Nữ" : "");
+						
+						if(viewShow instanceof FormTraCuuNhanVien) {
+							((FormTraCuuNhanVien) viewShow).hienThiDanhSachNhanVien(danhSachNhanVien);
+							dispose();
+						}
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			btnTimKiem.setBounds(114, 211, 186, 38);
+			contentPanel.add(btnTimKiem);
 		}
 	}
 

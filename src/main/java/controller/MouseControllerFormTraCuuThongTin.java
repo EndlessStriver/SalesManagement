@@ -4,8 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
 import item.FormTimKiemHoaDon;
 import item.FormTimKiemNhanVien;
 import item.FormTimKiemSanPham;
@@ -29,7 +27,7 @@ public class MouseControllerFormTraCuuThongTin implements MouseListener {
 		if (object.equals(formTraCuuThongTin.formTraCuuNhanVien.btnTimKiemNhanVien)) {
 
 			List<NhanVien> danhSachNhanVien = new ArrayList<NhanVien>();
-			FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien();
+			FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formTraCuuThongTin.formTraCuuNhanVien);
 			formTimKiemNhanVien.setVisible(true);
 
 		}

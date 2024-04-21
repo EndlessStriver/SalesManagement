@@ -63,7 +63,7 @@ public class FormIndex extends JFrame {
 //					cấu hình giao diện look and feel của window
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					ConnectServer connectServer = new ConnectServer();
-					FormIndex frame = new FormIndex(connectServer);
+					FormIndex frame = new FormIndex();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,15 +74,15 @@ public class FormIndex extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws RemoteException 
+	 * 
+	 * @throws RemoteException
 	 */
-	public FormIndex(ConnectServer connectserver) throws RemoteException {
-		connectServer = connectserver;
+	public FormIndex() throws RemoteException {
 		mouseControllerFormIndex = new MouseControllerFormIndex(this);
 		trangChu = new FormTrangChu();
-		quanTri = new FormQuanTri(connectServer);
+		quanTri = new FormQuanTri();
 		thanhToan = new FormThanhToan();
-		traCuuThongTin = new FormTraCuuThongTin(connectServer);
+		traCuuThongTin = new FormTraCuuThongTin();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1412, 792);
 		setLocationRelativeTo(null);
@@ -93,15 +93,15 @@ public class FormIndex extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		panel = new JPanel();
 		panel.setBackground(new Color(123, 104, 238));
 		panel.setBounds(265, 0, 1131, 52);
 		contentPane.add(panel);
-		
-				lblCloclk = new JLabel("00:00:00");
-				panel.add(lblCloclk);
-				lblCloclk.setFont(new Font("Segoe UI Black", Font.PLAIN, 30));
+
+		lblCloclk = new JLabel("00:00:00");
+		panel.add(lblCloclk);
+		lblCloclk.setFont(new Font("Segoe UI Black", Font.PLAIN, 30));
 
 		JPanel menu = new JPanel();
 		menu.setBackground(new Color(123, 104, 238));
@@ -110,8 +110,7 @@ public class FormIndex extends JFrame {
 		menu.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(
-				FormIndex.class.getResource("/images/cart-remove-icon.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(FormIndex.class.getResource("/images/cart-remove-icon.png")));
 		lblNewLabel_1.setBounds(66, 11, 128, 128);
 		menu.add(lblNewLabel_1);
 
@@ -168,8 +167,7 @@ public class FormIndex extends JFrame {
 		panel_btnThanhToanHoaDon.add(lblMenuThanhToanHoaDon);
 
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(
-				new ImageIcon(FormIndex.class.getResource("/images/User-icon.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(FormIndex.class.getResource("/images/User-icon.png")));
 		lblNewLabel_3.setBounds(10, 648, 48, 48);
 		menu.add(lblNewLabel_3);
 
@@ -188,7 +186,7 @@ public class FormIndex extends JFrame {
 		lblNewLabel_7.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		lblNewLabel_7.setBounds(84, 11, 81, 19);
 		panel_6.add(lblNewLabel_7);
-		
+
 		separator = new JSeparator();
 		separator.setBounds(25, 200, 209, 2);
 		menu.add(separator);
@@ -202,21 +200,19 @@ public class FormIndex extends JFrame {
 		tabbedPane.addTab("Quản Trị", null, quanTri, null);
 		tabbedPane.addTab("Thanh Toán Hóa Đơn", null, thanhToan, null);
 		contentPane.add(tabbedPane);
-        Timer timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
-                Calendar calendar = Calendar.getInstance(timeZone);
-                long currentTime = System.currentTimeMillis();
-                calendar.setTimeInMillis(currentTime);
-                String timeString = String.format("%02d:%02d:%02d",
-                        calendar.get(Calendar.HOUR_OF_DAY),
-                        calendar.get(Calendar.MINUTE),
-                        calendar.get(Calendar.SECOND));
-                lblCloclk.setText(timeString);
-            }
-        });
-        timer.start();
+		Timer timer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+				Calendar calendar = Calendar.getInstance(timeZone);
+				long currentTime = System.currentTimeMillis();
+				calendar.setTimeInMillis(currentTime);
+				String timeString = String.format("%02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
+						calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+				lblCloclk.setText(timeString);
+			}
+		});
+		timer.start();
 	}
-	
+
 }

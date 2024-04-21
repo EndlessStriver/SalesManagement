@@ -43,15 +43,12 @@ public class FormTraCuuNhanVien extends JPanel {
 	private JTable tableNhanVien;
 	public JButton btnTimKiemNhanVien;
 	private MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin;
-	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormTraCuuNhanVien(MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin1,
-			ConnectServer connectServer1) throws RemoteException {
-		connectServer = connectServer1;
+	public FormTraCuuNhanVien(MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin1) throws RemoteException {
 		controllerFormTraCuuThongTin = controllerFormTraCuuThongTin1;
 		setSize(1120, 680);
 		setLayout(null);
@@ -180,11 +177,21 @@ public class FormTraCuuNhanVien extends JPanel {
 	}
 
 	public void layDanhSachNhanVien() throws RemoteException {
-		List<NhanVien> danhSachNhanVien = connectServer.getNhanVienInf().layDanhSachNhanVien();
+		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
 
 		for (NhanVien nhanVien : danhSachNhanVien) {
 			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
+	}
+
+	public void hienThiDanhSachNhanVien(List<NhanVien> danhSachNhanVien) {
+		for (NhanVien nhanVien : danhSachNhanVien) {
+			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+			model.setRowCount(0);
+			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
+					nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
+		}
+		
 	}
 }

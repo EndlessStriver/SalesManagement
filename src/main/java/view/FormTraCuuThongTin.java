@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.JTabbedPane;
 
 import controller.MouseControllerFormIndex;
 import controller.MouseControllerFormTraCuuThongTin;
+import model.NhanVien;
 import util.ConnectServer;
 
 public class FormTraCuuThongTin extends JPanel {
@@ -19,17 +21,15 @@ public class FormTraCuuThongTin extends JPanel {
 	public FormTraCuuNhanVien formTraCuuNhanVien;
 	public FormTraCuuSanPham formTraCuuSanPham;
 	public FormTraCuuHoaDon formTraCuuHoaDon;
-	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormTraCuuThongTin(ConnectServer connectServer1) throws RemoteException {
-		connectServer = connectServer1;
+	public FormTraCuuThongTin() throws RemoteException {
 		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
-		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin, connectServer);
-		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin, connectServer);
+		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin);
+		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin);
 		formTraCuuHoaDon = new FormTraCuuHoaDon(mouseControllerFormTraCuuThongTin);
 		setSize(1133, 753);
 		setLayout(null);

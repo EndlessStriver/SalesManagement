@@ -41,16 +41,13 @@ public class FormQuanTriNhanVien extends JPanel {
 	private JTable tableNhanVien;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
-	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @throws RemoteException
 	 */
-	public FormQuanTriNhanVien(MouseControllerFormQuanTri mouseControllerFormQuanTri1, ConnectServer connectServer1)
-			throws RemoteException {
-		connectServer = connectServer1;
+	public FormQuanTriNhanVien(MouseControllerFormQuanTri mouseControllerFormQuanTri1) throws RemoteException {
 		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
 		setSize(1120, 680);
 		setLayout(null);
@@ -239,7 +236,7 @@ public class FormQuanTriNhanVien extends JPanel {
 
 	public void layDanhSachNhanVien() throws RemoteException {
 
-		List<NhanVien> danhSachNhanVien = connectServer.getNhanVienInf().layDanhSachNhanVien();
+		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
 
 		for (NhanVien nhanVien : danhSachNhanVien) {
 			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();

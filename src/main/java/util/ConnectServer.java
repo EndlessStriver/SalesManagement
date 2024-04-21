@@ -15,31 +15,11 @@ public class ConnectServer {
 	private static final String SERVER_IP = "localhost";
 	private static final int SERVER_PORT = 1234;
 	
-	private NhanVienInf nhanVienInf;
-	private QuyenInf quyenInf;
-	private TaiKhoanInf taiKhoanInf;
-	private SanPhamInf sanPhamInf;
-	private LoaiSanPhamInf loaiSanPhamInf;
-	
-	public NhanVienInf getNhanVienInf() {
-		return nhanVienInf;
-	}
-
-	public QuyenInf getQuyenInf() {
-		return quyenInf;
-	}
-
-	public TaiKhoanInf getTaiKhoanInf() {
-		return taiKhoanInf;
-	}
-
-	public SanPhamInf getSanPhamInf() {
-		return sanPhamInf;
-	}
-
-	public LoaiSanPhamInf getLoaiSanPhamInf() {
-		return loaiSanPhamInf;
-	}
+	public static NhanVienInf nhanVienInf;
+	public static QuyenInf quyenInf;
+	public static TaiKhoanInf taiKhoanInf;
+	public static SanPhamInf sanPhamInf;
+	public static LoaiSanPhamInf loaiSanPhamInf;
 
 	public ConnectServer() throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry(SERVER_IP, SERVER_PORT);

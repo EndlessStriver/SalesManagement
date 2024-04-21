@@ -40,14 +40,13 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
 	private JComboBox<Quyen> comboBoxQuyenHan;
-	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
-	 * @throws RemoteException 
+	 * 
+	 * @throws RemoteException
 	 */
-	public FormQuanTriTaiKhoan(MouseControllerFormQuanTri mouseControllerFormQuanTri1, ConnectServer connectserver) throws RemoteException {
-		connectServer = connectserver;
+	public FormQuanTriTaiKhoan(MouseControllerFormQuanTri mouseControllerFormQuanTri1) throws RemoteException {
 		mouseControllerFormQuanTri = mouseControllerFormQuanTri1;
 		setSize(1120, 680);
 		setLayout(null);
@@ -170,29 +169,29 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		tableTaiKhoan.setForeground(new Color(0, 0, 0));
 		tableTaiKhoan.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }));
-		
+
 		ListSelectionModel selectionModel = tableTaiKhoan.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = tableTaiKhoan.getSelectedRow();
-                    String tenTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 0));
-                    String matKhau = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 1));
-                    String quyenHan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 2));
-                    String trangThai = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 3));
-                    
-                    textFieldTenTaiKhoan.setText(tenTaiKhoan);
-                    passwordField.setText(matKhau);
-                    comboBoxQuyenHan.setSelectedItem(quyenHan);
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					int selectedRow = tableTaiKhoan.getSelectedRow();
+					String tenTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 0));
+					String matKhau = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 1));
+					String quyenHan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 2));
+					String trangThai = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 3));
+
+					textFieldTenTaiKhoan.setText(tenTaiKhoan);
+					passwordField.setText(matKhau);
+					comboBoxQuyenHan.setSelectedItem(quyenHan);
 					if (trangThai.equals("Kích hoạt")) {
 						rdbtnKichHoat.setSelected(true);
 					} else {
 						rdbtnTat.setSelected(true);
 					}
-                }
-            }
-        });
-		
+				}
+			}
+		});
+
 		JScrollPane scrollPane = new JScrollPane(tableTaiKhoan);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
@@ -207,7 +206,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	}
 
 	private void layDanhSachQuyenHan() throws RemoteException {
-		List<Quyen> danhSachQuyenHan = connectServer.getQuyenInf().layDanhSachQuyen();
+		List<Quyen> danhSachQuyenHan = ConnectServer.quyenInf.layDanhSachQuyen();
 
 		for (Quyen quyen : danhSachQuyenHan) {
 			comboBoxQuyenHan.addItem(quyen);
@@ -215,7 +214,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 	}
 
 	private void layDanhSachTaiKhoan() throws RemoteException {
-		List<TaiKhoan> danhSachTaiKhoan = connectServer.getTaiKhoanInf().layDanhSachTaiKhoan();
+		List<TaiKhoan> danhSachTaiKhoan = ConnectServer.taiKhoanInf.layDanhSachTaiKhoan();
 
 		for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
 			DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();

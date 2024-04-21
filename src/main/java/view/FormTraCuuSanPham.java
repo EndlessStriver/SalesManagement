@@ -39,15 +39,13 @@ public class FormTraCuuSanPham extends JPanel {
 	private JTable tableSanPham;
 	private MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin;
 	public JButton btnTimKiemSanPham;
-	private ConnectServer connectServer;
 	private JComboBox<LoaiSanPham> comboBoxLoaiSanPham;
 
 	/**
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormTraCuuSanPham(MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin1, ConnectServer connectServer1) throws RemoteException {
-		connectServer = connectServer1;
+	public FormTraCuuSanPham(MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin1) throws RemoteException {
 		mouseControllerFormTraCuuThongTin = mouseControllerFormTraCuuThongTin1;
 		setSize(1120, 680);
 		setLayout(null);
@@ -170,7 +168,7 @@ public class FormTraCuuSanPham extends JPanel {
 	}
 	
 	public void layDanhSachSanPham() throws RemoteException {
-        List<SanPham> sanPhams = connectServer.getSanPhamInf().layDanhSachSanPham();
+        List<SanPham> sanPhams = ConnectServer.sanPhamInf.layDanhSachSanPham();
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 
         for (SanPham sanPham : sanPhams) {
@@ -179,7 +177,7 @@ public class FormTraCuuSanPham extends JPanel {
     }
 	
 	public void layDanhSachLoaiSanPham() throws RemoteException {
-		List<LoaiSanPham> loaiSanPhams = connectServer.getLoaiSanPhamInf().layDanhSachLoaiSanPham();
+		List<LoaiSanPham> loaiSanPhams = ConnectServer.loaiSanPhamInf.layDanhSachLoaiSanPham();
 		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
 			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}

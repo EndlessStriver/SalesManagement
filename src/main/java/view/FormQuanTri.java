@@ -19,19 +19,17 @@ public class FormQuanTri extends JPanel {
 	public FormQuanTriTaiKhoan formQuanTriTaiKhoan;
 	public FormQuanTriHoaDon formQuanTriHoaDon;
 	public FormQuanTriSanPham formQuanTriSanPham;
-	private ConnectServer connectServer;
 
 	/**
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormQuanTri(ConnectServer connectserver) throws RemoteException {
-		connectServer = connectserver;
+	public FormQuanTri() throws RemoteException {
 		mouseControllerFormQuanTri = new MouseControllerFormQuanTri(this);
-		formQuanTriNhanVien = new FormQuanTriNhanVien(mouseControllerFormQuanTri, connectServer);
-		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri, connectServer);
+		formQuanTriNhanVien = new FormQuanTriNhanVien(mouseControllerFormQuanTri);
+		formQuanTriTaiKhoan = new FormQuanTriTaiKhoan(mouseControllerFormQuanTri);
 		formQuanTriHoaDon = new FormQuanTriHoaDon(mouseControllerFormQuanTri);
-		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri, connectServer);
+		formQuanTriSanPham = new FormQuanTriSanPham(mouseControllerFormQuanTri);
 		setSize(1131, 753);
 		setLayout(null);
 		
