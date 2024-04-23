@@ -7,35 +7,50 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.LoaiSanPham;
+import model.SanPham;
+import util.ConnectServer;
+import view.FormQuanTriSanPham;
+import view.FormTraCuuSanPham;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.rmi.RemoteException;
+import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormTimKiemSanPham extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-
+	private JTextField textFieldMaSanPham;
+	private JTextField textFieldTenSanPham;
+	private JPanel myView;
+	private JComboBox comboBoxLoaiSanPham;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			FormTimKiemSanPham dialog = new FormTimKiemSanPham();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			FormTimKiemSanPham dialog = new FormTimKiemSanPham();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
+	 * @throws RemoteException 
 	 */
-	public FormTimKiemSanPham() {
+	public FormTimKiemSanPham(JPanel viewShow) throws RemoteException {
+		myView = viewShow;
 		setModal(true);
 		setBounds(100, 100, 325, 219);
 		setLocationRelativeTo(null);
@@ -50,18 +65,18 @@ public class FormTimKiemSanPham extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			textField = new JTextField();
-			textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			textField.setColumns(10);
-			textField.setBounds(114, 11, 186, 29);
-			contentPanel.add(textField);
+			textFieldMaSanPham = new JTextField();
+			textFieldMaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			textFieldMaSanPham.setColumns(10);
+			textFieldMaSanPham.setBounds(114, 11, 186, 29);
+			contentPanel.add(textFieldMaSanPham);
 		}
 		{
-			textField_1 = new JTextField();
-			textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			textField_1.setColumns(10);
-			textField_1.setBounds(114, 51, 186, 29);
-			contentPanel.add(textField_1);
+			textFieldTenSanPham = new JTextField();
+			textFieldTenSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			textFieldTenSanPham.setColumns(10);
+			textFieldTenSanPham.setBounds(114, 51, 186, 29);
+			contentPanel.add(textFieldTenSanPham);
 		}
 		{
 			JLabel lblHoVaTn = new JLabel("Tên sản phẩm");
@@ -76,16 +91,59 @@ public class FormTimKiemSanPham extends JDialog {
 			contentPanel.add(lblSinThoai);
 		}
 		{
-			JComboBox comboBox = new JComboBox();
-			comboBox.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			comboBox.setBounds(114, 91, 186, 29);
-			contentPanel.add(comboBox);
+			comboBoxLoaiSanPham = new JComboBox();
+			comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			comboBoxLoaiSanPham.setBounds(114, 91, 186, 29);
+			contentPanel.add(comboBoxLoaiSanPham);
 		}
 		{
-			JButton btnNewButton = new JButton("Tìm kiếm");
-			btnNewButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-			btnNewButton.setBounds(114, 131, 186, 38);
-			contentPanel.add(btnNewButton);
+			JButton btnTimKiem = new JButton("Tìm kiếm");
+			btnTimKiem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (myView instanceof FormTraCuuSanPham) {
+						FormTraCuuSanPham formTraCuuSanPham = (FormTraCuuSanPham) myView;
+						try {
+							List<SanPham> dsSanPham = ConnectServer.sanPhamInf.timKiemSanPham(textFieldMaSanPham.getText(), 
+									textFieldTenSanPham.getText(), 
+									((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()) != null ? ((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()).getTenLoai() : "");
+							formTraCuuSanPham.hienThiThongTinTimKiemSanPham(dsSanPham);
+							dispose();
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+					if(myView instanceof FormQuanTriSanPham) {
+						FormQuanTriSanPham formQuanTriSanPham = (FormQuanTriSanPham) myView;
+						try {
+							List<SanPham> dsSanPham = ConnectServer.sanPhamInf.timKiemSanPham(
+									textFieldMaSanPham.getText(), textFieldTenSanPham.getText(),
+									((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()) != null
+											? ((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()).getTenLoai()
+											: "");
+							formQuanTriSanPham.hienThiThongTinTimKiemSanPham(dsSanPham);
+							dispose();
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+			});
+			btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+			btnTimKiem.setBounds(114, 131, 186, 38);
+			contentPanel.add(btnTimKiem);
+		}
+		
+		layDanhSachLoaiSanPham();
+	}
+	
+	public void layDanhSachLoaiSanPham() throws RemoteException {
+		List<LoaiSanPham> loaiSanPhams = ConnectServer.loaiSanPhamInf.layDanhSachLoaiSanPham();
+		comboBoxLoaiSanPham.addItem(null);
+		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
+			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}
 	}
 

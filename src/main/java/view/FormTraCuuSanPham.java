@@ -45,8 +45,8 @@ public class FormTraCuuSanPham extends JPanel {
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormTraCuuSanPham(MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin1) throws RemoteException {
-		mouseControllerFormTraCuuThongTin = mouseControllerFormTraCuuThongTin1;
+	public FormTraCuuSanPham() throws RemoteException {
+		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		setSize(1120, 680);
 		setLayout(null);
 		
@@ -142,7 +142,7 @@ public class FormTraCuuSanPham extends JPanel {
                     int selectedRow = tableSanPham.getSelectedRow();
                     String maSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 0));
                     String tenSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 1));
-                    String loaiSanPhamm = String.valueOf(tableSanPham.getValueAt(selectedRow, 2));
+                    LoaiSanPham loaiSanPhamm = (LoaiSanPham) tableSanPham.getValueAt(selectedRow, 2);
                     String giaSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 3));
                     
                     textFieldMaSanPham.setText(maSanPham);
@@ -162,6 +162,20 @@ public class FormTraCuuSanPham extends JPanel {
 		btnTimKiemSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiemSanPham.setBounds(676, 6, 89, 23);
 		panel_2.add(btnTimKiemSanPham);
+		
+		JButton btnLamMoi = new JButton("Làm Mới");
+		btnLamMoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					layDanhSachSanPham();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoi.setBounds(577, 6, 89, 23);
+		panel_2.add(btnLamMoi);
 		layDanhSachSanPham();
 		layDanhSachLoaiSanPham();
 		
@@ -170,9 +184,9 @@ public class FormTraCuuSanPham extends JPanel {
 	public void layDanhSachSanPham() throws RemoteException {
         List<SanPham> sanPhams = ConnectServer.sanPhamInf.layDanhSachSanPham();
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
-
+        model.setRowCount(0);
         for (SanPham sanPham : sanPhams) {
-            model.addRow(new Object[] {sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham().getTenLoai(), sanPham.getGiaSanPham()});
+            model.addRow(new Object[] {sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham(), sanPham.getGiaSanPham()});
         }
     }
 	
@@ -181,5 +195,13 @@ public class FormTraCuuSanPham extends JPanel {
 		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
 			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}
+	}
+
+	public void hienThiThongTinTimKiemSanPham(List<SanPham> dsSanPham) {
+		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
+        model.setRowCount(0);
+        for (SanPham sanPham : dsSanPham) {
+            model.addRow(new Object[] {sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham(), sanPham.getGiaSanPham()});
+        }
 	}
 }

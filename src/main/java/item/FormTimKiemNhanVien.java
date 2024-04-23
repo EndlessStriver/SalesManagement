@@ -132,12 +132,12 @@ public class FormTimKiemNhanVien extends JDialog {
 								rdbtnNam.isSelected() ? "Nam" : rdbtnNu.isSelected() ? "Nữ" : "");
 						
 						if(viewShow instanceof FormTraCuuNhanVien) {
-							((FormTraCuuNhanVien) viewShow).hienThiDanhSachNhanVien(danhSachNhanVien);
+							((FormTraCuuNhanVien) viewShow).hienThiDanhSachTimKiemNhanVien(danhSachNhanVien);
 							dispose();
 						}
 						
 						if(viewShow instanceof FormQuanTriNhanVien) {
-							((FormQuanTriNhanVien) viewShow).hienThiDanhSachNhanVien(danhSachNhanVien);
+							((FormQuanTriNhanVien) viewShow).hienThiDanhSachTimKiemNhanVien(danhSachNhanVien);
                             dispose();
 						}
 					} catch (RemoteException e1) {

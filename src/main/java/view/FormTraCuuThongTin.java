@@ -17,7 +17,6 @@ import util.ConnectServer;
 public class FormTraCuuThongTin extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private MouseControllerFormTraCuuThongTin mouseControllerFormTraCuuThongTin;
 	public FormTraCuuNhanVien formTraCuuNhanVien;
 	public FormTraCuuSanPham formTraCuuSanPham;
 	public FormTraCuuHoaDon formTraCuuHoaDon;
@@ -27,10 +26,9 @@ public class FormTraCuuThongTin extends JPanel {
 	 * @throws RemoteException 
 	 */
 	public FormTraCuuThongTin() throws RemoteException {
-		mouseControllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
-		formTraCuuNhanVien = new FormTraCuuNhanVien(mouseControllerFormTraCuuThongTin);
-		formTraCuuSanPham = new FormTraCuuSanPham(mouseControllerFormTraCuuThongTin);
-		formTraCuuHoaDon = new FormTraCuuHoaDon(mouseControllerFormTraCuuThongTin);
+		formTraCuuNhanVien = new FormTraCuuNhanVien();
+		formTraCuuSanPham = new FormTraCuuSanPham();
+		formTraCuuHoaDon = new FormTraCuuHoaDon();
 		setSize(1133, 753);
 		setLayout(null);
 

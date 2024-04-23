@@ -330,7 +330,7 @@ public class FormQuanTriNhanVien extends JPanel{
 
 	}
 
-	public void hienThiDanhSachNhanVien(List<NhanVien> danhSachNhanVien) {
+	public void hienThiDanhSachTimKiemNhanVien(List<NhanVien> danhSachNhanVien) {
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 		model.setRowCount(0);
 		for (NhanVien nhanVien : danhSachNhanVien) {

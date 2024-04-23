@@ -40,8 +40,14 @@ public class MouseControllerFormQuanTri implements MouseListener {
 		if (formQuanTri instanceof FormQuanTriSanPham) {
 
 			if (object.equals(((FormQuanTriSanPham) formQuanTri).btnTimKiem)) {
-				FormTimKiemSanPham formTimKiemSanPham = new FormTimKiemSanPham();
-				formTimKiemSanPham.setVisible(true);
+				FormTimKiemSanPham formTimKiemSanPham;
+				try {
+					formTimKiemSanPham = new FormTimKiemSanPham(formQuanTri);
+					formTimKiemSanPham.setVisible(true);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		}
@@ -114,13 +120,6 @@ public class MouseControllerFormQuanTri implements MouseListener {
 				
 			}
 
-		}
-		
-		if (formQuanTri instanceof FormQuanTriSanPham) {
-			if (object.equals(((FormQuanTriSanPham) formQuanTri).btnTimKiem)) {
-				FormTimKiemSanPham formTimKiemSanPham = new FormTimKiemSanPham();
-				formTimKiemSanPham.setVisible(true);
-			}
 		}
 
 	}

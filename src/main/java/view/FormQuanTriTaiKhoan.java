@@ -177,7 +177,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 					int selectedRow = tableTaiKhoan.getSelectedRow();
 					String tenTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 0));
 					String matKhau = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 1));
-					String quyenHan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 2));
+					Quyen quyenHan = (Quyen) tableTaiKhoan.getValueAt(selectedRow, 2);
 					String trangThai = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 3));
 
 					textFieldTenTaiKhoan.setText(tenTaiKhoan);
@@ -219,7 +219,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
 			DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
 			model.addRow(new Object[] { taiKhoan.getTenTaiKhoan(), taiKhoan.getMatKhau(),
-					taiKhoan.getQuyen().getTenQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
+					taiKhoan.getQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
 		}
 
 	}

@@ -48,8 +48,8 @@ public class FormTraCuuNhanVien extends JPanel {
 	 * Create the panel.
 	 * @throws RemoteException 
 	 */
-	public FormTraCuuNhanVien(MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin1) throws RemoteException {
-		controllerFormTraCuuThongTin = controllerFormTraCuuThongTin1;
+	public FormTraCuuNhanVien() throws RemoteException {
+		controllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		setSize(1120, 680);
 		setLayout(null);
 
@@ -173,19 +173,34 @@ public class FormTraCuuNhanVien extends JPanel {
 		btnTimKiemNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiemNhanVien.setBounds(676, 6, 89, 23);
 		panel_2.add(btnTimKiemNhanVien);
+		
+		JButton btnLamMoi = new JButton("Làm Mới");
+		btnLamMoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					layDanhSachNhanVien();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoi.setBounds(577, 6, 89, 23);
+		panel_2.add(btnLamMoi);
 		layDanhSachNhanVien();
 	}
 
 	public void layDanhSachNhanVien() throws RemoteException {
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
-
+		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+		model.setRowCount(0);
 		for (NhanVien nhanVien : danhSachNhanVien) {
-			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 	}
 
-	public void hienThiDanhSachNhanVien(List<NhanVien> danhSachNhanVien) {
+	public void hienThiDanhSachTimKiemNhanVien(List<NhanVien> danhSachNhanVien) {
 		for (NhanVien nhanVien : danhSachNhanVien) {
 			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 			model.setRowCount(0);

@@ -44,8 +44,8 @@ public class FormTraCuuHoaDon extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public FormTraCuuHoaDon(MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin) {
-		this.controllerFormTraCuuThongTin = controllerFormTraCuuThongTin;
+	public FormTraCuuHoaDon() {
+		controllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		mouseControllerFormTraCuuHoaDon = new MouseControllerFormTraCuuHoaDon(this);
 		setSize(1120, 680);
 		setLayout(null);
