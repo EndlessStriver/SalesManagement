@@ -43,6 +43,7 @@ public class FormQuanTriNhanVien extends JPanel{
 	public JRadioButton rdbtnThem;
 	public JRadioButton rdbtnCapNhat;
 	public JRadioButton rdbtnXoa;
+	private ButtonGroup buttonGroupFunction;
 
 	/**
 	 * Create the panel.
@@ -84,6 +85,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblHoVaTn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		textFieldHoVaTen = new JTextField();
+		textFieldHoVaTen.setEditable(false);
 		textFieldHoVaTen.setBounds(117, 121, 186, 29);
 		panel.add(textFieldHoVaTen);
 		textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -95,12 +97,14 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblSinThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		textFieldSoDienThoai = new JTextField();
+		textFieldSoDienThoai.setEditable(false);
 		textFieldSoDienThoai.setBounds(117, 161, 186, 29);
 		panel.add(textFieldSoDienThoai);
 		textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		textFieldSoDienThoai.setColumns(10);
 
 		textFieldEmail = new JTextField();
+		textFieldEmail.setEditable(false);
 		textFieldEmail.setBounds(117, 201, 186, 29);
 		panel.add(textFieldEmail);
 		textFieldEmail.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -122,6 +126,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		rdbtnNam = new JRadioButton("Nam");
+		rdbtnNam.setEnabled(false);
 		rdbtnNam.setSelected(true);
 		rdbtnNam.setBackground(new Color(255, 255, 255));
 		rdbtnNam.setBounds(117, 281, 109, 23);
@@ -129,6 +134,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		rdbtnNam.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		rdbtnNu = new JRadioButton("Nữ");
+		rdbtnNu.setEnabled(false);
 		rdbtnNu.setBackground(new Color(255, 255, 255));
 		rdbtnNu.setBounds(117, 317, 109, 23);
 		panel.add(rdbtnNu);
@@ -139,6 +145,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		btnGroupSex.add(rdbtnNu);
 
 		textFieldDiaChi = new JTextField();
+		textFieldDiaChi.setEditable(false);
 		textFieldDiaChi.setBounds(117, 237, 186, 29);
 		panel.add(textFieldDiaChi);
 		textFieldDiaChi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -171,11 +178,12 @@ public class FormQuanTriNhanVien extends JPanel{
 				btnChucNang.setText("Thêm");
 				btnChucNang.setEnabled(true);
 				
-				textFieldMaNhanVien.enable();
-				textFieldHoVaTen.enable();
-				textFieldSoDienThoai.enable();
-				textFieldEmail.enable();
-				textFieldDiaChi.enable();
+				textFieldHoVaTen.setEditable(true);
+				textFieldSoDienThoai.setEditable(true);
+				textFieldEmail.setEditable(true);
+				textFieldDiaChi.setEditable(true);
+				rdbtnNam.setEnabled(true);
+				rdbtnNu.setEnabled(true);
 				
 			}
 		});
@@ -188,19 +196,15 @@ public class FormQuanTriNhanVien extends JPanel{
 		rdbtnCapNhat.addItemListener(e -> {
 			if (rdbtnCapNhat.isSelected()) {
 				
-				textFieldMaNhanVien.setText("");
-				textFieldHoVaTen.setText("");
-				textFieldSoDienThoai.setText("");
-				textFieldEmail.setText("");
-				textFieldDiaChi.setText("");
-				
 				btnChucNang.setText("Cập nhật");
-				textFieldMaNhanVien.enable();
-				textFieldHoVaTen.enable();
-				textFieldSoDienThoai.enable();
-				textFieldEmail.enable();
-				textFieldDiaChi.enable();
 				btnChucNang.setEnabled(true);
+				
+				textFieldHoVaTen.setEditable(true);
+				textFieldSoDienThoai.setEditable(true);
+				textFieldEmail.setEditable(true);
+				textFieldDiaChi.setEditable(true);
+				rdbtnNam.setEnabled(true);
+				rdbtnNu.setEnabled(true);
 			}
 		});
 
@@ -212,25 +216,13 @@ public class FormQuanTriNhanVien extends JPanel{
 		rdbtnXoa.addItemListener(e -> {
 			if (rdbtnXoa.isSelected()) {
 				
-				textFieldMaNhanVien.setText("");
-				textFieldHoVaTen.setText("");
-				textFieldSoDienThoai.setText("");
-				textFieldEmail.setText("");
-				textFieldDiaChi.setText("");
-				
 				btnChucNang.setText("Xóa");
 				btnChucNang.setEnabled(true);
-				
-				textFieldMaNhanVien.disable();
-				textFieldHoVaTen.disable();
-				textFieldSoDienThoai.disable();
-				textFieldEmail.disable();
-				textFieldDiaChi.disable();
 				
 			}
 		});
 
-		ButtonGroup buttonGroupFunction = new ButtonGroup();
+		buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
 		buttonGroupFunction.add(rdbtnCapNhat);
 		buttonGroupFunction.add(rdbtnThem);
@@ -238,7 +230,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		btnChucNang = new JButton("................................");
 		btnChucNang.setEnabled(false);
 		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnChucNang.setBounds(13, 355, 290, 39);
+		btnChucNang.setBounds(13, 383, 290, 39);
 		panel.add(btnChucNang);
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
@@ -246,6 +238,16 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblThngTinNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblThngTinNhn.setBounds(56, 29, 201, 30);
 		panel.add(lblThngTinNhn);
+		
+		JButton btnLamMoiForm = new JButton("Làm Mới");
+		btnLamMoiForm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lamMoiForm();
+			}
+		});
+		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoiForm.setBounds(214, 349, 89, 23);
+		panel.add(btnLamMoiForm);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
@@ -348,10 +350,22 @@ public class FormQuanTriNhanVien extends JPanel{
 	
 	public void lamMoiForm() {
 		textFieldMaNhanVien.setText("");
-		textFieldHoVaTen.setText("");
-		textFieldSoDienThoai.setText("");
-		textFieldEmail.setText("");
-		textFieldDiaChi.setText("");
-		rdbtnNam.setSelected(true);
+        textFieldHoVaTen.setText("");
+        textFieldSoDienThoai.setText("");
+        textFieldEmail.setText("");
+        textFieldDiaChi.setText("");
+        rdbtnNam.setSelected(true);
+        rdbtnNu.setSelected(false);
+        
+        textFieldHoVaTen.setEditable(false);
+        textFieldSoDienThoai.setEditable(false);
+        textFieldEmail.setEditable(false);
+        textFieldDiaChi.setEditable(false);
+        rdbtnNam.setEnabled(false);
+        rdbtnNu.setEnabled(false);
+        btnChucNang.setEnabled(false);
+        btnChucNang.setText("................................");
+        buttonGroupFunction.clearSelection();
+
 	}
 }

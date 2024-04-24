@@ -43,6 +43,7 @@ public class FormQuanTriSanPham extends JPanel{
 	public JRadioButton rdbtnXoa;
 	public JRadioButton rdbtnCapNhat;
 	public JRadioButton rdbtnThem;
+	public ButtonGroup buttonGroupFunction;
 
 	/**
 	 * Create the panel.
@@ -83,6 +84,7 @@ public class FormQuanTriSanPham extends JPanel{
 		lblTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		txtTenSP = new JTextField();
+		txtTenSP.setEditable(false);
 		txtTenSP.setBounds(117, 113, 186, 29);
 		panel.add(txtTenSP);
 		txtTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -94,6 +96,7 @@ public class FormQuanTriSanPham extends JPanel{
 		lblGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		txtGiaSP = new JTextField();
+		txtGiaSP.setEditable(false);
 		txtGiaSP.setBounds(117, 153, 186, 29);
 		panel.add(txtGiaSP);
 		txtGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -123,8 +126,15 @@ public class FormQuanTriSanPham extends JPanel{
 		rdbtnThem.addItemListener(e -> {
 			
             if (rdbtnThem.isSelected()) {
+            	
                 btnChucNang.setText("Thêm");
                 btnChucNang.setEnabled(true);
+                
+                txtMaSP.setEditable(true);
+                txtTenSP.setEditable(true);
+                txtGiaSP.setEditable(true);
+                comboBoxLoaiSanPham.setEnabled(true);
+                
             }
             
         });
@@ -139,6 +149,11 @@ public class FormQuanTriSanPham extends JPanel{
             if (rdbtnCapNhat.isSelected()) {
                 btnChucNang.setText("Cập Nhật");
                 btnChucNang.setEnabled(true);
+                
+                txtMaSP.setEditable(true);
+                txtTenSP.setEditable(true);
+                txtGiaSP.setEditable(true);
+                comboBoxLoaiSanPham.setEnabled(true);
             }
             
         });
@@ -153,11 +168,16 @@ public class FormQuanTriSanPham extends JPanel{
             if (rdbtnXoa.isSelected()) {
                 btnChucNang.setText("Xóa");
                 btnChucNang.setEnabled(true);
+                
+                txtMaSP.setEditable(false);
+                txtTenSP.setEditable(false);
+                txtGiaSP.setEditable(false);
+                comboBoxLoaiSanPham.setEnabled(false);
             }
             
         });
 
-		ButtonGroup buttonGroupFunction = new ButtonGroup();
+		buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
 		buttonGroupFunction.add(rdbtnCapNhat);
 		buttonGroupFunction.add(rdbtnThem);
@@ -168,6 +188,7 @@ public class FormQuanTriSanPham extends JPanel{
 		panel.add(lblThngTinSn);
 
 		comboBoxLoaiSanPham = new JComboBox();
+		comboBoxLoaiSanPham.setEnabled(false);
 		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
@@ -291,6 +312,14 @@ public class FormQuanTriSanPham extends JPanel{
         txtTenSP.setText("");
         txtGiaSP.setText("");
         comboBoxLoaiSanPham.setSelectedIndex(0);
+        
+        txtMaSP.setEditable(false);
+        txtTenSP.setEditable(false);
+        txtGiaSP.setEditable(false);
+        comboBoxLoaiSanPham.setEnabled(false);
+        btnChucNang.setEnabled(false);
+        btnChucNang.setText("................................");
+        buttonGroupFunction.clearSelection();
     }
 		
 }

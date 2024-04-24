@@ -140,15 +140,19 @@ public class FormTraCuuSanPham extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tableSanPham.getSelectedRow();
-                    String maSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 0));
-                    String tenSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 1));
-                    LoaiSanPham loaiSanPhamm = (LoaiSanPham) tableSanPham.getValueAt(selectedRow, 2);
-                    String giaSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 3));
                     
-                    textFieldMaSanPham.setText(maSanPham);
-                    textFieldTenSanPham.setText(tenSanPham);
-                    textFieldGiaSanPham.setText(giaSanPham);
-                    comboBoxLoaiSanPham.setSelectedItem(loaiSanPhamm);
+					if (selectedRow >= 0) {
+						
+						String maSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 0));
+						String tenSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 1));
+						LoaiSanPham loaiSanPhamm = (LoaiSanPham) tableSanPham.getValueAt(selectedRow, 2);
+						String giaSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 3));
+						
+						textFieldMaSanPham.setText(maSanPham);
+						textFieldTenSanPham.setText(tenSanPham);
+						textFieldGiaSanPham.setText(giaSanPham);
+						comboBoxLoaiSanPham.setSelectedItem(loaiSanPhamm);
+					}
                 }
             }
         });

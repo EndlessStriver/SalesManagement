@@ -150,16 +150,20 @@ public class FormTraCuuNhanVien extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tableNhanVien.getSelectedRow();
-                    String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
-                    String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
-                    String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
-                    String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
                     
-                    textFieldMaNhanVien.setText(maNhanVien);
-                    textFieldHoVaTen.setText(hoVaTen);
-                    textFieldSoDienThoai.setText(soDienThoai);
-                    rdbtnNam.setSelected(gioiTinh.equals("Nam"));
-                    rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+                    if(selectedRow >= 0) {
+                    	
+                    	String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
+                    	String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
+                    	String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
+                    	String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
+                    	
+                    	textFieldMaNhanVien.setText(maNhanVien);
+                    	textFieldHoVaTen.setText(hoVaTen);
+                    	textFieldSoDienThoai.setText(soDienThoai);
+                    	rdbtnNam.setSelected(gioiTinh.equals("Nam"));
+                    	rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+                    }
                 }
             }
         });
