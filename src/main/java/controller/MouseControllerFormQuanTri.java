@@ -10,7 +10,9 @@ import dao.NhanVienInf;
 import item.FormTimKiemHoaDon;
 import item.FormTimKiemNhanVien;
 import item.FormTimKiemSanPham;
+import model.LoaiSanPham;
 import model.NhanVien;
+import model.SanPham;
 import util.ConnectServer;
 import view.FormQuanTriHoaDon;
 import view.FormQuanTriNhanVien;
@@ -47,6 +49,53 @@ public class MouseControllerFormQuanTri implements MouseListener {
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				}
+			}
+			
+			if(object.equals(((FormQuanTriSanPham) formQuanTri).btnChucNang)) {
+				FormQuanTriSanPham formQuanTriSanPham = (FormQuanTriSanPham) formQuanTri;
+				
+				if (formQuanTriSanPham.rdbtnThem.isSelected()) {
+					String tenSanPham = formQuanTriSanPham.txtTenSP.getText();
+					String giaSanPham = formQuanTriSanPham.txtGiaSP.getText();
+					LoaiSanPham loaiSanPham = (LoaiSanPham) formQuanTriSanPham.comboBoxLoaiSanPham.getSelectedItem();
+					SanPham sanPham = new SanPham(tenSanPham, Float.parseFloat(giaSanPham));
+					
+					try {
+						ConnectServer.sanPhamInf.taoSanPham(sanPham, loaiSanPham.getMaLoai());
+						formQuanTriSanPham.layDanhSachSanPham();
+						formQuanTriSanPham.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+
+				}
+				
+				if (formQuanTriSanPham.rdbtnCapNhat.isSelected()) {
+					String maSanPham = formQuanTriSanPham.txtMaSP.getText();
+					String tenSanPham = formQuanTriSanPham.txtTenSP.getText();
+					String giaSanPham = formQuanTriSanPham.txtGiaSP.getText();
+					LoaiSanPham loaiSanPham = (LoaiSanPham) formQuanTriSanPham.comboBoxLoaiSanPham.getSelectedItem();
+					SanPham sanPham = new SanPham(Long.parseLong(maSanPham), tenSanPham, Float.parseFloat(giaSanPham));
+
+					try {
+						ConnectServer.sanPhamInf.capNhatSanPham(sanPham, loaiSanPham.getMaLoai());
+						formQuanTriSanPham.layDanhSachSanPham();
+						formQuanTriSanPham.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+				if (formQuanTriSanPham.rdbtnXoa.isSelected()) {
+					String maSanPham = formQuanTriSanPham.txtMaSP.getText();
+					try {
+						ConnectServer.sanPhamInf.xoaSanPham(Long.parseLong(maSanPham));
+						formQuanTriSanPham.layDanhSachSanPham();
+						formQuanTriSanPham.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 

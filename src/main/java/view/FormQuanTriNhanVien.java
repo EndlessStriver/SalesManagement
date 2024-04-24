@@ -188,6 +188,12 @@ public class FormQuanTriNhanVien extends JPanel{
 		rdbtnCapNhat.addItemListener(e -> {
 			if (rdbtnCapNhat.isSelected()) {
 				
+				textFieldMaNhanVien.setText("");
+				textFieldHoVaTen.setText("");
+				textFieldSoDienThoai.setText("");
+				textFieldEmail.setText("");
+				textFieldDiaChi.setText("");
+				
 				btnChucNang.setText("Cập nhật");
 				textFieldMaNhanVien.enable();
 				textFieldHoVaTen.enable();
