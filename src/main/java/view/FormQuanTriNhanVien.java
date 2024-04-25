@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -22,6 +24,7 @@ import util.ConnectServer;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +32,13 @@ import java.awt.event.ActionEvent;
 public class FormQuanTriNhanVien extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String RANG_BUOC_HOVATEN = "^[a-zA-Z\\s]*$";
+	public static final String RANG_BUOC_SO_DIEN_THOAI_THEM = "^0[0-9]{9,9}$";
+	public static final String RANG_BUOC_SO_DIEN_THOAI_TIM_KIEM = "^[0-9]*$";
+	public static final String RANG_BUOC_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
+	
+	
 	public JTextField textFieldMaNhanVien;
 	public JTextField textFieldHoVaTen;
 	public JTextField textFieldSoDienThoai;
@@ -219,6 +229,13 @@ public class FormQuanTriNhanVien extends JPanel{
 				btnChucNang.setText("Xóa");
 				btnChucNang.setEnabled(true);
 				
+				textFieldHoVaTen.setEditable(false);
+				textFieldSoDienThoai.setEditable(false);
+				textFieldEmail.setEditable(false);
+				textFieldDiaChi.setEditable(false);
+				rdbtnNam.setEnabled(false);
+				rdbtnNu.setEnabled(false);
+				
 			}
 		});
 
@@ -323,7 +340,8 @@ public class FormQuanTriNhanVien extends JPanel{
 		panel_2.add(btnLamMoi);
 		layDanhSachNhanVien();
 	}
-
+	
+	// lấy danh sách nhân viên
 	public void layDanhSachNhanVien() throws RemoteException {
 
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
@@ -337,7 +355,8 @@ public class FormQuanTriNhanVien extends JPanel{
 		}
 
 	}
-
+	
+	// hiển thị danh sách tìm kiếm nhân viên
 	public void hienThiDanhSachTimKiemNhanVien(List<NhanVien> danhSachNhanVien) {
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 		model.setRowCount(0);
@@ -348,6 +367,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		
 	}
 	
+	// làm mới form
 	public void lamMoiForm() {
 		textFieldMaNhanVien.setText("");
         textFieldHoVaTen.setText("");
@@ -367,5 +387,76 @@ public class FormQuanTriNhanVien extends JPanel{
         btnChucNang.setText("................................");
         buttonGroupFunction.clearSelection();
 
+	}
+	
+	// hiển thị thông báo lỗi nhập liệu
+	public void thongBaoLoiNhapLieu(List<String> thongBao) {
+		String thongBaoLoi = thongBao.get(0);
+		JOptionPane.showMessageDialog(null,  thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	// kiểm tra thông tin nhập liệu
+	public List<String> kienTraThongTinNhapLieu(int type) throws RemoteException {
+//		String maNhanVien = textFieldMaNhanVien.getText();
+		String hoVaTen = textFieldHoVaTen.getText();
+		String soDienThoai = textFieldSoDienThoai.getText();
+		String email = textFieldEmail.getText();
+		String diaChi = textFieldDiaChi.getText();
+//		boolean gioiTinh = rdbtnNam.isSelected();
+		
+		List<String> thongBao = new ArrayList<>();
+		
+		if (hoVaTen.equals("") || soDienThoai.equals("") || email.equals("") || diaChi.equals("")) {
+			thongBao.add("Vui lòng nhập đầy đủ thông tin");
+		}
+		
+		if (!hoVaTen.matches(RANG_BUOC_HOVATEN)) {
+			thongBao.add("Họ và tên không hợp lệ");
+		}
+		
+		if (!soDienThoai.matches(RANG_BUOC_SO_DIEN_THOAI_THEM)) {
+			thongBao.add("Số điện thoại không hợp lệ");
+		}
+		
+		if (!email.matches(RANG_BUOC_EMAIL)) {
+			thongBao.add("Email không hợp lệ");
+		}
+		
+		if (type == 1) {
+			if (kiemTraSoDienThoaiTonTai(soDienThoai)) {
+				thongBao.add("Số điện thoại đã tồn tại");
+			}
+
+			if (kiemTraEmailDaTonTai(email)) {
+				thongBao.add("Email đã tồn tại");
+			}
+		}
+		
+		return thongBao;
+
+	}
+	
+	// kiểm tra số điện thoại đã tồn tại
+	public boolean kiemTraSoDienThoaiTonTai(String soDienThoai) throws RemoteException {
+		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
+		for (NhanVien nhanVien : danhSachNhanVien) {
+			if (nhanVien.getSoDienThoai().equals(soDienThoai)) {
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
+	// kiểm tra email đã tồn tại
+	public boolean kiemTraEmailDaTonTai(String email) throws RemoteException {
+		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
+		for (NhanVien nhanVien : danhSachNhanVien) {
+			if (nhanVien.getGmail().equals(email)) {
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }

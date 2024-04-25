@@ -2,11 +2,14 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -36,6 +39,9 @@ import java.awt.event.ActionEvent;
 public class FormQuanTriTaiKhoan extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String RANG_BUOC_MAT_KHAU = "[a-zA-Z0-9]{8,}$";
+	
 	public JTextField textFieldTenTaiKhoan;
 	private JTable tableTaiKhoan;
 	public JPasswordField passwordField;
@@ -97,6 +103,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		rdbtnKichHoat = new JRadioButton("Kích hoạt");
+		rdbtnKichHoat.setSelected(true);
 		rdbtnKichHoat.setEnabled(false);
 		rdbtnKichHoat.setBackground(new Color(255, 255, 255));
 		rdbtnKichHoat.setBounds(117, 243, 109, 23);
@@ -302,4 +309,30 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		rdbtnTat.setEnabled(false);
 		rdbtnCapNhat.setSelected(false);
 	}
+	
+	// kiểm tra ràng buộc nhập liệu
+	public List<String> kiemTraRangBuocFormNhapLieu() {
+		
+		List<String> thongBaoLoi = new ArrayList<String>();
+		
+		if (textFieldMaTaiKhoan.getText().isEmpty()) {
+			thongBaoLoi.add("Vui lòng chọn tài khoản cần cập nhật");
+		}
+		
+		if (passwordField.getText().isEmpty()) {
+			thongBaoLoi.add("Vui lòng nhập đầy đủ thông tin");
+		}
+		
+		if (!passwordField.getText().matches(RANG_BUOC_MAT_KHAU)) {
+			thongBaoLoi.add("Mật khẩu phải có ít nhất 8 ký tự");
+        }
+		
+		return thongBaoLoi;
+	}
+	
+	// hiển thị thông báo lỗi nhập liệu
+		public void thongBaoLoiNhapLieu(List<String> thongBao) {
+			String thongBaoLoi = thongBao.get(0);
+			JOptionPane.showMessageDialog(null,  thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+		}
 }
