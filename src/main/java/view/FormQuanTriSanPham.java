@@ -227,8 +227,6 @@ public class FormQuanTriSanPham extends JPanel {
 
 		tableSanPham = new JTable();
 		tableSanPham.setRowHeight(25);
-		tableSanPham.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tableSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		tableSanPham.setForeground(new Color(0, 0, 0));
 		tableSanPham.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại" }));

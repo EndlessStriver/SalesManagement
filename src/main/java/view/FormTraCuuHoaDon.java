@@ -129,8 +129,6 @@ public class FormTraCuuHoaDon extends JPanel {
 		
 		tableHoaDon = new JTable();
 		tableHoaDon.setRowHeight(25);
-		tableHoaDon.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tableHoaDon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		tableHoaDon.setForeground(new Color(0, 0, 0));
 		tableHoaDon.setModel(new DefaultTableModel(
 			new Object[][] {},

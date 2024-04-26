@@ -12,6 +12,7 @@ import model.LoaiSanPham;
 import model.SanPham;
 import util.ConnectServer;
 import view.FormQuanTriSanPham;
+import view.FormThanhToan;
 import view.FormTraCuuSanPham;
 
 import javax.swing.JLabel;
@@ -129,6 +130,27 @@ public class FormTimKiemSanPham extends JDialog {
 							e1.printStackTrace();
 						}
 					}
+					
+					if(myView instanceof FormThanhToan) {
+						FormThanhToan formThanhToan = (FormThanhToan) myView;
+						try {
+							List<SanPham> dsSanPham = ConnectServer.sanPhamInf.timKiemSanPham(
+									textFieldMaSanPham.getText(), textFieldTenSanPham.getText(),
+									((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()) != null
+											? ((LoaiSanPham) comboBoxLoaiSanPham.getSelectedItem()).getTenLoai()
+											: "");
+							
+							FormThemSanPham formThemSanPham = new FormThemSanPham(formThanhToan, dsSanPham);
+							
+							formThemSanPham.setLocationRelativeTo(null);
+							formThemSanPham.setAlwaysOnTop(true);
+							formThemSanPham.setVisible(true);
+							
+							dispose();
+						} catch (RemoteException e1) {
+							e1.printStackTrace();
+						}
+					}
 				}
 			});
 			btnTimKiem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -141,7 +163,9 @@ public class FormTimKiemSanPham extends JDialog {
 	
 	public void layDanhSachLoaiSanPham() throws RemoteException {
 		List<LoaiSanPham> loaiSanPhams = ConnectServer.loaiSanPhamInf.layDanhSachLoaiSanPham();
+		
 		comboBoxLoaiSanPham.addItem(null);
+		
 		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
 			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}

@@ -212,8 +212,6 @@ public class FormQuanTriTaiKhoan extends JPanel{
 
 		tableTaiKhoan = new JTable();
 		tableTaiKhoan.setRowHeight(25);
-		tableTaiKhoan.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tableTaiKhoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		tableTaiKhoan.setForeground(new Color(0, 0, 0));
 		tableTaiKhoan.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã tài khoản", "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }));

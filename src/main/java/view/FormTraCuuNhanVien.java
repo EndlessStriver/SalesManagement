@@ -139,8 +139,6 @@ public class FormTraCuuNhanVien extends JPanel {
 
 		tableNhanVien = new JTable();
 		tableNhanVien.setRowHeight(25);
-		tableNhanVien.getTableHeader().setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tableNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		tableNhanVien.setForeground(new Color(0, 0, 0));
 		tableNhanVien.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính" }));
