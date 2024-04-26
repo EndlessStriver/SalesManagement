@@ -2,8 +2,11 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -29,7 +32,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FormQuanTriSanPham extends JPanel{
+public class FormQuanTriSanPham extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	public JTextField txtMaSP;
@@ -122,60 +125,60 @@ public class FormQuanTriSanPham extends JPanel{
 		panel_3.add(rdbtnThem);
 		rdbtnThem.setBackground(new Color(255, 255, 255));
 		rdbtnThem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnThem.addItemListener(e -> {
-			
-            if (rdbtnThem.isSelected()) {
-            	
-                btnChucNang.setText("Thêm");
-                btnChucNang.setEnabled(true);
-                
-                txtMaSP.setEditable(true);
-                txtTenSP.setEditable(true);
-                txtGiaSP.setEditable(true);
-                comboBoxLoaiSanPham.setEnabled(true);
-                
-            }
-            
-        });
+
+			if (rdbtnThem.isSelected()) {
+
+				btnChucNang.setText("Thêm");
+				btnChucNang.setEnabled(true);
+
+				txtMaSP.setEditable(true);
+				txtTenSP.setEditable(true);
+				txtGiaSP.setEditable(true);
+				comboBoxLoaiSanPham.setEnabled(true);
+
+			}
+
+		});
 
 		rdbtnCapNhat = new JRadioButton("Cập nhật");
 		panel_3.add(rdbtnCapNhat);
 		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
 		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnCapNhat.addItemListener(e -> {
-			
-            if (rdbtnCapNhat.isSelected()) {
-                btnChucNang.setText("Cập Nhật");
-                btnChucNang.setEnabled(true);
-                
-                txtMaSP.setEditable(true);
-                txtTenSP.setEditable(true);
-                txtGiaSP.setEditable(true);
-                comboBoxLoaiSanPham.setEnabled(true);
-            }
-            
-        });
+
+			if (rdbtnCapNhat.isSelected()) {
+				btnChucNang.setText("Cập Nhật");
+				btnChucNang.setEnabled(true);
+
+				txtMaSP.setEditable(true);
+				txtTenSP.setEditable(true);
+				txtGiaSP.setEditable(true);
+				comboBoxLoaiSanPham.setEnabled(true);
+			}
+
+		});
 
 		rdbtnXoa = new JRadioButton("Xóa");
 		panel_3.add(rdbtnXoa);
 		rdbtnXoa.setBackground(new Color(255, 255, 255));
 		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnXoa.addItemListener(e -> {
-			
-            if (rdbtnXoa.isSelected()) {
-                btnChucNang.setText("Xóa");
-                btnChucNang.setEnabled(true);
-                
-                txtMaSP.setEditable(false);
-                txtTenSP.setEditable(false);
-                txtGiaSP.setEditable(false);
-                comboBoxLoaiSanPham.setEnabled(false);
-            }
-            
-        });
+
+			if (rdbtnXoa.isSelected()) {
+				btnChucNang.setText("Xóa");
+				btnChucNang.setEnabled(true);
+
+				txtMaSP.setEditable(false);
+				txtTenSP.setEditable(false);
+				txtGiaSP.setEditable(false);
+				comboBoxLoaiSanPham.setEnabled(false);
+			}
+
+		});
 
 		buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
@@ -192,13 +195,13 @@ public class FormQuanTriSanPham extends JPanel{
 		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
-		
+
 		btnChucNang = new JButton("................................");
 		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnChucNang.setEnabled(false);
 		btnChucNang.setBounds(13, 267, 290, 39);
 		panel.add(btnChucNang);
-		
+
 		JButton btnLamMoiForm = new JButton("Làm Mới");
 		btnLamMoiForm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -208,7 +211,7 @@ public class FormQuanTriSanPham extends JPanel{
 		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnLamMoiForm.setBounds(214, 233, 89, 23);
 		panel.add(btnLamMoiForm);
-		
+
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
 		JPanel panel_2 = new JPanel();
@@ -233,20 +236,20 @@ public class FormQuanTriSanPham extends JPanel{
 		ListSelectionModel selectionModel = tableSanPham.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				
+
 				if (!e.getValueIsAdjusting()) {
-					
+
 					int selectedRow = tableSanPham.getSelectedRow();
-					if(selectedRow != -1) {
+					if (selectedRow != -1) {
 						String maSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 0));
 						String tenSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 1));
 						String giaSanPham = String.valueOf(tableSanPham.getValueAt(selectedRow, 2));
 						LoaiSanPham loaiSanPham = (LoaiSanPham) tableSanPham.getValueAt(selectedRow, 3);
-						
+
 						txtMaSP.setText(maSanPham);
 						txtTenSP.setText(tenSanPham);
 						txtGiaSP.setText(giaSanPham);
-						comboBoxLoaiSanPham.setSelectedItem(loaiSanPham);						
+						comboBoxLoaiSanPham.setSelectedItem(loaiSanPham);
 					}
 				}
 			}
@@ -261,7 +264,7 @@ public class FormQuanTriSanPham extends JPanel{
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
-		
+
 		JButton btnLamMoi = new JButton("Làm Mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -282,9 +285,9 @@ public class FormQuanTriSanPham extends JPanel{
 	public void layDanhSachSanPham() throws RemoteException {
 		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 		List<SanPham> listSanPham = ConnectServer.sanPhamInf.layDanhSachSanPham();
-		
+
 		model.setRowCount(0);
-		
+
 		for (SanPham sanPham : listSanPham) {
 			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getGiaSanPham(),
 					sanPham.getLoaiSanPham() });
@@ -309,17 +312,46 @@ public class FormQuanTriSanPham extends JPanel{
 
 	public void lamMoiForm() {
 		txtMaSP.setText("");
-        txtTenSP.setText("");
-        txtGiaSP.setText("");
-        comboBoxLoaiSanPham.setSelectedIndex(0);
-        
-        txtMaSP.setEditable(false);
-        txtTenSP.setEditable(false);
-        txtGiaSP.setEditable(false);
-        comboBoxLoaiSanPham.setEnabled(false);
-        btnChucNang.setEnabled(false);
-        btnChucNang.setText("................................");
-        buttonGroupFunction.clearSelection();
-    }
-		
+		txtTenSP.setText("");
+		txtGiaSP.setText("");
+		comboBoxLoaiSanPham.setSelectedIndex(0);
+
+		txtMaSP.setEditable(false);
+		txtTenSP.setEditable(false);
+		txtGiaSP.setEditable(false);
+		comboBoxLoaiSanPham.setEnabled(false);
+		btnChucNang.setEnabled(false);
+		btnChucNang.setText("................................");
+		buttonGroupFunction.clearSelection();
+	}
+
+	// kiểm tra ràng buộc nhập liệu
+	public List<String> rangBuocFormNhapLieu() {
+
+		String tenSanPham = txtTenSP.getText();
+		String giaSanPham = txtGiaSP.getText();
+
+		List<String> thongBaoLoi = new ArrayList<String>();
+
+		if (tenSanPham.equals("") || giaSanPham.equals("")) {
+			thongBaoLoi.add("Vui lòng nhập đầy đủ thông tin");
+			return thongBaoLoi;
+		}
+
+		if (!giaSanPham.matches("[0-9]+")) {
+			thongBaoLoi.add("Giá sản phẩm phải là số");
+		}
+
+		if (Float.parseFloat(giaSanPham) < 1000) {
+			thongBaoLoi.add("Giá sản phẩm >= 1000");
+		}
+
+		return thongBaoLoi;
+	}
+
+	// hiển thị thông báo lỗi nhập liệu
+	public void thongBaoLoiNhapLieu(List<String> thongBao) {
+		String thongBaoLoi = thongBao.get(0);
+		JOptionPane.showMessageDialog(null, thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+	}
 }

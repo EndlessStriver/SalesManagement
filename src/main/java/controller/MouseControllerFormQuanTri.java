@@ -48,7 +48,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 			if (object.equals(((FormQuanTriTaiKhoan) formQuanTri).btnChucNang)) {
 				FormQuanTriTaiKhoan formQuanTriTaiKhoan = (FormQuanTriTaiKhoan) formQuanTri;
-				
+
 				String maTaiKhoan = formQuanTriTaiKhoan.textFieldMaTaiKhoan.getText();
 				String tenTaiKhoan = formQuanTriTaiKhoan.textFieldTenTaiKhoan.getText();
 				String matKhau = new String(formQuanTriTaiKhoan.passwordField.getPassword());
@@ -57,16 +57,16 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng cập nhật tài khoản
 				if (formQuanTriTaiKhoan.rdbtnCapNhat.isSelected()) {
-					
+
 					// kiểm tra ràng buộc nhập liệu
 					List<String> thongBaoLoi = formQuanTriTaiKhoan.kiemTraRangBuocFormNhapLieu();
-					
+
 					// nếu có lỗi thì hiển thị thông báo lỗi
 					if (thongBaoLoi.size() > 0) {
 						formQuanTriTaiKhoan.thongBaoLoiNhapLieu(thongBaoLoi);
 						return;
 					}
-					
+
 					TaiKhoan taiKhoan = new TaiKhoan(Long.parseLong(maTaiKhoan), tenTaiKhoan, matKhau, trangThai);
 
 					try {
@@ -76,7 +76,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 					} catch (RemoteException e1) {
 						e1.printStackTrace();
 					}
-					
+
 				}
 
 			}
@@ -100,12 +100,21 @@ public class MouseControllerFormQuanTri implements MouseListener {
 			if (object.equals(((FormQuanTriSanPham) formQuanTri).btnChucNang)) {
 				FormQuanTriSanPham formQuanTriSanPham = (FormQuanTriSanPham) formQuanTri;
 
+				String maSanPham = formQuanTriSanPham.txtMaSP.getText();
+				String tenSanPham = formQuanTriSanPham.txtTenSP.getText();
+				String giaSanPham = formQuanTriSanPham.txtGiaSP.getText();
+				LoaiSanPham loaiSanPham = (LoaiSanPham) formQuanTriSanPham.comboBoxLoaiSanPham.getSelectedItem();
+
 				// chức năng thêm sản phẩm
 				if (formQuanTriSanPham.rdbtnThem.isSelected()) {
 
-					String tenSanPham = formQuanTriSanPham.txtTenSP.getText();
-					String giaSanPham = formQuanTriSanPham.txtGiaSP.getText();
-					LoaiSanPham loaiSanPham = (LoaiSanPham) formQuanTriSanPham.comboBoxLoaiSanPham.getSelectedItem();
+					List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
+
+					if (thongBaoLoi.size() > 0) {
+						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+						return;
+					}
+
 					SanPham sanPham = new SanPham(tenSanPham, Float.parseFloat(giaSanPham));
 
 					try {
@@ -120,10 +129,18 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng cập nhật sản phẩm
 				if (formQuanTriSanPham.rdbtnCapNhat.isSelected()) {
-					String maSanPham = formQuanTriSanPham.txtMaSP.getText();
-					String tenSanPham = formQuanTriSanPham.txtTenSP.getText();
-					String giaSanPham = formQuanTriSanPham.txtGiaSP.getText();
-					LoaiSanPham loaiSanPham = (LoaiSanPham) formQuanTriSanPham.comboBoxLoaiSanPham.getSelectedItem();
+
+					List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
+					
+					if(maSanPham.equals("")) {
+						thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần cập nhật");
+					}
+					
+					if (thongBaoLoi.size() > 0) {
+						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+						return;
+					}
+
 					SanPham sanPham = new SanPham(Long.parseLong(maSanPham), tenSanPham, Float.parseFloat(giaSanPham));
 
 					try {
@@ -137,7 +154,18 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng xóa sản phẩm
 				if (formQuanTriSanPham.rdbtnXoa.isSelected()) {
-					String maSanPham = formQuanTriSanPham.txtMaSP.getText();
+					
+					List<String> thongBaoLoi = new ArrayList<String>();
+					
+					if(maSanPham.equals("")) {
+						thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần xóa");
+					}
+					
+					if (thongBaoLoi.size() > 0) {
+						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+						return;
+					}
+
 					try {
 						ConnectServer.sanPhamInf.xoaSanPham(Long.parseLong(maSanPham));
 						formQuanTriSanPham.layDanhSachSanPham();
@@ -196,13 +224,13 @@ public class MouseControllerFormQuanTri implements MouseListener {
 				}
 				// chức năng cập nhật nhân viên
 				if (formQuanTriNhanVien.rdbtnCapNhat.isSelected()) {
-					
+
 					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
 
 					try {
 						// kiểm tra thông tin nhập liệu
 						List<String> thongBaoLoi = formQuanTriNhanVien.kienTraThongTinNhapLieu(2);
-						
+
 						// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
 						if (maNhanVien.equals("")) {
 							thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần cập nhật");
@@ -233,14 +261,14 @@ public class MouseControllerFormQuanTri implements MouseListener {
 				// chức năng xóa nhân viên
 				if (formQuanTriNhanVien.rdbtnXoa.isSelected()) {
 					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
-					
+
 					List<String> thongBaoLoi = new ArrayList<String>();
-					
+
 					// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
 					if (maNhanVien.equals("")) {
 						thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần xóa");
 					}
-					
+
 					// nếu có lỗi thì hiển thị thông báo lỗi
 					if (thongBaoLoi.size() > 0) {
 						formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);

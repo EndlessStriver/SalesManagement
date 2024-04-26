@@ -408,6 +408,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		
 		if (hoVaTen.equals("") || soDienThoai.equals("") || email.equals("") || diaChi.equals("")) {
 			thongBao.add("Vui lòng nhập đầy đủ thông tin");
+			return thongBao;
 		}
 		
 		if (!hoVaTen.matches(RANG_BUOC_HOVATEN)) {
