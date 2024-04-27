@@ -27,7 +27,7 @@ public class FormTimKiemHoaDon extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldMaHoaDon;
-	private JTextField textFieldMaNhanVien;
+	public JTextField textFieldMaNhanVien;
 	private JPanel myView;
 
 	/**
@@ -133,6 +133,13 @@ public class FormTimKiemHoaDon extends JDialog {
 		contentPanel.add(btnTimKiem);
 
 		JButton btnTimNhanVien = new JButton("Tìm");
+		btnTimNhanVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(FormTimKiemHoaDon.this);
+				formTimKiemNhanVien.setVisible(true);
+			}
+		});
 		btnTimNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimNhanVien.setBounds(310, 51, 58, 29);
 		contentPanel.add(btnTimNhanVien);

@@ -21,6 +21,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -33,7 +34,7 @@ public class FormTimKiemNhanVien extends JDialog {
 	private JTextField textFieldMaNhanVien;
 	private JTextField textFieldHoVaTen;
 	private JTextField textFieldSoDienThoai;
-	private JPanel viewShow;
+	public Component viewShow;
 	private JRadioButton rdbtnNam;
 	private JRadioButton rdbtnNu;
 
@@ -53,7 +54,7 @@ public class FormTimKiemNhanVien extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormTimKiemNhanVien(JPanel viewShow1) {
+	public FormTimKiemNhanVien(Component viewShow1) {
 		viewShow = viewShow1;
 		setModal(true);
 		setBounds(100, 100, 329, 300);
@@ -139,6 +140,13 @@ public class FormTimKiemNhanVien extends JDialog {
 						if(viewShow instanceof FormQuanTriNhanVien) {
 							((FormQuanTriNhanVien) viewShow).hienThiDanhSachTimKiemNhanVien(danhSachNhanVien);
                             dispose();
+						}
+						
+						if(viewShow instanceof FormTimKiemHoaDon) {
+							FormTimKiemHoaDon formTimKiemHoaDon = (FormTimKiemHoaDon) viewShow;
+							dispose();
+							FormTimNhanVienHoaDon formTimNhanVienHoaDon = new FormTimNhanVienHoaDon(formTimKiemHoaDon, danhSachNhanVien);
+							formTimNhanVienHoaDon.setVisible(true);
 						}
 					} catch (RemoteException e1) {
 						e1.printStackTrace();
