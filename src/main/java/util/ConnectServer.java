@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import dao.HoaDonInf;
 import dao.LoaiSanPhamInf;
 import dao.NhanVienInf;
 import dao.QuyenInf;
@@ -20,6 +21,7 @@ public class ConnectServer {
 	public static TaiKhoanInf taiKhoanInf;
 	public static SanPhamInf sanPhamInf;
 	public static LoaiSanPhamInf loaiSanPhamInf;
+	public static HoaDonInf hoaDonInf;
 
 	public ConnectServer() throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry(SERVER_IP, SERVER_PORT);
@@ -29,6 +31,7 @@ public class ConnectServer {
 		taiKhoanInf = (TaiKhoanInf) registry.lookup("taiKhoanInf");
 		sanPhamInf = (SanPhamInf) registry.lookup("sanPhamInf");
 		loaiSanPhamInf = (LoaiSanPhamInf) registry.lookup("loaiSanPhamInf");
+		hoaDonInf = (HoaDonInf) registry.lookup("hoaDonInf");
 		
 	}
 	

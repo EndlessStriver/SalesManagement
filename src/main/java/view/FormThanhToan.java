@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,10 @@ import javax.swing.table.TableColumn;
 
 import item.FormTimKiemSanPham;
 import model.ChiTietHoaDon;
+import model.HoaDon;
+import model.NhanVien;
 import model.SanPham;
+import util.ConnectServer;
 
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -30,6 +34,8 @@ public class FormThanhToan extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable tableChiTietHoaDon;
 	public JLabel lblThanhTien;
+	private JLabel txtMaNhanVien;
+	private JLabel txtNgayLap;
 
 	/**
 	 * Create the panel.
@@ -81,15 +87,15 @@ public class FormThanhToan extends JPanel {
 		lblMaSP.setBounds(10, 55, 108, 27);
 		panel_1.add(lblMaSP);
 
-		JLabel txtMaSP_1_1_2 = new JLabel("__________");
-		txtMaSP_1_1_2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtMaSP_1_1_2.setBounds(160, 55, 96, 26);
-		panel_1.add(txtMaSP_1_1_2);
+		txtMaNhanVien = new JLabel("__________");
+		txtMaNhanVien.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtMaNhanVien.setBounds(160, 55, 96, 26);
+		panel_1.add(txtMaNhanVien);
 
-		JLabel txtMaSP_1_1_1 = new JLabel("__________");
-		txtMaSP_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtMaSP_1_1_1.setBounds(160, 93, 96, 26);
-		panel_1.add(txtMaSP_1_1_1);
+		txtNgayLap = new JLabel("__________");
+		txtNgayLap.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtNgayLap.setBounds(160, 93, 96, 26);
+		panel_1.add(txtNgayLap);
 
 		JLabel lblTnSanPhm = new JLabel("Ngày lập");
 		lblTnSanPhm.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
@@ -136,6 +142,34 @@ public class FormThanhToan extends JPanel {
 		add(btnThemSanPham);
 
 		JButton btnThanhToan_1 = new JButton("THANH TOÁN");
+		btnThanhToan_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
+				
+				DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
+				
+				for (int i = 0; i < model.getRowCount(); i++) {
+					SanPham sanPham = (SanPham) model.getValueAt(i, 0);
+					int soLuong = (int) model.getValueAt(i, 3);
+					float tongTien = (float) model.getValueAt(i, 5);
+					
+					ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(soLuong, sanPham);
+					dsChiTietHoaDon.add(chiTietHoaDon);
+				}
+				
+				try {
+					
+					ConnectServer.hoaDonInf.taoHoaDon(dsChiTietHoaDon, Long.parseLong(txtMaNhanVien.getText()));
+					DefaultTableModel model1 = (DefaultTableModel) tableChiTietHoaDon.getModel();
+					lamMoi();
+					
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btnThanhToan_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		btnThanhToan_1.setBounds(800, 635, 310, 53);
 		add(btnThanhToan_1);
@@ -154,7 +188,8 @@ public class FormThanhToan extends JPanel {
 		btnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnXoa.setBounds(707, 26, 83, 26);
 		add(btnXoa);
-
+		
+		lamMoi();
 	}
 
 	public void themChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
@@ -172,5 +207,16 @@ public class FormThanhToan extends JPanel {
 			tongTien += (float) model.getValueAt(i, 5);
 		}
 		lblThanhTien.setText(tongTien + " VND");
+	}
+	
+	public void lamMoi() {
+		DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
+		
+		model.setRowCount(0);
+		capNhatThanhTien();
+		txtMaNhanVien.setText(1+"");
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		txtNgayLap.setText(dateFormat.format(new Date()));
 	}
 }
