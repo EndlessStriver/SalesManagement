@@ -16,6 +16,8 @@ import view.FormThanhToan;
 import view.FormTraCuuSanPham;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -103,6 +105,12 @@ public class FormTimKiemSanPham extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if (myView instanceof FormTraCuuSanPham) {
 						FormTraCuuSanPham formTraCuuSanPham = (FormTraCuuSanPham) myView;
+						
+						if(!textFieldMaSanPham.getText().matches("^[0-9]*$")) {
+							JOptionPane.showMessageDialog(null, "Mã sản phẩm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						
 						try {
 							List<SanPham> dsSanPham = ConnectServer.sanPhamInf.timKiemSanPham(textFieldMaSanPham.getText(), 
 									textFieldTenSanPham.getText(), 

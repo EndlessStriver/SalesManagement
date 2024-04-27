@@ -17,6 +17,8 @@ import view.FormTraCuuNhanVien;
 import view.FormTraCuuThongTin;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -128,6 +130,12 @@ public class FormTimKiemNhanVien extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
 					try {
+						
+						if(!textFieldMaNhanVien.getText().matches("^[0-9]*$")) {
+							JOptionPane.showMessageDialog(null, "Mã nhân viên không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						
 						List<NhanVien> danhSachNhanVien = nhanVienInf.timKiemNhanVien(textFieldMaNhanVien.getText(),
 								textFieldHoVaTen.getText(), textFieldSoDienThoai.getText(),
 								rdbtnNam.isSelected() ? "Nam" : rdbtnNu.isSelected() ? "Nữ" : "");

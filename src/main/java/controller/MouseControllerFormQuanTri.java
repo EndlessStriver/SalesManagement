@@ -45,9 +45,11 @@ public class MouseControllerFormQuanTri implements MouseListener {
 		}
 
 		if (formQuanTri instanceof FormQuanTriTaiKhoan) {
-
+			
+			FormQuanTriTaiKhoan formQuanTriTaiKhoan = (FormQuanTriTaiKhoan) formQuanTri;
+			
+			// các chức năng crud tài khoản
 			if (object.equals(((FormQuanTriTaiKhoan) formQuanTri).btnChucNang)) {
-				FormQuanTriTaiKhoan formQuanTriTaiKhoan = (FormQuanTriTaiKhoan) formQuanTri;
 
 				String maTaiKhoan = formQuanTriTaiKhoan.textFieldMaTaiKhoan.getText();
 				String tenTaiKhoan = formQuanTriTaiKhoan.textFieldTenTaiKhoan.getText();
@@ -79,6 +81,12 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				}
 
+			}
+			
+			// chức năng tìm kiếm tài khoản
+			if (object.equals(((FormQuanTriTaiKhoan) formQuanTri).btnTimKiem)) {
+				FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formQuanTriTaiKhoan);
+				formTimKiemNhanVien.setVisible(true);
 			}
 
 		}

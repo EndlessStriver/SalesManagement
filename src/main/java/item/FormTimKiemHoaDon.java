@@ -7,6 +7,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
@@ -91,14 +93,26 @@ public class FormTimKiemHoaDon extends JDialog {
 		JButton btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String maHoaDon = textFieldMaHoaDon.getText();
+				
+				if(!maHoaDon.matches("^[0-9]*$")) {
+					JOptionPane.showMessageDialog(null, "Mã hóa đơn không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				String maNhanVien = textFieldMaNhanVien.getText();
+				
+				if(!maNhanVien.matches("^[0-9]*$")) {
+					JOptionPane.showMessageDialog(null, "Mã nhân viên không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				Date ngayLap = dateChooserNgayLap.getDate();
 
 				if (myView instanceof FormTraCuuHoaDon) {
 					
 					FormTraCuuHoaDon formTraCuuHoaDon = (FormTraCuuHoaDon) FormTimKiemHoaDon.this.myView;
-					
-					String maHoaDon = textFieldMaHoaDon.getText();
-					String maNhanVien = textFieldMaNhanVien.getText();
-					Date ngayLap = dateChooserNgayLap.getDate();
 
 					try {
 						List<HoaDon> listHoaDon = ConnectServer.hoaDonInf.timKiemHoaDon(maHoaDon, maNhanVien, ngayLap);
@@ -112,10 +126,6 @@ public class FormTimKiemHoaDon extends JDialog {
 				if(myView instanceof FormQuanTriHoaDon) {
 
 					FormQuanTriHoaDon formQuanTriHoaDon = (FormQuanTriHoaDon) FormTimKiemHoaDon.this.myView;
-
-					String maHoaDon = textFieldMaHoaDon.getText();
-					String maNhanVien = textFieldMaNhanVien.getText();
-					Date ngayLap = dateChooserNgayLap.getDate();
 
 					try {
 						List<HoaDon> listHoaDon = ConnectServer.hoaDonInf.timKiemHoaDon(maHoaDon, maNhanVien, ngayLap);
