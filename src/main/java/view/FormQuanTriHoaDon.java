@@ -51,7 +51,8 @@ public class FormQuanTriHoaDon extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @throws RemoteException 
+	 * 
+	 * @throws RemoteException
 	 */
 	public FormQuanTriHoaDon() throws RemoteException {
 		controllerFormQuanTriHoaDon = new MouseControllerFormQuanTriHoaDon(this);
@@ -174,16 +175,16 @@ public class FormQuanTriHoaDon extends JPanel {
 		tableHoaDon.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã hóa đơn", "Mã nhân viên", "Ngày lập", "Tổng tiền" }));
 		tableHoaDon.addMouseListener(controllerFormQuanTriHoaDon);
-		
+
 		ListSelectionModel selectionListener = tableHoaDon.getSelectionModel();
 		selectionListener.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!selectionListener.isSelectionEmpty()) {
-					
+
 					int row = tableHoaDon.getSelectedRow();
-					
+
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-					
+
 					try {
 						txtMaHoaDon.setText(tableHoaDon.getValueAt(row, 0).toString());
 						txtTenNhanVien.setText(tableHoaDon.getValueAt(row, 1).toString());
@@ -192,11 +193,11 @@ public class FormQuanTriHoaDon extends JPanel {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					
+
 				}
 			}
 		});
-		
+
 		JScrollPane scrollPane = new JScrollPane(tableHoaDon);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
@@ -206,7 +207,7 @@ public class FormQuanTriHoaDon extends JPanel {
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
-		
+
 		JButton btnLamMoi = new JButton("Làm mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -243,12 +244,23 @@ public class FormQuanTriHoaDon extends JPanel {
 					formatter.format(hoaDon.getNgayLap()), dinhDangTienTe(hoaDon.getTongTien()) });
 		}
 	}
-	
+
 	// Định dạng tiền tệ
-		public String dinhDangTienTe(float money) {
-			Locale localeVN = new Locale("vi", "VN");
-	        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-	        String strCurrencyVN = currencyVN.format(money);
-	        return strCurrencyVN;
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String strCurrencyVN = currencyVN.format(money);
+		return strCurrencyVN;
+	}
+
+	// Hiển thị danh sách hóa đơn tìm kiếm
+	public void hienThiDanhSachTimKiemHoaDon(List<HoaDon> dsHoaDon) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		DefaultTableModel model = (DefaultTableModel) tableHoaDon.getModel();
+		model.setRowCount(0);
+		for (HoaDon hoaDon : dsHoaDon) {
+			model.addRow(new Object[] { hoaDon.getMaHoaDon(), hoaDon.getNhanVien(),
+					formatter.format(hoaDon.getNgayLap()), dinhDangTienTe(hoaDon.getTongTien()) });
 		}
+	}
 }

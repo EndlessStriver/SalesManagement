@@ -61,7 +61,7 @@ public class MouseControllerFormTraCuuThongTin implements MouseListener {
 		if(formTraCuuThongTin instanceof FormTraCuuHoaDon) {
 			
 			if (object.equals(((FormTraCuuHoaDon) formTraCuuThongTin).btnTimKiemHoaDon)) {
-				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon();
+				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon(formTraCuuThongTin);
 				formTimKiemHoaDon.setVisible(true);
 			}
 		}

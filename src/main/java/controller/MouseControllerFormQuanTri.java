@@ -38,7 +38,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 		if (formQuanTri instanceof FormQuanTriHoaDon) {
 
 			if (object.equals(((FormQuanTriHoaDon) formQuanTri).btnTimKiem)) {
-				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon();
+				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon(formQuanTri);
 				formTimKiemHoaDon.setVisible(true);
 			}
 
