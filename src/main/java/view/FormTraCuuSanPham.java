@@ -69,7 +69,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldMaSanPham = new JTextField();
 		textFieldMaSanPham.setEditable(false);
-		textFieldMaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldMaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldMaSanPham.setColumns(10);
 		textFieldMaSanPham.setBounds(114, 79, 186, 29);
 		panel.add(textFieldMaSanPham);
@@ -81,7 +81,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldTenSanPham = new JTextField();
 		textFieldTenSanPham.setEditable(false);
-		textFieldTenSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldTenSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldTenSanPham.setColumns(10);
 		textFieldTenSanPham.setBounds(114, 119, 186, 29);
 		panel.add(textFieldTenSanPham);
@@ -93,7 +93,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldGiaSanPham = new JTextField();
 		textFieldGiaSanPham.setEditable(false);
-		textFieldGiaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldGiaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldGiaSanPham.setColumns(10);
 		textFieldGiaSanPham.setBounds(114, 199, 186, 29);
 		panel.add(textFieldGiaSanPham);
@@ -104,7 +104,7 @@ public class FormTraCuuSanPham extends JPanel {
 		panel.add(lblGiaSanPhm);
 
 		comboBoxLoaiSanPham = new JComboBox<LoaiSanPham>();
-		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(114, 159, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
 

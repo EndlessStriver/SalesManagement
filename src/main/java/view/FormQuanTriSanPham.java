@@ -78,7 +78,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtMaSP.setEnabled(false);
 		txtMaSP.setBounds(117, 73, 186, 29);
 		panel.add(txtMaSP);
-		txtMaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		txtMaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		txtMaSP.setColumns(10);
 
 		JLabel lblTenSP = new JLabel("Tên Sản Phẩm");
@@ -90,7 +90,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtTenSP.setEditable(false);
 		txtTenSP.setBounds(117, 113, 186, 29);
 		panel.add(txtTenSP);
-		txtTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		txtTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		txtTenSP.setColumns(10);
 
 		JLabel lblGiaSP = new JLabel("Giá Sản Phẩm");
@@ -102,7 +102,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtGiaSP.setEditable(false);
 		txtGiaSP.setBounds(117, 153, 186, 29);
 		panel.add(txtGiaSP);
-		txtGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		txtGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		txtGiaSP.setColumns(10);
 
 		JLabel lblLoaiSP = new JLabel("Loại Sản Phẩm");

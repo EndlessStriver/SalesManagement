@@ -72,7 +72,7 @@ public class FormTraCuuNhanVien extends JPanel {
 
 		textFieldMaNhanVien = new JTextField();
 		textFieldMaNhanVien.setEditable(false);
-		textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldMaNhanVien.setColumns(10);
 		textFieldMaNhanVien.setBounds(114, 85, 186, 29);
 		panel.add(textFieldMaNhanVien);
@@ -84,7 +84,7 @@ public class FormTraCuuNhanVien extends JPanel {
 
 		textFieldHoVaTen = new JTextField();
 		textFieldHoVaTen.setEditable(false);
-		textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldHoVaTen.setColumns(10);
 		textFieldHoVaTen.setBounds(114, 125, 186, 29);
 		panel.add(textFieldHoVaTen);
@@ -96,7 +96,7 @@ public class FormTraCuuNhanVien extends JPanel {
 
 		textFieldSoDienThoai = new JTextField();
 		textFieldSoDienThoai.setEditable(false);
-		textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldSoDienThoai.setColumns(10);
 		textFieldSoDienThoai.setBounds(114, 165, 186, 29);
 		panel.add(textFieldSoDienThoai);
