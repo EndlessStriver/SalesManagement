@@ -29,16 +29,15 @@ import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FormQuanTriNhanVien extends JPanel{
+public class FormQuanTriNhanVien extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String RANG_BUOC_HOVATEN = "^[a-zA-Z\\s]*$";
 	public static final String RANG_BUOC_SO_DIEN_THOAI_THEM = "^0[0-9]{9,9}$";
 	public static final String RANG_BUOC_SO_DIEN_THOAI_TIM_KIEM = "^[0-9]*$";
 	public static final String RANG_BUOC_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
-	
-	
+
 	public JTextField textFieldMaNhanVien;
 	public JTextField textFieldHoVaTen;
 	public JTextField textFieldSoDienThoai;
@@ -176,10 +175,10 @@ public class FormQuanTriNhanVien extends JPanel{
 		panel_3.add(rdbtnThem);
 		rdbtnThem.setBackground(new Color(255, 255, 255));
 		rdbtnThem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnThem.addItemListener(e -> {
 			if (rdbtnThem.isSelected()) {
-				
+
 				textFieldMaNhanVien.setText("");
 				textFieldHoVaTen.setText("");
 				textFieldSoDienThoai.setText("");
@@ -187,14 +186,14 @@ public class FormQuanTriNhanVien extends JPanel{
 				textFieldDiaChi.setText("");
 				btnChucNang.setText("Thêm");
 				btnChucNang.setEnabled(true);
-				
+
 				textFieldHoVaTen.setEditable(true);
 				textFieldSoDienThoai.setEditable(true);
 				textFieldEmail.setEditable(true);
 				textFieldDiaChi.setEditable(true);
 				rdbtnNam.setEnabled(true);
 				rdbtnNu.setEnabled(true);
-				
+
 			}
 		});
 
@@ -202,13 +201,13 @@ public class FormQuanTriNhanVien extends JPanel{
 		panel_3.add(rdbtnCapNhat);
 		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
 		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnCapNhat.addItemListener(e -> {
 			if (rdbtnCapNhat.isSelected()) {
-				
+
 				btnChucNang.setText("Cập nhật");
 				btnChucNang.setEnabled(true);
-				
+
 				textFieldHoVaTen.setEditable(true);
 				textFieldSoDienThoai.setEditable(true);
 				textFieldEmail.setEditable(true);
@@ -222,20 +221,20 @@ public class FormQuanTriNhanVien extends JPanel{
 		panel_3.add(rdbtnXoa);
 		rdbtnXoa.setBackground(new Color(255, 255, 255));
 		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnXoa.addItemListener(e -> {
 			if (rdbtnXoa.isSelected()) {
-				
+
 				btnChucNang.setText("Xóa");
 				btnChucNang.setEnabled(true);
-				
+
 				textFieldHoVaTen.setEditable(false);
 				textFieldSoDienThoai.setEditable(false);
 				textFieldEmail.setEditable(false);
 				textFieldDiaChi.setEditable(false);
 				rdbtnNam.setEnabled(false);
 				rdbtnNu.setEnabled(false);
-				
+
 			}
 		});
 
@@ -255,7 +254,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblThngTinNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblThngTinNhn.setBounds(56, 29, 201, 30);
 		panel.add(lblThngTinNhn);
-		
+
 		JButton btnLamMoiForm = new JButton("Làm Mới");
 		btnLamMoiForm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -277,27 +276,34 @@ public class FormQuanTriNhanVien extends JPanel{
 		lblDanhSachNhn.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachNhn);
 
-		tableNhanVien = new JTable();
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] { "Mã nhân viên",
+				"Họ và tên", "Số điện thoại", "Email", "Địa chỉ", "Giới tính" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// Tất cả các ô không thể chỉnh sửa
+				return false;
+			}
+		};
+
+		tableNhanVien = new JTable(model);
 		tableNhanVien.setRowHeight(25);
 		tableNhanVien.setForeground(new Color(0, 0, 0));
-		tableNhanVien.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Mã nhân viên", "Họ và tên",
-				"Số điện thoại", "Email", "Địa chỉ", "Giới tính" }));
 
 		ListSelectionModel selectionModel = tableNhanVien.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					int selectedRow = tableNhanVien.getSelectedRow();
-					
-					if(selectedRow != -1) {
-						
+
+					if (selectedRow != -1) {
+
 						String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
 						String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
 						String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
 						String email = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
 						String diaChi = String.valueOf(tableNhanVien.getValueAt(selectedRow, 4));
 						String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 5));
-						
+
 						textFieldMaNhanVien.setText(maNhanVien);
 						textFieldHoVaTen.setText(hoVaTen);
 						textFieldSoDienThoai.setText(soDienThoai);
@@ -305,9 +311,9 @@ public class FormQuanTriNhanVien extends JPanel{
 						textFieldDiaChi.setText(diaChi);
 						rdbtnNam.setSelected(gioiTinh.equals("Nam"));
 						rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
-						
+
 					}
-					
+
 				}
 			}
 		});
@@ -321,7 +327,7 @@ public class FormQuanTriNhanVien extends JPanel{
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
-		
+
 		JButton btnLamMoi = new JButton("Làm Mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -338,22 +344,22 @@ public class FormQuanTriNhanVien extends JPanel{
 		panel_2.add(btnLamMoi);
 		layDanhSachNhanVien();
 	}
-	
+
 	// lấy danh sách nhân viên
 	public void layDanhSachNhanVien() throws RemoteException {
 
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
-		
+
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 		model.setRowCount(0);
-		
+
 		for (NhanVien nhanVien : danhSachNhanVien) {
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
 					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 
 	}
-	
+
 	// hiển thị danh sách tìm kiếm nhân viên
 	public void hienThiDanhSachTimKiemNhanVien(List<NhanVien> danhSachNhanVien) {
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
@@ -362,37 +368,37 @@ public class FormQuanTriNhanVien extends JPanel{
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
 					nhanVien.getGmail(), nhanVien.getDiaChi(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
-		
+
 	}
-	
+
 	// làm mới form
 	public void lamMoiForm() {
 		textFieldMaNhanVien.setText("");
-        textFieldHoVaTen.setText("");
-        textFieldSoDienThoai.setText("");
-        textFieldEmail.setText("");
-        textFieldDiaChi.setText("");
-        rdbtnNam.setSelected(true);
-        rdbtnNu.setSelected(false);
-        
-        textFieldHoVaTen.setEditable(false);
-        textFieldSoDienThoai.setEditable(false);
-        textFieldEmail.setEditable(false);
-        textFieldDiaChi.setEditable(false);
-        rdbtnNam.setEnabled(false);
-        rdbtnNu.setEnabled(false);
-        btnChucNang.setEnabled(false);
-        btnChucNang.setText("................................");
-        buttonGroupFunction.clearSelection();
+		textFieldHoVaTen.setText("");
+		textFieldSoDienThoai.setText("");
+		textFieldEmail.setText("");
+		textFieldDiaChi.setText("");
+		rdbtnNam.setSelected(true);
+		rdbtnNu.setSelected(false);
+
+		textFieldHoVaTen.setEditable(false);
+		textFieldSoDienThoai.setEditable(false);
+		textFieldEmail.setEditable(false);
+		textFieldDiaChi.setEditable(false);
+		rdbtnNam.setEnabled(false);
+		rdbtnNu.setEnabled(false);
+		btnChucNang.setEnabled(false);
+		btnChucNang.setText("................................");
+		buttonGroupFunction.clearSelection();
 
 	}
-	
+
 	// hiển thị thông báo lỗi nhập liệu
 	public void thongBaoLoiNhapLieu(List<String> thongBao) {
 		String thongBaoLoi = thongBao.get(0);
-		JOptionPane.showMessageDialog(null,  thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	// kiểm tra thông tin nhập liệu
 	public List<String> kienTraThongTinNhapLieu(int type) throws RemoteException {
 //		String maNhanVien = textFieldMaNhanVien.getText();
@@ -401,26 +407,26 @@ public class FormQuanTriNhanVien extends JPanel{
 		String email = textFieldEmail.getText();
 		String diaChi = textFieldDiaChi.getText();
 //		boolean gioiTinh = rdbtnNam.isSelected();
-		
+
 		List<String> thongBao = new ArrayList<>();
-		
+
 		if (hoVaTen.equals("") || soDienThoai.equals("") || email.equals("") || diaChi.equals("")) {
 			thongBao.add("Vui lòng nhập đầy đủ thông tin");
 			return thongBao;
 		}
-		
+
 		if (!hoVaTen.matches(RANG_BUOC_HOVATEN)) {
 			thongBao.add("Họ và tên không hợp lệ");
 		}
-		
+
 		if (!soDienThoai.matches(RANG_BUOC_SO_DIEN_THOAI_THEM)) {
 			thongBao.add("Số điện thoại không hợp lệ");
 		}
-		
+
 		if (!email.matches(RANG_BUOC_EMAIL)) {
 			thongBao.add("Email không hợp lệ");
 		}
-		
+
 		if (type == 1) {
 			if (kiemTraSoDienThoaiTonTai(soDienThoai)) {
 				thongBao.add("Số điện thoại đã tồn tại");
@@ -430,11 +436,11 @@ public class FormQuanTriNhanVien extends JPanel{
 				thongBao.add("Email đã tồn tại");
 			}
 		}
-		
+
 		return thongBao;
 
 	}
-	
+
 	// kiểm tra số điện thoại đã tồn tại
 	public boolean kiemTraSoDienThoaiTonTai(String soDienThoai) throws RemoteException {
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
@@ -442,11 +448,11 @@ public class FormQuanTriNhanVien extends JPanel{
 			if (nhanVien.getSoDienThoai().equals(soDienThoai)) {
 				return true;
 			}
-			
+
 		}
 		return false;
 	}
-	
+
 	// kiểm tra email đã tồn tại
 	public boolean kiemTraEmailDaTonTai(String email) throws RemoteException {
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
@@ -454,7 +460,7 @@ public class FormQuanTriNhanVien extends JPanel{
 			if (nhanVien.getGmail().equals(email)) {
 				return true;
 			}
-			
+
 		}
 		return false;
 	}

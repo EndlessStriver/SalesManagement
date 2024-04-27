@@ -36,12 +36,12 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FormQuanTriTaiKhoan extends JPanel{
+public class FormQuanTriTaiKhoan extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String RANG_BUOC_MAT_KHAU = "[a-zA-Z0-9]{8,}$";
-	
+
 	public JTextField textFieldTenTaiKhoan;
 	private JTable tableTaiKhoan;
 	public JPasswordField passwordField;
@@ -136,20 +136,20 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		panel_3.add(rdbtnCapNhat);
 		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
 		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		
+
 		rdbtnCapNhat.addItemListener(e -> {
-			
+
 			if (rdbtnCapNhat.isSelected()) {
-				
+
 				btnChucNang.setText("Cập nhật");
 				btnChucNang.setEnabled(true);
 				passwordField.setEditable(true);
 				comboBoxQuyenHan.setEnabled(true);
 				rdbtnKichHoat.setEnabled(true);
 				rdbtnTat.setEnabled(true);
-				
+
 			}
-			
+
 		});
 
 		JLabel lblThngTinTai = new JLabel("Thông Tin Tài Khoản");
@@ -168,25 +168,25 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		comboBoxQuyenHan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		comboBoxQuyenHan.setBounds(117, 207, 186, 29);
 		panel.add(comboBoxQuyenHan);
-		
+
 		btnChucNang = new JButton("................................");
 		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnChucNang.setEnabled(false);
 		btnChucNang.setBounds(13, 339, 290, 39);
 		panel.add(btnChucNang);
-		
+
 		JLabel lblMTiKhon = new JLabel("Mã tài khoản");
 		lblMTiKhon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		lblMTiKhon.setBounds(13, 87, 94, 29);
 		panel.add(lblMTiKhon);
-		
+
 		textFieldMaTaiKhoan = new JTextField();
 		textFieldMaTaiKhoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		textFieldMaTaiKhoan.setEditable(false);
 		textFieldMaTaiKhoan.setColumns(10);
 		textFieldMaTaiKhoan.setBounds(117, 87, 186, 29);
 		panel.add(textFieldMaTaiKhoan);
-		
+
 		JButton btnLamMoiForm = new JButton("Làm mới");
 		btnLamMoiForm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnLamMoiForm.setBounds(214, 305, 89, 23);
 		panel.add(btnLamMoiForm);
-		
+
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
 		JPanel panel_2 = new JPanel();
@@ -210,30 +210,37 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		lblDanhSachNhn.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachNhn);
 
-		tableTaiKhoan = new JTable();
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+				new String[] { "Mã tài khoản", "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// All cells are not editable
+				return false;
+			}
+		};
+
+		tableTaiKhoan = new JTable(model);
 		tableTaiKhoan.setRowHeight(25);
 		tableTaiKhoan.setForeground(new Color(0, 0, 0));
-		tableTaiKhoan.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Mã tài khoản", "Tên tài khoản", "Mật khẩu", "Quyền hạn", "Trạng thái" }));
 
 		ListSelectionModel selectionModel = tableTaiKhoan.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					int selectedRow = tableTaiKhoan.getSelectedRow();
-					
+
 					if (selectedRow >= 0) {
 						String maTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 0));
 						String tenTaiKhoan = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 1));
 						String matKhau = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 2));
 						Quyen quyenHan = (Quyen) tableTaiKhoan.getValueAt(selectedRow, 3);
 						String trangThai = String.valueOf(tableTaiKhoan.getValueAt(selectedRow, 4));
-						
+
 						textFieldMaTaiKhoan.setText(maTaiKhoan);
 						textFieldTenTaiKhoan.setText(tenTaiKhoan);
 						passwordField.setText(matKhau);
 						comboBoxQuyenHan.setSelectedItem(quyenHan);
-						
+
 						if (trangThai.equals("Kích hoạt")) {
 							rdbtnKichHoat.setSelected(true);
 						} else {
@@ -253,7 +260,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		btnTimKiem.setBounds(676, 6, 89, 23);
 		btnTimKiem.addMouseListener(mouseControllerFormQuanTri);
 		panel_2.add(btnTimKiem);
-		
+
 		JButton btnLamMoi = new JButton("Làm mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -272,6 +279,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		layDanhSachTaiKhoan();
 	}
 
+	// lấy danh sách quyền hạn
 	public void layDanhSachQuyenHan() throws RemoteException {
 		List<Quyen> danhSachQuyenHan = ConnectServer.quyenInf.layDanhSachQuyen();
 
@@ -280,6 +288,7 @@ public class FormQuanTriTaiKhoan extends JPanel{
 		}
 	}
 
+	// lấy danh sách tài khoản
 	public void layDanhSachTaiKhoan() throws RemoteException {
 		List<TaiKhoan> danhSachTaiKhoan = ConnectServer.taiKhoanInf.layDanhSachTaiKhoan();
 		DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
@@ -291,46 +300,47 @@ public class FormQuanTriTaiKhoan extends JPanel{
 
 	}
 
+	// hiển thị thông báo
 	public void lamMoiForm() {
 		textFieldMaTaiKhoan.setText("");
 		textFieldTenTaiKhoan.setText("");
 		passwordField.setText("");
 		comboBoxQuyenHan.setSelectedIndex(0);
 		rdbtnKichHoat.setSelected(true);
-		
+
 		btnChucNang.setEnabled(false);
 		btnChucNang.setText("................................");
-		
+
 		passwordField.setEditable(false);
 		comboBoxQuyenHan.setEnabled(false);
 		rdbtnKichHoat.setEnabled(false);
 		rdbtnTat.setEnabled(false);
 		rdbtnCapNhat.setSelected(false);
 	}
-	
+
 	// kiểm tra ràng buộc nhập liệu
 	public List<String> kiemTraRangBuocFormNhapLieu() {
-		
+
 		List<String> thongBaoLoi = new ArrayList<String>();
-		
+
 		if (textFieldMaTaiKhoan.getText().isEmpty()) {
 			thongBaoLoi.add("Vui lòng chọn tài khoản cần cập nhật");
 		}
-		
+
 		if (passwordField.getText().isEmpty()) {
 			thongBaoLoi.add("Vui lòng nhập đầy đủ thông tin");
 		}
-		
+
 		if (!passwordField.getText().matches(RANG_BUOC_MAT_KHAU)) {
 			thongBaoLoi.add("Mật khẩu phải có ít nhất 8 ký tự");
-        }
-		
+		}
+
 		return thongBaoLoi;
 	}
-	
+
 	// hiển thị thông báo lỗi nhập liệu
-		public void thongBaoLoiNhapLieu(List<String> thongBao) {
-			String thongBaoLoi = thongBao.get(0);
-			JOptionPane.showMessageDialog(null,  thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
-		}
+	public void thongBaoLoiNhapLieu(List<String> thongBao) {
+		String thongBaoLoi = thongBao.get(0);
+		JOptionPane.showMessageDialog(null, thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+	}
 }

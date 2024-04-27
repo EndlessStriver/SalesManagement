@@ -46,7 +46,8 @@ public class FormTraCuuNhanVien extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @throws RemoteException 
+	 * 
+	 * @throws RemoteException
 	 */
 	public FormTraCuuNhanVien() throws RemoteException {
 		controllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
@@ -137,34 +138,41 @@ public class FormTraCuuNhanVien extends JPanel {
 		lblDanhSachNhn.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachNhn);
 
-		tableNhanVien = new JTable();
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// Tất cả các ô không thể chỉnh sửa
+				return false;
+			}
+		};
+
+		tableNhanVien = new JTable(model);
 		tableNhanVien.setRowHeight(25);
 		tableNhanVien.setForeground(new Color(0, 0, 0));
-		tableNhanVien.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Mã nhân viên", "Họ và tên", "Số điện thoại", "Giới tính" }));
-		
+
 		ListSelectionModel selectionModel = tableNhanVien.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = tableNhanVien.getSelectedRow();
-                    
-                    if(selectedRow >= 0) {
-                    	
-                    	String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
-                    	String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
-                    	String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
-                    	String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
-                    	
-                    	textFieldMaNhanVien.setText(maNhanVien);
-                    	textFieldHoVaTen.setText(hoVaTen);
-                    	textFieldSoDienThoai.setText(soDienThoai);
-                    	rdbtnNam.setSelected(gioiTinh.equals("Nam"));
-                    	rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
-                    }
-                }
-            }
-        });
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					int selectedRow = tableNhanVien.getSelectedRow();
+
+					if (selectedRow >= 0) {
+
+						String maNhanVien = String.valueOf(tableNhanVien.getValueAt(selectedRow, 0));
+						String hoVaTen = String.valueOf(tableNhanVien.getValueAt(selectedRow, 1));
+						String soDienThoai = String.valueOf(tableNhanVien.getValueAt(selectedRow, 2));
+						String gioiTinh = String.valueOf(tableNhanVien.getValueAt(selectedRow, 3));
+
+						textFieldMaNhanVien.setText(maNhanVien);
+						textFieldHoVaTen.setText(hoVaTen);
+						textFieldSoDienThoai.setText(soDienThoai);
+						rdbtnNam.setSelected(gioiTinh.equals("Nam"));
+						rdbtnNu.setSelected(gioiTinh.equals("Nữ"));
+					}
+				}
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane(tableNhanVien);
 		scrollPane.setBounds(10, 41, 755, 554);
@@ -175,7 +183,7 @@ public class FormTraCuuNhanVien extends JPanel {
 		btnTimKiemNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiemNhanVien.setBounds(676, 6, 89, 23);
 		panel_2.add(btnTimKiemNhanVien);
-		
+
 		JButton btnLamMoi = new JButton("Làm Mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,7 +206,8 @@ public class FormTraCuuNhanVien extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
 		model.setRowCount(0);
 		for (NhanVien nhanVien : danhSachNhanVien) {
-			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
+			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
+					nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 	}
 
@@ -209,6 +218,6 @@ public class FormTraCuuNhanVien extends JPanel {
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
 					nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
-		
+
 	}
 }

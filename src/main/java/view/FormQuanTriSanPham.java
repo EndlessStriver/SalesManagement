@@ -225,11 +225,18 @@ public class FormQuanTriSanPham extends JPanel {
 		lblDanhSachSP.setBounds(10, 0, 168, 30);
 		panel_2.add(lblDanhSachSP);
 
-		tableSanPham = new JTable();
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+				new String[] { "Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// Tất cả các ô không thể chỉnh sửa
+				return false;
+			}
+		};
+
+		tableSanPham = new JTable(model);
 		tableSanPham.setRowHeight(25);
 		tableSanPham.setForeground(new Color(0, 0, 0));
-		tableSanPham.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại" }));
 
 		ListSelectionModel selectionModel = tableSanPham.getSelectionModel();
 		selectionModel.addListSelectionListener(new ListSelectionListener() {

@@ -64,14 +64,16 @@ public class FormThemSanPham extends JDialog {
 			contentPanel.add(lblDanhSchSn);
 		}
 		{
-			table = new JTable();
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại"
+			DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+					new String[] { "Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại" }) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					// Tất cả các ô không thể chỉnh sửa
+					return false;
 				}
-			));
+			};
+
+			table = new JTable(model);
 			JScrollPane scrollPane = new JScrollPane(table);
 			scrollPane.setBounds(10, 36, 615, 313);
 			contentPanel.add(scrollPane);
@@ -83,15 +85,15 @@ public class FormThemSanPham extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 					// hiển thị form nhập số lượng sản phẩm
-					String soSanPham = JOptionPane.showInputDialog(null, "Nhập số lượng sản phẩm:", "Số lượng:", JOptionPane.QUESTION_MESSAGE);
-					
+					String soSanPham = JOptionPane.showInputDialog(null, "Nhập số lượng sản phẩm:", "Số lượng:",
+							JOptionPane.QUESTION_MESSAGE);
+
 					// kiểm tra dữ liệu nhập vào
 					if (soSanPham == null) {
 						setVisible(true);
 						return;
 					}
-					
-					
+
 					// kiểm tra dữ liệu nhập vào
 					if (soSanPham.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng sản phẩm!", "Lỗi",
@@ -99,7 +101,7 @@ public class FormThemSanPham extends JDialog {
 						setVisible(true);
 						return;
 					}
-					
+
 					// kiểm tra dữ liệu nhập vào
 					if (!soSanPham.matches("[0-9]+")) {
 						JOptionPane.showMessageDialog(null, "Số lượng sản phẩm không hợp lệ!", "Lỗi",
@@ -107,22 +109,22 @@ public class FormThemSanPham extends JDialog {
 						setVisible(true);
 						return;
 					}
-					
+
 					// chuyển dữ liệu nhập vào thành kiểu số nguyên
 					int soLuong = Integer.parseInt(soSanPham);
-					
+
 					int selectedRow = table.getSelectedRow();
-					
+
 					long idSanPham = (long) table.getValueAt(selectedRow, 0);
 					String tenSanPham = (String) table.getValueAt(selectedRow, 1);
 					float giaSanPham = (float) table.getValueAt(selectedRow, 2);
 					LoaiSanPham loaiSanPham = (LoaiSanPham) table.getValueAt(selectedRow, 3);
-					
+
 					SanPham sanPham = new SanPham(idSanPham, tenSanPham, giaSanPham);
 					sanPham.setLoaiSanPham(loaiSanPham);
-					
+
 					ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(soLuong, sanPham);
-					
+
 					// thêm chi tiết hóa đơn vào table thanh toán
 					if (myView instanceof FormThanhToan) {
 						FormThanhToan formThanhToan = (FormThanhToan) myView;
@@ -148,13 +150,14 @@ public class FormThemSanPham extends JDialog {
 			loadTable();
 		}
 	}
-	
+
 	private void loadTable() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
-		
+
 		for (SanPham sp : dsSanPham) {
-			model.addRow(new Object[] { sp.getIdSanPham(), sp.getTenSanPham(), sp.getGiaSanPham(), sp.getLoaiSanPham() });
+			model.addRow(
+					new Object[] { sp.getIdSanPham(), sp.getTenSanPham(), sp.getGiaSanPham(), sp.getLoaiSanPham() });
 		}
 	}
 

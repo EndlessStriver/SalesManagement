@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -64,9 +65,18 @@ public class FormThanhToan extends JPanel {
 		lblChiTitHa_1.setBounds(603, 8, 167, 23);
 		panelTable.add(lblChiTitHa_1);
 
-		tableChiTietHoaDon = new JTable();
-		tableChiTietHoaDon.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền" }));
+		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
+				new String[] { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// chỉ có thể sủa cột số lượng
+				return column == 3;
+			}
+		};
+
+		tableChiTietHoaDon = new JTable(model);
+		tableChiTietHoaDon.setRowHeight(25);
+		tableChiTietHoaDon.setForeground(new Color(0, 0, 0));
 
 		JScrollPane scrollPane = new JScrollPane(tableChiTietHoaDon);
 		scrollPane.setBounds(10, 42, 760, 571);
@@ -115,9 +125,7 @@ public class FormThanhToan extends JPanel {
 		JButton btnLamMoi = new JButton("Làm mới");
 		btnLamMoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
-				model.setRowCount(0);
-				capNhatThanhTien();
+				lamMoi();
 			}
 		});
 		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -141,65 +149,97 @@ public class FormThanhToan extends JPanel {
 		btnThemSanPham.setBounds(578, 27, 119, 26);
 		add(btnThemSanPham);
 
-		JButton btnThanhToan_1 = new JButton("THANH TOÁN");
-		btnThanhToan_1.addActionListener(new ActionListener() {
+		JButton btnThanhToan = new JButton("THANH TOÁN");
+		btnThanhToan.setForeground(new Color(0, 0, 0));
+		btnThanhToan.setBackground(new Color(255, 255, 255));
+		btnThanhToan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
-				
+
 				DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
-				
-				for (int i = 0; i < model.getRowCount(); i++) {
-					SanPham sanPham = (SanPham) model.getValueAt(i, 0);
-					int soLuong = (int) model.getValueAt(i, 3);
-					float tongTien = (float) model.getValueAt(i, 5);
-					
-					ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(soLuong, sanPham);
-					dsChiTietHoaDon.add(chiTietHoaDon);
+
+				int rowCount = model.getRowCount();
+
+				if (rowCount == 0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần thanh toán", "Lỗi",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 				}
-				
-				try {
-					
-					ConnectServer.hoaDonInf.taoHoaDon(dsChiTietHoaDon, Long.parseLong(txtMaNhanVien.getText()));
-					DefaultTableModel model1 = (DefaultTableModel) tableChiTietHoaDon.getModel();
-					lamMoi();
-					
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+
+				int response = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh toán?", "Xác nhận thanh toán",
+						JOptionPane.YES_NO_OPTION);
+
+				if (response == JOptionPane.YES_OPTION) {
+					for (int i = 0; i < model.getRowCount(); i++) {
+						SanPham sanPham = (SanPham) model.getValueAt(i, 0);
+						int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
+
+						ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(soLuong, sanPham);
+						dsChiTietHoaDon.add(chiTietHoaDon);
+					}
+
+					try {
+
+						ConnectServer.hoaDonInf.taoHoaDon(dsChiTietHoaDon, Long.parseLong(txtMaNhanVien.getText()));
+						lamMoi();
+
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-				
+
 			}
 		});
-		btnThanhToan_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		btnThanhToan_1.setBounds(800, 635, 310, 53);
-		add(btnThanhToan_1);
+		btnThanhToan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnThanhToan.setBounds(800, 635, 310, 53);
+		add(btnThanhToan);
 
 		JButton btnXoa = new JButton("Xóa");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
 				int selectedRow = tableChiTietHoaDon.getSelectedRow();
-				if (selectedRow != -1) {
-					model.removeRow(selectedRow);
-					capNhatThanhTien();
+				if (selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần xóa", "Lỗi",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 				}
+				model.removeRow(selectedRow);
+				capNhatThanhTien();
 			}
 		});
 		btnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnXoa.setBounds(707, 26, 83, 26);
 		add(btnXoa);
-		
+
 		lamMoi();
 	}
 
+	// thêm chi tiết hóa đơn
 	public void themChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
+		SanPham sanPham = chiTietHoaDon.getSanPham();
 		DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
+		int rowCount = model.getRowCount();
 
-		model.addRow(new Object[] { chiTietHoaDon.getSanPham(),
-				chiTietHoaDon.getSanPham().getTenSanPham(), chiTietHoaDon.getSanPham().getLoaiSanPham(),
-				chiTietHoaDon.getSoLuong(), chiTietHoaDon.getSanPham().getGiaSanPham(), chiTietHoaDon.getTongTien() });
+		// kiểm tra sản phẩm đã tồn tại trong bảng chưa
+		for (int i = 0; i < rowCount; i++) {
+			// nếu sản phẩm đã tồn tại trong bảng thì cập nhật số lượng và tổng tiền
+			if (model.getValueAt(i, 0).equals(sanPham)) {
+				int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
+				model.setValueAt(soLuong + chiTietHoaDon.getSoLuong(), i, 3);
+				model.setValueAt((float) model.getValueAt(i, 4) * (soLuong + chiTietHoaDon.getSoLuong()), i, 5);
+				capNhatThanhTien();
+				return;
+			}
+		}
+
+		model.addRow(new Object[] { chiTietHoaDon.getSanPham(), chiTietHoaDon.getSanPham().getTenSanPham(),
+				chiTietHoaDon.getSanPham().getLoaiSanPham(), chiTietHoaDon.getSoLuong(),
+				chiTietHoaDon.getSanPham().getGiaSanPham(), chiTietHoaDon.getTongTien() });
 	}
-	
+
+	// cập nhật tổng tiền
 	public void capNhatThanhTien() {
 		DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
 		float tongTien = 0;
@@ -208,14 +248,15 @@ public class FormThanhToan extends JPanel {
 		}
 		lblThanhTien.setText(tongTien + " VND");
 	}
-	
+
+	// làm mới
 	public void lamMoi() {
 		DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
-		
+
 		model.setRowCount(0);
 		capNhatThanhTien();
-		txtMaNhanVien.setText(1+"");
-		
+		txtMaNhanVien.setText(1 + "");
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		txtNgayLap.setText(dateFormat.format(new Date()));
 	}
