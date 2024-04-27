@@ -12,6 +12,7 @@ import dao.NhanVienInf;
 import item.FormTimKiemHoaDon;
 import item.FormTimKiemNhanVien;
 import item.FormTimKiemSanPham;
+import item.FormTimKiemTaiKhoan;
 import model.LoaiSanPham;
 import model.NhanVien;
 import model.Quyen;
@@ -85,8 +86,15 @@ public class MouseControllerFormQuanTri implements MouseListener {
 			
 			// chức năng tìm kiếm tài khoản
 			if (object.equals(((FormQuanTriTaiKhoan) formQuanTri).btnTimKiem)) {
-				FormTimKiemNhanVien formTimKiemNhanVien = new FormTimKiemNhanVien(formQuanTriTaiKhoan);
-				formTimKiemNhanVien.setVisible(true);
+				
+				FormTimKiemTaiKhoan formTimKiemTaiKhoan;
+				try {
+					formTimKiemTaiKhoan = new FormTimKiemTaiKhoan(formQuanTriTaiKhoan);
+					formTimKiemTaiKhoan.setVisible(true);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		}

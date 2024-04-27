@@ -3,6 +3,7 @@ package item;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -116,13 +117,16 @@ public class FormTimKiemNhanVien extends JDialog {
 			rdbtnNam.setBackground(Color.WHITE);
 			rdbtnNam.setBounds(114, 131, 109, 23);
 			contentPanel.add(rdbtnNam);
-		}
-		{
+
 			rdbtnNu = new JRadioButton("Nữ");
 			rdbtnNu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 			rdbtnNu.setBackground(Color.WHITE);
 			rdbtnNu.setBounds(114, 167, 109, 23);
 			contentPanel.add(rdbtnNu);
+			
+			ButtonGroup group = new ButtonGroup();
+			group.add(rdbtnNam);
+			group.add(rdbtnNu);
 		}
 		{
 			JButton btnTimKiem = new JButton("Tìm kiếm");

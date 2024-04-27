@@ -103,13 +103,15 @@ public class FormTimKiemSanPham extends JDialog {
 			JButton btnTimKiem = new JButton("Tìm kiếm");
 			btnTimKiem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
+					if(!textFieldMaSanPham.getText().matches("^[0-9]*$")) {
+						JOptionPane.showMessageDialog(null, "Mã sản phẩm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
 					if (myView instanceof FormTraCuuSanPham) {
 						FormTraCuuSanPham formTraCuuSanPham = (FormTraCuuSanPham) myView;
 						
-						if(!textFieldMaSanPham.getText().matches("^[0-9]*$")) {
-							JOptionPane.showMessageDialog(null, "Mã sản phẩm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-							return;
-						}
 						
 						try {
 							List<SanPham> dsSanPham = ConnectServer.sanPhamInf.timKiemSanPham(textFieldMaSanPham.getText(), 

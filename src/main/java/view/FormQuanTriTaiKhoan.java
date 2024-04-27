@@ -343,4 +343,14 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		String thongBaoLoi = thongBao.get(0);
 		JOptionPane.showMessageDialog(null, thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
 	}
+	
+	// hien thi danh sach tai khoan tim kiem
+	public void hienThiDanhSachTaiKhoanTimKiem(List<TaiKhoan> dsTaiKhoan) {
+		DefaultTableModel model = (DefaultTableModel) tableTaiKhoan.getModel();
+        model.setRowCount(0);
+        for (TaiKhoan taiKhoan : dsTaiKhoan) {
+            model.addRow(new Object[] { taiKhoan.getIdTaiKhoan(), taiKhoan.getTenTaiKhoan(), taiKhoan.getMatKhau(),
+                    taiKhoan.getQuyen(), taiKhoan.isTrangThai() ? "Kích hoạt" : "Tắt" });
+        }
+    }
 }
