@@ -3,8 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,14 +20,20 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DateFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
 import controller.MouseControllerFormIndex;
 import controller.MouseControllerFormTraCuuHoaDon;
 import controller.MouseControllerFormTraCuuThongTin;
+import model.HoaDon;
+import util.ConnectServer;
 
 import javax.swing.JRadioButton;
 import java.awt.Component;
@@ -35,16 +46,17 @@ public class FormTraCuuHoaDon extends JPanel {
 	private MouseControllerFormTraCuuHoaDon mouseControllerFormTraCuuHoaDon;
 	private MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin;
 	private JPopupMenu popupMenu;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField textFieldMaHoaDon;
+	private JTextField textFieldMaNhanVien;
+	private JTextField textFieldTongTien;
 	private JTable tableHoaDon;
 	public JButton btnTimKiemHoaDon;
 
 	/**
 	 * Create the panel.
+	 * @throws RemoteException 
 	 */
-	public FormTraCuuHoaDon() {
+	public FormTraCuuHoaDon() throws RemoteException {
 		controllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
 		mouseControllerFormTraCuuHoaDon = new MouseControllerFormTraCuuHoaDon(this);
 		setSize(1120, 680);
@@ -70,36 +82,36 @@ public class FormTraCuuHoaDon extends JPanel {
 		lblMaHoan.setBounds(13, 82, 94, 29);
 		panel.add(lblMaHoan);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(117, 82, 186, 29);
-		panel.add(textField);
+		textFieldMaHoaDon = new JTextField();
+		textFieldMaHoaDon.setEditable(false);
+		textFieldMaHoaDon.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		textFieldMaHoaDon.setColumns(10);
+		textFieldMaHoaDon.setBounds(117, 82, 186, 29);
+		panel.add(textFieldMaHoaDon);
 		
 		JLabel lblMaNhnVin = new JLabel("Mã nhân viên");
 		lblMaNhnVin.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		lblMaNhnVin.setBounds(13, 122, 94, 29);
 		panel.add(lblMaNhnVin);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(117, 122, 186, 29);
-		panel.add(textField_1);
+		textFieldMaNhanVien = new JTextField();
+		textFieldMaNhanVien.setEditable(false);
+		textFieldMaNhanVien.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		textFieldMaNhanVien.setColumns(10);
+		textFieldMaNhanVien.setBounds(117, 122, 186, 29);
+		panel.add(textFieldMaNhanVien);
 		
 		JLabel lblNgayLp = new JLabel("Ngày lập");
 		lblNgayLp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		lblNgayLp.setBounds(13, 162, 94, 29);
 		panel.add(lblNgayLp);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(117, 202, 186, 29);
-		panel.add(textField_3);
+		textFieldTongTien = new JTextField();
+		textFieldTongTien.setEditable(false);
+		textFieldTongTien.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		textFieldTongTien.setColumns(10);
+		textFieldTongTien.setBounds(117, 202, 186, 29);
+		panel.add(textFieldTongTien);
 		
 		JLabel lblTngTin = new JLabel("Tổng tiền");
 		lblTngTin.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
@@ -111,10 +123,10 @@ public class FormTraCuuHoaDon extends JPanel {
 		lblThngTinHoa.setBounds(62, 41, 201, 30);
 		panel.add(lblThngTinHoa);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd/MM/yyyy");
-		dateChooser.setBounds(117, 162, 186, 29);
-		panel.add(dateChooser);
+		JDateChooser dateChooserNgayLap = new JDateChooser();
+		dateChooserNgayLap.setDateFormatString("dd/MM/yyyy");
+		dateChooserNgayLap.setBounds(117, 162, 186, 29);
+		panel.add(dateChooserNgayLap);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
@@ -137,6 +149,29 @@ public class FormTraCuuHoaDon extends JPanel {
 			}
 		));
 		tableHoaDon.addMouseListener(mouseControllerFormTraCuuHoaDon);
+		
+		ListSelectionModel selectionListener = tableHoaDon.getSelectionModel();
+		selectionListener.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!selectionListener.isSelectionEmpty()) {
+					
+					int row = tableHoaDon.getSelectedRow();
+					
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+					
+					try {
+						textFieldMaHoaDon.setText(tableHoaDon.getValueAt(row, 0).toString());
+						textFieldMaNhanVien.setText(tableHoaDon.getValueAt(row, 1).toString());
+						dateChooserNgayLap.setDate(formatter.parse(tableHoaDon.getValueAt(row, 2).toString()));
+						textFieldTongTien.setText(tableHoaDon.getValueAt(row, 3).toString());
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		
 		JScrollPane scrollPane = new JScrollPane(tableHoaDon);
 		scrollPane.setBounds(10, 41, 755, 554);
 		panel_2.add(scrollPane);
@@ -146,8 +181,25 @@ public class FormTraCuuHoaDon extends JPanel {
 		btnTimKiemHoaDon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnTimKiemHoaDon.setBounds(676, 6, 89, 23);
 		panel_2.add(btnTimKiemHoaDon);
+		
+		JButton btnLamMoi = new JButton("Làm mới");
+		btnLamMoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					layDanhSachHoaDon();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoi.setBounds(577, 6, 89, 23);
+		panel_2.add(btnLamMoi);
+		
+		layDanhSachHoaDon();
 	}
 	
+	// Hiển thị menu khi click chuột phải vào table
 	public void showPopupMenu(MouseEvent e) {
         int row = tableHoaDon.rowAtPoint(e.getPoint());
         if (row >= 0 && row < tableHoaDon.getRowCount()) {
@@ -155,4 +207,23 @@ public class FormTraCuuHoaDon extends JPanel {
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
+	
+	// Lấy danh sách hóa đơn từ server
+	public void layDanhSachHoaDon() throws RemoteException {
+		List<HoaDon> dsHoaDon = ConnectServer.hoaDonInf.layDanhSachHoaDon();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		DefaultTableModel model = (DefaultTableModel) tableHoaDon.getModel();
+		model.setRowCount(0);
+		for (HoaDon hoaDon : dsHoaDon) {
+			model.addRow(new Object[] { hoaDon.getMaHoaDon(), hoaDon.getNhanVien(), formatter.format(hoaDon.getNgayLap()), dinhDangTienTe(hoaDon.getTongTien()) });
+		}
+	}
+	
+	// Định dạng tiền tệ
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String strCurrencyVN = currencyVN.format(money);
+        return strCurrencyVN;
+	}
 }

@@ -26,8 +26,10 @@ import javax.swing.JRadioButton;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 public class FormTraCuuSanPham extends JPanel {
@@ -69,7 +71,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldMaSanPham = new JTextField();
 		textFieldMaSanPham.setEditable(false);
-		textFieldMaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldMaSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldMaSanPham.setColumns(10);
 		textFieldMaSanPham.setBounds(114, 79, 186, 29);
 		panel.add(textFieldMaSanPham);
@@ -81,7 +83,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldTenSanPham = new JTextField();
 		textFieldTenSanPham.setEditable(false);
-		textFieldTenSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldTenSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldTenSanPham.setColumns(10);
 		textFieldTenSanPham.setBounds(114, 119, 186, 29);
 		panel.add(textFieldTenSanPham);
@@ -93,7 +95,7 @@ public class FormTraCuuSanPham extends JPanel {
 
 		textFieldGiaSanPham = new JTextField();
 		textFieldGiaSanPham.setEditable(false);
-		textFieldGiaSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldGiaSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldGiaSanPham.setColumns(10);
 		textFieldGiaSanPham.setBounds(114, 199, 186, 29);
 		panel.add(textFieldGiaSanPham);
@@ -104,7 +106,7 @@ public class FormTraCuuSanPham extends JPanel {
 		panel.add(lblGiaSanPhm);
 
 		comboBoxLoaiSanPham = new JComboBox<LoaiSanPham>();
-		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(114, 159, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
 
@@ -186,30 +188,41 @@ public class FormTraCuuSanPham extends JPanel {
 		layDanhSachLoaiSanPham();
 
 	}
-
+	
+	// Lấy danh sách sản phẩm
 	public void layDanhSachSanPham() throws RemoteException {
 		List<SanPham> sanPhams = ConnectServer.sanPhamInf.layDanhSachSanPham();
 		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 		model.setRowCount(0);
 		for (SanPham sanPham : sanPhams) {
 			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham(),
-					sanPham.getGiaSanPham() });
+					dinhDangTienTe(sanPham.getGiaSanPham()) });
 		}
 	}
-
+	
+	// Lấy danh sách loại sản phẩm
 	public void layDanhSachLoaiSanPham() throws RemoteException {
 		List<LoaiSanPham> loaiSanPhams = ConnectServer.loaiSanPhamInf.layDanhSachLoaiSanPham();
 		for (LoaiSanPham loaiSanPham : loaiSanPhams) {
 			comboBoxLoaiSanPham.addItem(loaiSanPham);
 		}
 	}
-
+	
+	// Hiển thị thông tin tìm kiếm sản phẩm
 	public void hienThiThongTinTimKiemSanPham(List<SanPham> dsSanPham) {
 		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 		model.setRowCount(0);
 		for (SanPham sanPham : dsSanPham) {
 			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getLoaiSanPham(),
-					sanPham.getGiaSanPham() });
+					dinhDangTienTe(sanPham.getGiaSanPham()) });
 		}
+	}
+	
+	// Định dạng tiền tệ
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String strCurrencyVN = currencyVN.format(money);
+        return strCurrencyVN;
 	}
 }

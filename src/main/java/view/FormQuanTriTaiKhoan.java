@@ -84,7 +84,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		textFieldTenTaiKhoan.setEditable(false);
 		textFieldTenTaiKhoan.setBounds(117, 127, 186, 29);
 		panel.add(textFieldTenTaiKhoan);
-		textFieldTenTaiKhoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldTenTaiKhoan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldTenTaiKhoan.setColumns(10);
 
 		JLabel lblHoVaTn = new JLabel("Mật khẩu");
@@ -108,14 +108,14 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		rdbtnKichHoat.setBackground(new Color(255, 255, 255));
 		rdbtnKichHoat.setBounds(117, 243, 109, 23);
 		panel.add(rdbtnKichHoat);
-		rdbtnKichHoat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		rdbtnKichHoat.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
 		rdbtnTat = new JRadioButton("Tắt");
 		rdbtnTat.setEnabled(false);
 		rdbtnTat.setBackground(new Color(255, 255, 255));
 		rdbtnTat.setBounds(117, 279, 109, 23);
 		panel.add(rdbtnTat);
-		rdbtnTat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		rdbtnTat.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
 		ButtonGroup buttonGroupStatus = new ButtonGroup();
 		buttonGroupStatus.add(rdbtnKichHoat);
@@ -158,14 +158,14 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel.add(lblThngTinTai);
 
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		passwordField.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		passwordField.setEditable(false);
 		passwordField.setBounds(117, 167, 186, 29);
 		panel.add(passwordField);
 
 		comboBoxQuyenHan = new JComboBox();
 		comboBoxQuyenHan.setEnabled(false);
-		comboBoxQuyenHan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		comboBoxQuyenHan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		comboBoxQuyenHan.setBounds(117, 207, 186, 29);
 		panel.add(comboBoxQuyenHan);
 
@@ -181,7 +181,7 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel.add(lblMTiKhon);
 
 		textFieldMaTaiKhoan = new JTextField();
-		textFieldMaTaiKhoan.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldMaTaiKhoan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldMaTaiKhoan.setEditable(false);
 		textFieldMaTaiKhoan.setColumns(10);
 		textFieldMaTaiKhoan.setBounds(117, 87, 186, 29);

@@ -85,7 +85,7 @@ public class FormQuanTriNhanVien extends JPanel {
 		textFieldMaNhanVien.setEditable(false);
 		textFieldMaNhanVien.setBounds(117, 81, 186, 29);
 		panel.add(textFieldMaNhanVien);
-		textFieldMaNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldMaNhanVien.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldMaNhanVien.setColumns(10);
 
 		JLabel lblHoVaTn = new JLabel("Họ và tên");
@@ -97,7 +97,7 @@ public class FormQuanTriNhanVien extends JPanel {
 		textFieldHoVaTen.setEditable(false);
 		textFieldHoVaTen.setBounds(117, 121, 186, 29);
 		panel.add(textFieldHoVaTen);
-		textFieldHoVaTen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldHoVaTen.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldHoVaTen.setColumns(10);
 
 		JLabel lblSinThoai = new JLabel("Số điện thoại");
@@ -109,14 +109,14 @@ public class FormQuanTriNhanVien extends JPanel {
 		textFieldSoDienThoai.setEditable(false);
 		textFieldSoDienThoai.setBounds(117, 161, 186, 29);
 		panel.add(textFieldSoDienThoai);
-		textFieldSoDienThoai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldSoDienThoai.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldSoDienThoai.setColumns(10);
 
 		textFieldEmail = new JTextField();
 		textFieldEmail.setEditable(false);
 		textFieldEmail.setBounds(117, 201, 186, 29);
 		panel.add(textFieldEmail);
-		textFieldEmail.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldEmail.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldEmail.setColumns(10);
 
 		JLabel lblEmail = new JLabel("Email");
@@ -140,14 +140,14 @@ public class FormQuanTriNhanVien extends JPanel {
 		rdbtnNam.setBackground(new Color(255, 255, 255));
 		rdbtnNam.setBounds(117, 281, 109, 23);
 		panel.add(rdbtnNam);
-		rdbtnNam.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		rdbtnNam.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
 		rdbtnNu = new JRadioButton("Nữ");
 		rdbtnNu.setEnabled(false);
 		rdbtnNu.setBackground(new Color(255, 255, 255));
 		rdbtnNu.setBounds(117, 317, 109, 23);
 		panel.add(rdbtnNu);
-		rdbtnNu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		rdbtnNu.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
 		ButtonGroup btnGroupSex = new ButtonGroup();
 		btnGroupSex.add(rdbtnNam);
@@ -157,7 +157,7 @@ public class FormQuanTriNhanVien extends JPanel {
 		textFieldDiaChi.setEditable(false);
 		textFieldDiaChi.setBounds(117, 237, 186, 29);
 		panel.add(textFieldDiaChi);
-		textFieldDiaChi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		textFieldDiaChi.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldDiaChi.setColumns(10);
 
 		JLabel lblChcNng = new JLabel("Chức năng");

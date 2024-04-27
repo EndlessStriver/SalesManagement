@@ -6,8 +6,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -78,7 +80,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtMaSP.setEnabled(false);
 		txtMaSP.setBounds(117, 73, 186, 29);
 		panel.add(txtMaSP);
-		txtMaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		txtMaSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtMaSP.setColumns(10);
 
 		JLabel lblTenSP = new JLabel("Tên Sản Phẩm");
@@ -90,7 +92,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtTenSP.setEditable(false);
 		txtTenSP.setBounds(117, 113, 186, 29);
 		panel.add(txtTenSP);
-		txtTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		txtTenSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtTenSP.setColumns(10);
 
 		JLabel lblGiaSP = new JLabel("Giá Sản Phẩm");
@@ -102,7 +104,7 @@ public class FormQuanTriSanPham extends JPanel {
 		txtGiaSP.setEditable(false);
 		txtGiaSP.setBounds(117, 153, 186, 29);
 		panel.add(txtGiaSP);
-		txtGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		txtGiaSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtGiaSP.setColumns(10);
 
 		JLabel lblLoaiSP = new JLabel("Loại Sản Phẩm");
@@ -192,7 +194,7 @@ public class FormQuanTriSanPham extends JPanel {
 
 		comboBoxLoaiSanPham = new JComboBox();
 		comboBoxLoaiSanPham.setEnabled(false);
-		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
 
@@ -294,7 +296,7 @@ public class FormQuanTriSanPham extends JPanel {
 		model.setRowCount(0);
 
 		for (SanPham sanPham : listSanPham) {
-			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getGiaSanPham(),
+			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), dinhDangTienTe(sanPham.getGiaSanPham()),
 					sanPham.getLoaiSanPham() });
 		}
 	}
@@ -310,11 +312,12 @@ public class FormQuanTriSanPham extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 		model.setRowCount(0);
 		for (SanPham sanPham : dsSanPham) {
-			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), sanPham.getGiaSanPham(),
+			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), dinhDangTienTe(sanPham.getGiaSanPham()),
 					sanPham.getLoaiSanPham() });
 		}
 	}
 
+	// làm mới form
 	public void lamMoiForm() {
 		txtMaSP.setText("");
 		txtTenSP.setText("");
@@ -345,6 +348,7 @@ public class FormQuanTriSanPham extends JPanel {
 
 		if (!giaSanPham.matches("[0-9]+")) {
 			thongBaoLoi.add("Giá sản phẩm phải là số");
+			return thongBaoLoi;
 		}
 
 		if (Float.parseFloat(giaSanPham) < 1000) {
@@ -358,5 +362,13 @@ public class FormQuanTriSanPham extends JPanel {
 	public void thongBaoLoiNhapLieu(List<String> thongBao) {
 		String thongBaoLoi = thongBao.get(0);
 		JOptionPane.showMessageDialog(null, thongBaoLoi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+	}
+
+	// Định dạng tiền tệ
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String strCurrencyVN = currencyVN.format(money);
+		return strCurrencyVN;
 	}
 }
