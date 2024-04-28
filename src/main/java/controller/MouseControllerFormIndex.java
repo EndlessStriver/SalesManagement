@@ -18,54 +18,55 @@ public class MouseControllerFormIndex implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object compoment = e.getSource();
-		if(compoment.equals(formIndex.panel_btnTrangChu) || compoment.equals(formIndex.lblMenuTrangChu)) {
+		
+		if(compoment.equals(formIndex.btnTrangChu)) {
 			formIndex.tabbedPane.setSelectedIndex(0);
 			
-			formIndex.panel_btnTrangChu.setBackground(new Color(255, 165, 0));
-			formIndex.panel_btn_traCuuThongTin.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnQuanTri.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
+			formIndex.btnTrangChu.setBackground(new Color(255, 165, 0));
+			formIndex.btnTraCuuThongTin.setBackground(new Color(255, 255, 255));
+			formIndex.btnQuanTri.setBackground(new Color(255, 255, 255));
+			formIndex.btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
 			
-			formIndex.lblMenuTrangChu.setForeground(new Color(255, 255, 255));
-			formIndex.lblMenuTraCuuThongTin.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuQuanTri.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuThanhToanHoaDon.setForeground(new Color(0, 0, 0));
-		}else if(compoment.equals(formIndex.panel_btn_traCuuThongTin) || compoment.equals(formIndex.lblMenuTraCuuThongTin)) {
+			formIndex.btnTrangChu.setForeground(new Color(255, 255, 255));
+			formIndex.btnTraCuuThongTin.setForeground(new Color(0, 0, 0));
+			formIndex.btnQuanTri.setForeground(new Color(0, 0, 0));
+			formIndex.btnThanhToanHoaDon.setForeground(new Color(0, 0, 0));
+		}else if(compoment.equals(formIndex.btnTraCuuThongTin)) {
 			formIndex.tabbedPane.setSelectedIndex(1);
 			
-			formIndex.panel_btnTrangChu.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btn_traCuuThongTin.setBackground(new Color(255, 165, 0));
-			formIndex.panel_btnQuanTri.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
+			formIndex.btnTrangChu.setBackground(new Color(255, 255, 255));
+			formIndex.btnTraCuuThongTin.setBackground(new Color(255, 165, 0));
+			formIndex.btnQuanTri.setBackground(new Color(255, 255, 255));
+			formIndex.btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
 			
-			formIndex.lblMenuTrangChu.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuTraCuuThongTin.setForeground(new Color(255, 255, 255));
-			formIndex.lblMenuQuanTri.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuThanhToanHoaDon.setForeground(new Color(0, 0, 0));
-		}else if(compoment.equals(formIndex.panel_btnQuanTri) || compoment.equals(formIndex.lblMenuQuanTri)) {
+			formIndex.btnTrangChu.setForeground(new Color(0, 0, 0));
+			formIndex.btnTraCuuThongTin.setForeground(new Color(255, 255, 255));
+			formIndex.btnQuanTri.setForeground(new Color(0, 0, 0));
+			formIndex.btnThanhToanHoaDon.setForeground(new Color(0, 0, 0));
+		}else if(compoment.equals(formIndex.btnQuanTri)) {
 			formIndex.tabbedPane.setSelectedIndex(2);
 			
-			formIndex.panel_btnTrangChu.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btn_traCuuThongTin.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnQuanTri.setBackground(new Color(255, 165, 0));
-			formIndex.panel_btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
+			formIndex.btnTrangChu.setBackground(new Color(255, 255, 255));
+			formIndex.btnTraCuuThongTin.setBackground(new Color(255, 255, 255));
+			formIndex.btnQuanTri.setBackground(new Color(255, 165, 0));
+			formIndex.btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
 			
-			formIndex.lblMenuTrangChu.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuTraCuuThongTin.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuQuanTri.setForeground(new Color(255, 255, 255));
-			formIndex.lblMenuThanhToanHoaDon.setForeground(new Color(0, 0, 0));
-		}else if(compoment.equals(formIndex.panel_btnThanhToanHoaDon) || compoment.equals(formIndex.lblMenuThanhToanHoaDon)) {
+			formIndex.btnTrangChu.setForeground(new Color(0, 0, 0));
+			formIndex.btnTraCuuThongTin.setForeground(new Color(0, 0, 0));
+			formIndex.btnQuanTri.setForeground(new Color(255, 255, 255));
+			formIndex.btnThanhToanHoaDon.setForeground(new Color(0, 0, 0));
+		}else if(compoment.equals(formIndex.btnThanhToanHoaDon)) {
 			formIndex.tabbedPane.setSelectedIndex(3);
 			
-			formIndex.panel_btnTrangChu.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btn_traCuuThongTin.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnQuanTri.setBackground(new Color(255, 255, 255));
-			formIndex.panel_btnThanhToanHoaDon.setBackground(new Color(255, 165, 0));
+			formIndex.btnTrangChu.setBackground(new Color(255, 255, 255));
+			formIndex.btnTraCuuThongTin.setBackground(new Color(255, 255, 255));
+			formIndex.btnQuanTri.setBackground(new Color(255, 255, 255));
+			formIndex.btnThanhToanHoaDon.setBackground(new Color(255, 165, 0));
 			
-			formIndex.lblMenuTrangChu.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuTraCuuThongTin.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuQuanTri.setForeground(new Color(0, 0, 0));
-			formIndex.lblMenuThanhToanHoaDon.setForeground(new Color(255, 255, 255));
+			formIndex.btnTrangChu.setForeground(new Color(0, 0, 0));
+			formIndex.btnTraCuuThongTin.setForeground(new Color(0, 0, 0));
+			formIndex.btnQuanTri.setForeground(new Color(0, 0, 0));
+			formIndex.btnThanhToanHoaDon.setForeground(new Color(255, 255, 255));
 		}
 		
 	}

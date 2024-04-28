@@ -129,7 +129,7 @@ public class FormThanhToan extends JPanel {
 			}
 		});
 		btnLamMoi.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnLamMoi.setBounds(485, 27, 83, 26);
+		btnLamMoi.setBounds(469, 26, 83, 26);
 		add(btnLamMoi);
 
 		JButton btnThemSanPham = new JButton("Thêm sản phẩm");
@@ -146,7 +146,7 @@ public class FormThanhToan extends JPanel {
 
 		});
 		btnThemSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnThemSanPham.setBounds(578, 27, 119, 26);
+		btnThemSanPham.setBounds(562, 26, 135, 26);
 		add(btnThemSanPham);
 
 		JButton btnThanhToan = new JButton("THANH TOÁN");
