@@ -176,15 +176,15 @@ public class FormQuanTriHoaDon extends JPanel {
 		btnChucNang.setBounds(13, 273, 290, 39);
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 		panel.add(btnChucNang);
-		
+
 		JButton btnLamMoiForm = new JButton("Làm mới");
-		
+
 		btnLamMoiForm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lamMoiForm();
 			}
 		});
-		
+
 		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnLamMoiForm.setBounds(214, 242, 89, 23);
 		panel.add(btnLamMoiForm);
@@ -300,7 +300,7 @@ public class FormQuanTriHoaDon extends JPanel {
 					formatter.format(hoaDon.getNgayLap()), dinhDangTienTe(hoaDon.getTongTien()) });
 		}
 	}
-	
+
 	// Làm mới form
 	public void lamMoiForm() {
 		txtMaHoaDon.setText("");

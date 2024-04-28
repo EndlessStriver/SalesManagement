@@ -1,31 +1,23 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.MouseControllerFormIndex;
-import util.ConnectServer;
+import model.NhanVien;
+import model.TaiKhoan;
 
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.BoxLayout;
 import javax.swing.JSeparator;
 import java.awt.Font;
-import java.awt.FlowLayout;
 import javax.swing.JTabbedPane;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -33,6 +25,10 @@ import java.util.TimeZone;
 public class FormIndex extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static TaiKhoan taiKhoan;
+	private static NhanVien nhanVien;
+	
 	private JPanel contentPane;
 	public JTabbedPane tabbedPane;
 	private MouseControllerFormIndex mouseControllerFormIndex;
@@ -52,31 +48,35 @@ public class FormIndex extends JFrame {
 	private JSeparator separator;
 	private JPanel panel;
 
+	private JLabel lblTenNhanVien;
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-//					cấu hình giao diện look and feel của window
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					ConnectServer connectServer = new ConnectServer();
-					FormIndex frame = new FormIndex();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+////					cấu hình giao diện look and feel của window
+//					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//					ConnectServer connectServer = new ConnectServer();
+//					FormIndex frame = new FormIndex();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws RemoteException
 	 */
-	public FormIndex() throws RemoteException {
+	public FormIndex(TaiKhoan taiKhoan1, NhanVien nhanVien1) throws RemoteException {
+		taiKhoan = taiKhoan1;
+		nhanVien = nhanVien1;
 		mouseControllerFormIndex = new MouseControllerFormIndex(this);
 		trangChu = new FormTrangChu();
 		quanTri = new FormQuanTri();
@@ -170,11 +170,11 @@ public class FormIndex extends JFrame {
 		lblNewLabel_3.setBounds(10, 648, 48, 48);
 		menu.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Trần Hoài Thanh");
-		lblNewLabel_2_1_1_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2_1_1_1_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		lblNewLabel_2_1_1_1_1.setBounds(66, 657, 191, 30);
-		menu.add(lblNewLabel_2_1_1_1_1);
+		lblTenNhanVien = new JLabel("Trần Hoài Thanh");
+		lblTenNhanVien.setForeground(new Color(255, 255, 255));
+		lblTenNhanVien.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		lblTenNhanVien.setBounds(66, 657, 191, 30);
+		menu.add(lblTenNhanVien);
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBounds(10, 700, 247, 42);
@@ -212,6 +212,21 @@ public class FormIndex extends JFrame {
 			}
 		});
 		timer.start();
+		
+		kiemTraQuyen();
+		ganTenNhanVien();
+	}
+	
+	public void kiemTraQuyen() {
+		if (taiKhoan.getQuyen().equals("Nhân viên")) {
+			panel_btnQuanTri.setEnabled(false);
+			lblMenuQuanTri.setEnabled(false);
+			
+		}
+	}
+	
+	public void ganTenNhanVien() {
+		lblTenNhanVien.setText(nhanVien.getTenNhanVien());
 	}
 
 }

@@ -50,6 +50,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 			// chức năng cập nhật ngày tạo hoá đơn
 			if(object.equals(formQuanTriHoaDon.btnChucNang)) {
 				
+				// chức năng cập nhật ngày tạo hoá đơn
 				if (formQuanTriHoaDon.rdbtnCapNhat.isSelected()) {
 					
 					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
@@ -64,6 +65,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 					}
 				}
 				
+				// chức năng xóa hoá đơn
 				if (formQuanTriHoaDon.rdbtnXoa.isSelected()) {
 
 					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();

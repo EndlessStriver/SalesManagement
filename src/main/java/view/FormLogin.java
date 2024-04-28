@@ -5,13 +5,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.NhanVien;
+import model.TaiKhoan;
+import util.ConnectServer;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.awt.event.ActionEvent;
 
 public class FormLogin extends JFrame {
 
@@ -59,7 +69,7 @@ public class FormLogin extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBounds(126, 78, 128, 137);
 		panelLeft.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon(FormLogin.class.getResource("/vn/thienphu/quanlybanhang/view/images/cart-remove-icon.png")));
+		lblNewLabel_2.setIcon(new ImageIcon(FormLogin.class.getResource("/images/cart-remove-icon.png")));
 		
 		JLabel lblNewLabel_3 = new JLabel("<html><div style='text-align: center;'>Thanh Toán Mua Sắm<br>Mọi Lúc Mọi Nơi</div></html>");
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
@@ -99,10 +109,61 @@ public class FormLogin extends JFrame {
 		panelRight.add(passwordFieldMatKhau);
 		
 		JButton btnDangNhap = new JButton("Đăng Nhập");
+		btnDangNhap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (!kiemTraFormNhapLieu()) return;
+				
+				String tenDangNhap = textFieldTaiKhoan.getText();
+				String matKhau = passwordFieldMatKhau.getText();
+				
+				try {
+					TaiKhoan taiKhoan = ConnectServer.taiKhoanInf.xacThucTaiKhoan(tenDangNhap, matKhau);
+					if (taiKhoan != null) {
+						
+						NhanVien nhanVien = ConnectServer.nhanVienInf.layNhanVienTheoTenTaiKhoan(taiKhoan.getTenTaiKhoan());
+						
+						FormIndex formIndex = new FormIndex(taiKhoan, nhanVien);
+						formIndex.setVisible(true);
+						dispose();
+						return ;
+					}
+					
+					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không chính xác", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					lamMoiForm();
+				} catch (RemoteException e1) {
+					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không chính xác", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					lamMoiForm();
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnDangNhap.setForeground(new Color(255, 255, 255));
 		btnDangNhap.setBackground(new Color(123, 104, 238));
 		btnDangNhap.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnDangNhap.setBounds(33, 326, 111, 41);
 		panelRight.add(btnDangNhap);
+	}
+	
+	public boolean kiemTraFormNhapLieu() {
+		String tenDangNhap = textFieldTaiKhoan.getText();
+		String matKhau = passwordFieldMatKhau.getText();
+
+		if (tenDangNhap.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập tên đăng nhập", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		if (matKhau.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void lamMoiForm() {
+		textFieldTaiKhoan.setText("");
+		passwordFieldMatKhau.setText("");
 	}
 }
