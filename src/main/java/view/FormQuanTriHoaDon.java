@@ -40,7 +40,7 @@ import java.awt.event.ActionEvent;
 public class FormQuanTriHoaDon extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtMaHoaDon;
+	public JTextField txtMaHoaDon;
 	private JTextField txtTenNhanVien;
 	private JTextField txtTongTien;
 	private JTable tableHoaDon;
@@ -48,6 +48,11 @@ public class FormQuanTriHoaDon extends JPanel {
 	private MouseControllerFormQuanTriHoaDon controllerFormQuanTriHoaDon;
 	private MouseControllerFormQuanTri mouseControllerFormQuanTri;
 	public JButton btnTimKiem;
+	public JButton btnChucNang;
+	public JDateChooser dateChooserNgayLap;
+	private ButtonGroup buttonGroupFunction;
+	public JRadioButton rdbtnCapNhat;
+	public JRadioButton rdbtnXoa;
 
 	/**
 	 * Create the panel.
@@ -123,21 +128,39 @@ public class FormQuanTriHoaDon extends JPanel {
 		panel_3.setBounds(10, 537, 293, 39);
 		panel.add(panel_3);
 
-		JRadioButton rdbtnCapNhat = new JRadioButton("Cập nhật");
+		rdbtnCapNhat = new JRadioButton("Cập nhật");
 		panel_3.add(rdbtnCapNhat);
 		rdbtnCapNhat.setBackground(new Color(255, 255, 255));
 		rdbtnCapNhat.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		JRadioButton rdbtnXoa = new JRadioButton("Xóa");
+		rdbtnCapNhat.addItemListener(e -> {
+
+			if (rdbtnCapNhat.isSelected()) {
+				btnChucNang.setText("Cập nhật");
+				btnChucNang.setEnabled(true);
+			}
+
+		});
+
+		rdbtnXoa = new JRadioButton("Xóa");
 		panel_3.add(rdbtnXoa);
 		rdbtnXoa.setBackground(new Color(255, 255, 255));
 		rdbtnXoa.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
-		ButtonGroup buttonGroupFunction = new ButtonGroup();
+		rdbtnXoa.addItemListener(e -> {
+
+			if (rdbtnXoa.isSelected()) {
+				btnChucNang.setText("Xóa");
+				btnChucNang.setEnabled(true);
+			}
+
+		});
+
+		buttonGroupFunction = new ButtonGroup();
 		buttonGroupFunction.add(rdbtnXoa);
 		buttonGroupFunction.add(rdbtnCapNhat);
 
-		JDateChooser dateChooserNgayLap = new JDateChooser();
+		dateChooserNgayLap = new JDateChooser();
 		dateChooserNgayLap.setDateFormatString("dd/MM/yyyy");
 		dateChooserNgayLap.setBounds(116, 162, 187, 29);
 		panel.add(dateChooserNgayLap);
@@ -147,10 +170,24 @@ public class FormQuanTriHoaDon extends JPanel {
 		lblThngTinHoa.setBounds(57, 31, 201, 30);
 		panel.add(lblThngTinHoa);
 
-		JButton btnXacNhn = new JButton("Xác nhận");
-		btnXacNhn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnXacNhn.setBounds(117, 242, 100, 29);
-		panel.add(btnXacNhn);
+		btnChucNang = new JButton("................................");
+		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnChucNang.setEnabled(false);
+		btnChucNang.setBounds(13, 273, 290, 39);
+		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
+		panel.add(btnChucNang);
+		
+		JButton btnLamMoiForm = new JButton("Làm mới");
+		
+		btnLamMoiForm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lamMoiForm();
+			}
+		});
+		
+		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLamMoiForm.setBounds(214, 242, 89, 23);
+		panel.add(btnLamMoiForm);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
@@ -262,5 +299,16 @@ public class FormQuanTriHoaDon extends JPanel {
 			model.addRow(new Object[] { hoaDon.getMaHoaDon(), hoaDon.getNhanVien(),
 					formatter.format(hoaDon.getNgayLap()), dinhDangTienTe(hoaDon.getTongTien()) });
 		}
+	}
+	
+	// Làm mới form
+	public void lamMoiForm() {
+		txtMaHoaDon.setText("");
+		txtTenNhanVien.setText("");
+		txtTongTien.setText("");
+		dateChooserNgayLap.setDate(null);
+		buttonGroupFunction.clearSelection();
+		btnChucNang.setEnabled(false);
+		btnChucNang.setText("................................");
 	}
 }

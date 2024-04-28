@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -37,10 +38,44 @@ public class MouseControllerFormQuanTri implements MouseListener {
 		Object object = e.getSource();
 
 		if (formQuanTri instanceof FormQuanTriHoaDon) {
-
-			if (object.equals(((FormQuanTriHoaDon) formQuanTri).btnTimKiem)) {
+			
+			FormQuanTriHoaDon formQuanTriHoaDon = (FormQuanTriHoaDon) formQuanTri;
+			
+			// tim kiem hoa don
+			if (object.equals(formQuanTriHoaDon.btnTimKiem)) {
 				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon(formQuanTri);
 				formTimKiemHoaDon.setVisible(true);
+			}
+			
+			// chức năng cập nhật ngày tạo hoá đơn
+			if(object.equals(formQuanTriHoaDon.btnChucNang)) {
+				
+				if (formQuanTriHoaDon.rdbtnCapNhat.isSelected()) {
+					
+					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
+					Date ngayTaoHoaDon = formQuanTriHoaDon.dateChooserNgayLap.getDate();
+					
+					try {
+						ConnectServer.hoaDonInf.capNhatNgayLapHoaDon(maHoaDon, ngayTaoHoaDon);
+						formQuanTriHoaDon.layDanhSachHoaDon();
+						formQuanTriHoaDon.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+				if (formQuanTriHoaDon.rdbtnXoa.isSelected()) {
+
+					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
+
+					try {
+						ConnectServer.hoaDonInf.xoaHoaDon(maHoaDon);
+						formQuanTriHoaDon.layDanhSachHoaDon();
+						formQuanTriHoaDon.lamMoiForm();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 
 		}
