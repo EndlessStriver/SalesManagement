@@ -37,6 +37,7 @@ public class FormThanhToan extends JPanel {
 	public JLabel lblThanhTien;
 	private JLabel txtMaNhanVien;
 	private JLabel txtNgayLap;
+	private JLabel txtTenNhanVien;
 
 	/**
 	 * Create the panel.
@@ -104,12 +105,12 @@ public class FormThanhToan extends JPanel {
 
 		txtNgayLap = new JLabel("__________");
 		txtNgayLap.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtNgayLap.setBounds(160, 93, 96, 26);
+		txtNgayLap.setBounds(160, 133, 96, 26);
 		panel_1.add(txtNgayLap);
 
 		JLabel lblTnSanPhm = new JLabel("Ngày lập");
 		lblTnSanPhm.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
-		lblTnSanPhm.setBounds(10, 93, 108, 27);
+		lblTnSanPhm.setBounds(10, 133, 108, 27);
 		panel_1.add(lblTnSanPhm);
 
 		JLabel lblThnhTin = new JLabel("THÀNH TIỀN:");
@@ -121,6 +122,16 @@ public class FormThanhToan extends JPanel {
 		lblThanhTien.setFont(new Font("Segoe UI Black", Font.PLAIN, 24));
 		lblThanhTien.setBounds(10, 570, 290, 33);
 		panel_1.add(lblThanhTien);
+		
+		JLabel lblTenNhanVien = new JLabel("Tên nhân viên");
+		lblTenNhanVien.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
+		lblTenNhanVien.setBounds(10, 95, 108, 27);
+		panel_1.add(lblTenNhanVien);
+		
+		txtTenNhanVien = new JLabel("");
+		txtTenNhanVien.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtTenNhanVien.setBounds(160, 95, 96, 26);
+		panel_1.add(txtTenNhanVien);
 
 		JButton btnLamMoi = new JButton("Làm mới");
 		btnLamMoi.addActionListener(new ActionListener() {
@@ -214,6 +225,7 @@ public class FormThanhToan extends JPanel {
 		add(btnXoa);
 
 		lamMoi();
+		capNhatMaNhanVien();
 	}
 
 	// thêm chi tiết hóa đơn
@@ -259,5 +271,11 @@ public class FormThanhToan extends JPanel {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		txtNgayLap.setText(dateFormat.format(new Date()));
+	}
+	
+	// cập nhật mã nhân viên
+	public void capNhatMaNhanVien() {
+		txtMaNhanVien.setText(FormIndex.nhanVien.getIdNhanVien() + "");
+		txtTenNhanVien.setText(FormIndex.nhanVien.getTenNhanVien());
 	}
 }

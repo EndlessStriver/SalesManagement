@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +18,6 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 
 public class FormLogin extends JFrame {
@@ -121,16 +118,24 @@ public class FormLogin extends JFrame {
 
 				try {
 					TaiKhoan taiKhoan = ConnectServer.taiKhoanInf.xacThucTaiKhoan(tenDangNhap, matKhau);
+					boolean trangThai = taiKhoan.isTrangThai();
+					
+					if (!trangThai) {
+						JOptionPane.showMessageDialog(null, "Tài khoản chưa được kích hoạt !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						lamMoiForm();
+						return;
+					}
+					
 					NhanVien nhanVien = ConnectServer.nhanVienInf.layNhanVienTheoTenTaiKhoan(taiKhoan.getTenTaiKhoan());
 					FormIndex formIndex = new FormIndex(taiKhoan, nhanVien);
 					formIndex.setVisible(true);
 					dispose();
 					lamMoiForm();
+					
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không chính xác", "Lỗi",
 							JOptionPane.ERROR_MESSAGE);
 					lamMoiForm();
-					e1.printStackTrace();
 				}
 			}
 		});

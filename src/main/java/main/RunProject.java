@@ -13,7 +13,6 @@ public class RunProject {
 			System.out.println("Kết nối thành công !");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Không thể kết nối tới máy chủ !", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 }

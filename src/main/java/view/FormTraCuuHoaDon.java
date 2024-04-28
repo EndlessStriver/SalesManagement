@@ -32,6 +32,7 @@ import com.toedter.calendar.JDateChooser;
 import controller.MouseControllerFormIndex;
 import controller.MouseControllerFormTraCuuHoaDon;
 import controller.MouseControllerFormTraCuuThongTin;
+import item.FormThongTinHoaDon;
 import model.HoaDon;
 import util.ConnectServer;
 
@@ -43,7 +44,6 @@ import java.awt.event.ActionEvent;
 public class FormTraCuuHoaDon extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private MouseControllerFormTraCuuHoaDon mouseControllerFormTraCuuHoaDon;
 	private MouseControllerFormTraCuuThongTin controllerFormTraCuuThongTin;
 	private JPopupMenu popupMenu;
 	private JTextField textFieldMaHoaDon;
@@ -59,7 +59,6 @@ public class FormTraCuuHoaDon extends JPanel {
 	 */
 	public FormTraCuuHoaDon() throws RemoteException {
 		controllerFormTraCuuThongTin = new MouseControllerFormTraCuuThongTin(this);
-		mouseControllerFormTraCuuHoaDon = new MouseControllerFormTraCuuHoaDon(this);
 		setSize(1120, 680);
 		setLayout(null);
 
@@ -70,6 +69,23 @@ public class FormTraCuuHoaDon extends JPanel {
 
 		popupMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Chi Tiết Hóa Đơn");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int row = tableHoaDon.getSelectedRow();
+				String maHoaDon = tableHoaDon.getValueAt(row, 0).toString();
+				HoaDon hoaDon;
+				
+				try {
+					hoaDon = ConnectServer.hoaDonInf.layHoaDonTheoMa(maHoaDon);
+					FormThongTinHoaDon formThongTinHoaDon = new FormThongTinHoaDon(hoaDon);
+					formThongTinHoaDon.setVisible(true);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		popupMenu.add(menuItem);
 
 		JPanel panel = new JPanel();
@@ -145,7 +161,7 @@ public class FormTraCuuHoaDon extends JPanel {
 		tableHoaDon.setForeground(new Color(0, 0, 0));
 		tableHoaDon.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã hóa đơn", "Mã nhân viên", "Ngày lập", "Tổng tiền" }));
-		tableHoaDon.addMouseListener(mouseControllerFormTraCuuHoaDon);
+		tableHoaDon.addMouseListener(controllerFormTraCuuThongTin);
 
 		ListSelectionModel selectionListener = tableHoaDon.getSelectionModel();
 		selectionListener.addListSelectionListener(new ListSelectionListener() {

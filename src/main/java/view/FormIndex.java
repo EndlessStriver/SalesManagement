@@ -10,11 +10,13 @@ import model.TaiKhoan;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 
@@ -27,12 +29,12 @@ public class FormIndex extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static TaiKhoan taiKhoan;
-	private static NhanVien nhanVien;
+	public static TaiKhoan taiKhoan;
+	public static NhanVien nhanVien;
 	
 	private JPanel contentPane;
 	public JTabbedPane tabbedPane;
-	private MouseControllerFormIndex mouseControllerFormIndex;
+	public MouseControllerFormIndex mouseControllerFormIndex;
 	private FormTrangChu trangChu;
 	private FormQuanTri quanTri;
 	private FormThanhToan thanhToan;
@@ -160,9 +162,13 @@ public class FormIndex extends JFrame {
 		
 		btnngXut = new JButton("Đăng Xuất");
 		btnngXut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        int response = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
+		                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		        if (response == JOptionPane.YES_OPTION) {
+		            System.exit(0);
+		        }
+		    }
 		});
 		btnngXut.setFont(new Font("Arial", Font.PLAIN, 20));
 		btnngXut.setBounds(20, 707, 227, 40);
@@ -196,10 +202,19 @@ public class FormIndex extends JFrame {
 	}
 	
 	public void kiemTraQuyen() {
-		if (taiKhoan.getQuyen().equals("Nhân viên")) {
-			
-			
-		}
+	    // Loại bỏ tất cả các ActionListener hiện tại
+	    for (MouseListener act : btnQuanTri.getMouseListeners()) {
+	        btnQuanTri.removeMouseListener(act);
+	    }
+
+	    if (taiKhoan.getQuyen().getTenQuyen().equals("Nhân Viên")) {
+	        // Vô hiệu hóa nút btnQuanTri
+	        btnQuanTri.setEnabled(false);
+	    } else {
+	        // Kích hoạt nút btnQuanTri và thêm lại ActionListener
+	        btnQuanTri.setEnabled(true);
+	        btnQuanTri.addMouseListener(mouseControllerFormIndex);
+	    }
 	}
 	
 	public void ganTenNhanVien() {

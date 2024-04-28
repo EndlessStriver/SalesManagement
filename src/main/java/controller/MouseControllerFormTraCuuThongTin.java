@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import item.FormTimKiemHoaDon;
 import item.FormTimKiemNhanVien;
@@ -60,9 +61,15 @@ public class MouseControllerFormTraCuuThongTin implements MouseListener {
 		
 		if(formTraCuuThongTin instanceof FormTraCuuHoaDon) {
 			
-			if (object.equals(((FormTraCuuHoaDon) formTraCuuThongTin).btnTimKiemHoaDon)) {
+			FormTraCuuHoaDon formTraCuuHoaDon = (FormTraCuuHoaDon) formTraCuuThongTin;
+			
+			if (object.equals(formTraCuuHoaDon.btnTimKiemHoaDon)) {
 				FormTimKiemHoaDon formTimKiemHoaDon = new FormTimKiemHoaDon(formTraCuuThongTin);
 				formTimKiemHoaDon.setVisible(true);
+			}
+			
+			if(SwingUtilities.isRightMouseButton(e)) {
+				formTraCuuHoaDon.showPopupMenu(e);
 			}
 		}
 
