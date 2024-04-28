@@ -32,6 +32,7 @@ import com.toedter.calendar.JDateChooser;
 import controller.MouseControllerFormQuanTri;
 import controller.MouseControllerFormQuanTriHoaDon;
 import controller.MouseControllerFormTraCuuHoaDon;
+import item.FormThongTinHoaDon;
 import model.HoaDon;
 import util.ConnectServer;
 import java.awt.event.ActionListener;
@@ -202,9 +203,22 @@ public class FormQuanTriHoaDon extends JPanel {
 
 		popupMenu = new JPopupMenu();
 		JMenuItem menuItem1 = new JMenuItem("Chi Tiết Hóa Đơn");
-		JMenuItem menuItem2 = new JMenuItem("In Hóa Đơn");
+		menuItem1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = tableHoaDon.getSelectedRow();
+				String maHoaDon = tableHoaDon.getValueAt(row, 0).toString();
+				HoaDon hoaDon;
+				
+				try {
+					hoaDon = ConnectServer.hoaDonInf.layHoaDonTheoMa(maHoaDon);
+					FormThongTinHoaDon formThongTinHoaDon = new FormThongTinHoaDon(hoaDon);
+					formThongTinHoaDon.setVisible(true);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		popupMenu.add(menuItem1);
-		popupMenu.add(menuItem2);
 
 		tableHoaDon = new JTable();
 		tableHoaDon.setRowHeight(25);

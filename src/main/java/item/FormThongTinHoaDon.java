@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 import model.ChiTietHoaDon;
 import model.HoaDon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormThongTinHoaDon extends JDialog {
 
@@ -129,6 +131,18 @@ public class FormThongTinHoaDon extends JDialog {
 			lblThanhTien.setFont(new Font("Segoe UI Black", Font.PLAIN, 30));
 			lblThanhTien.setBounds(247, 696, 395, 37);
 			contentPanel.add(lblThanhTien);
+		}
+		{
+			JButton btnNewButton = new JButton("In hóa đơn");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					ReportViewer.showReport(hoaDon);
+				}
+			});
+			btnNewButton.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btnNewButton.setBounds(463, 142, 179, 38);
+			contentPanel.add(btnNewButton);
 		}
 
 		capNhatThongTin();
