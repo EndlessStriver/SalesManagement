@@ -48,6 +48,7 @@ public class FormLoaiSanPham extends JDialog {
 	 * @throws RemoteException
 	 */
 	public FormLoaiSanPham() throws RemoteException {
+		setModal(true);
 		setBounds(100, 100, 533, 411);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -139,13 +140,13 @@ public class FormLoaiSanPham extends JDialog {
 				JButton btnCpNht = new JButton("Cập nhật");
 				btnCpNht.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						if (tableLoaiSanPham.getSelectedRow() == -1) {
 							JOptionPane.showMessageDialog(null, "Vui lòng chọn loại sản phẩm cần cập nhật !", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
 							return;
 						}
-						
+
 						// hiển thị form nhập số lượng sản phẩm
 						String tenLoai = JOptionPane.showInputDialog(null, "Nhập tên loại sản phẩm:", "Tên loại",
 								JOptionPane.QUESTION_MESSAGE);
@@ -175,7 +176,8 @@ public class FormLoaiSanPham extends JDialog {
 						// thêm loại sản phẩm
 						try {
 							LoaiSanPham loaiSanPham = new LoaiSanPham();
-							long maLoaiSanPham = (long) tableLoaiSanPham.getValueAt(tableLoaiSanPham.getSelectedRow(), 0);
+							long maLoaiSanPham = (long) tableLoaiSanPham.getValueAt(tableLoaiSanPham.getSelectedRow(),
+									0);
 							loaiSanPham.setTenLoai(tenLoai);
 							loaiSanPham.setMaLoai(maLoaiSanPham);
 							ConnectServer.loaiSanPhamInf.capNhatLoaiSanPham(loaiSanPham);

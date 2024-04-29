@@ -200,7 +200,8 @@ public class FormTraCuuNhanVien extends JPanel {
 		panel_2.add(btnLamMoi);
 		layDanhSachNhanVien();
 	}
-
+	
+	// Hàm lấy danh sách nhân viên
 	public void layDanhSachNhanVien() throws RemoteException {
 		List<NhanVien> danhSachNhanVien = ConnectServer.nhanVienInf.layDanhSachNhanVien();
 		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
@@ -210,11 +211,12 @@ public class FormTraCuuNhanVien extends JPanel {
 					nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}
 	}
-
+	
+	// Hàm hiển thị danh sách nhân viên tìm kiếm
 	public void hienThiDanhSachTimKiemNhanVien(List<NhanVien> danhSachNhanVien) {
+		DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
+		model.setRowCount(0);		
 		for (NhanVien nhanVien : danhSachNhanVien) {
-			DefaultTableModel model = (DefaultTableModel) tableNhanVien.getModel();
-			model.setRowCount(0);
 			model.addRow(new Object[] { nhanVien.getIdNhanVien(), nhanVien.getTenNhanVien(), nhanVien.getSoDienThoai(),
 					nhanVien.isGioiTinh() ? "Nam" : "Nữ" });
 		}

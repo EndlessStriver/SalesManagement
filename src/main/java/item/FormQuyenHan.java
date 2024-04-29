@@ -49,6 +49,7 @@ public class FormQuyenHan extends JDialog {
 	 * @throws RemoteException
 	 */
 	public FormQuyenHan() throws RemoteException {
+		setModal(true);
 		setBounds(100, 100, 533, 411);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());

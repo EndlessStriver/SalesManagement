@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dao.NhanVienInf;
@@ -50,33 +51,54 @@ public class MouseControllerFormQuanTri implements MouseListener {
 			// chức năng cập nhật ngày tạo hoá đơn
 			if(object.equals(formQuanTriHoaDon.btnChucNang)) {
 				
+
 				// chức năng cập nhật ngày tạo hoá đơn
 				if (formQuanTriHoaDon.rdbtnCapNhat.isSelected()) {
 					
-					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
-					Date ngayTaoHoaDon = formQuanTriHoaDon.dateChooserNgayLap.getDate();
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn cập nhật hóa đơn này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					
-					try {
-						ConnectServer.hoaDonInf.capNhatNgayLapHoaDon(maHoaDon, ngayTaoHoaDon);
-						formQuanTriHoaDon.layDanhSachHoaDon();
-						formQuanTriHoaDon.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+					if (result == JOptionPane.YES_OPTION) {
+						String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
+						Date ngayTaoHoaDon = formQuanTriHoaDon.dateChooserNgayLap.getDate();
+						
+						try {
+							ConnectServer.hoaDonInf.capNhatNgayLapHoaDon(maHoaDon, ngayTaoHoaDon);
+							formQuanTriHoaDon.layDanhSachHoaDon();
+							formQuanTriHoaDon.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Cập nhật hóa đơn thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Cập nhật hóa đơn thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
+					
 				}
 				
 				// chức năng xóa hoá đơn
 				if (formQuanTriHoaDon.rdbtnXoa.isSelected()) {
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn xóa hóa đơn này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
+					if (result == JOptionPane.YES_OPTION) {
+						String maHoaDon = formQuanTriHoaDon.txtMaHoaDon.getText();
 
-					try {
-						ConnectServer.hoaDonInf.xoaHoaDon(maHoaDon);
-						formQuanTriHoaDon.layDanhSachHoaDon();
-						formQuanTriHoaDon.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+						try {
+							ConnectServer.hoaDonInf.xoaHoaDon(maHoaDon);
+							formQuanTriHoaDon.layDanhSachHoaDon();
+							formQuanTriHoaDon.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Xóa hóa đơn thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Xóa hóa đơn thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
+
 				}
 			}
 
@@ -97,24 +119,33 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng cập nhật tài khoản
 				if (formQuanTriTaiKhoan.rdbtnCapNhat.isSelected()) {
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn cập nhật tài khoản này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					// kiểm tra ràng buộc nhập liệu
-					List<String> thongBaoLoi = formQuanTriTaiKhoan.kiemTraRangBuocFormNhapLieu();
+					if (result == JOptionPane.YES_OPTION) {
+						// kiểm tra ràng buộc nhập liệu
+						List<String> thongBaoLoi = formQuanTriTaiKhoan.kiemTraRangBuocFormNhapLieu();
 
-					// nếu có lỗi thì hiển thị thông báo lỗi
-					if (thongBaoLoi.size() > 0) {
-						formQuanTriTaiKhoan.thongBaoLoiNhapLieu(thongBaoLoi);
-						return;
-					}
+						// nếu có lỗi thì hiển thị thông báo lỗi
+						if (thongBaoLoi.size() > 0) {
+							formQuanTriTaiKhoan.thongBaoLoiNhapLieu(thongBaoLoi);
+							return;
+						}
 
-					TaiKhoan taiKhoan = new TaiKhoan(Long.parseLong(maTaiKhoan), tenTaiKhoan, matKhau, trangThai);
+						TaiKhoan taiKhoan = new TaiKhoan(Long.parseLong(maTaiKhoan), tenTaiKhoan, matKhau, trangThai);
 
-					try {
-						ConnectServer.taiKhoanInf.capNhatTaiKhoan(taiKhoan, quyen.getIdQuyen());
-						formQuanTriTaiKhoan.layDanhSachTaiKhoan();
-						formQuanTriTaiKhoan.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+						try {
+							ConnectServer.taiKhoanInf.capNhatTaiKhoan(taiKhoan, quyen.getIdQuyen());
+							formQuanTriTaiKhoan.layDanhSachTaiKhoan();
+							formQuanTriTaiKhoan.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Cập nhât tài khoản thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Cập nhật tài khoản thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
 
 				}
@@ -160,72 +191,100 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng thêm sản phẩm
 				if (formQuanTriSanPham.rdbtnThem.isSelected()) {
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn thêm sản phẩm này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
+					if (result == JOptionPane.YES_OPTION) {
+						List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
 
-					if (thongBaoLoi.size() > 0) {
-						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
-						return;
-					}
+						if (thongBaoLoi.size() > 0) {
+							formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+							return;
+						}
 
-					SanPham sanPham = new SanPham(tenSanPham, Float.parseFloat(giaSanPham));
+						SanPham sanPham = new SanPham(tenSanPham, Float.parseFloat(giaSanPham));
 
-					try {
-						ConnectServer.sanPhamInf.taoSanPham(sanPham, loaiSanPham.getMaLoai());
-						formQuanTriSanPham.layDanhSachSanPham();
-						formQuanTriSanPham.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+						try {
+							ConnectServer.sanPhamInf.taoSanPham(sanPham, loaiSanPham.getMaLoai());
+							formQuanTriSanPham.layDanhSachSanPham();
+							formQuanTriSanPham.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Thêm sản phẩm thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
 
 				}
 
 				// chức năng cập nhật sản phẩm
 				if (formQuanTriSanPham.rdbtnCapNhat.isSelected()) {
-
-					List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
 					
-					if(maSanPham.equals("")) {
-						thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần cập nhật");
-					}
-					
-					if (thongBaoLoi.size() > 0) {
-						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
-						return;
-					}
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn cập nhật sản phẩm này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					SanPham sanPham = new SanPham(Long.parseLong(maSanPham), tenSanPham, Float.parseFloat(giaSanPham));
+					if (result == JOptionPane.YES_OPTION) {
+						List<String> thongBaoLoi = formQuanTriSanPham.rangBuocFormNhapLieu();
+						
+						if(maSanPham.equals("")) {
+							thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần cập nhật");
+						}
+						
+						if (thongBaoLoi.size() > 0) {
+							formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+							return;
+						}
 
-					try {
-						ConnectServer.sanPhamInf.capNhatSanPham(sanPham, loaiSanPham.getMaLoai());
-						formQuanTriSanPham.layDanhSachSanPham();
-						formQuanTriSanPham.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+						SanPham sanPham = new SanPham(Long.parseLong(maSanPham), tenSanPham, Float.parseFloat(giaSanPham));
+
+						try {
+							ConnectServer.sanPhamInf.capNhatSanPham(sanPham, loaiSanPham.getMaLoai());
+							formQuanTriSanPham.layDanhSachSanPham();
+							formQuanTriSanPham.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Cập nhật sản phẩm thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Cập nhật sản phẩm thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 
 				// chức năng xóa sản phẩm
 				if (formQuanTriSanPham.rdbtnXoa.isSelected()) {
 					
-					List<String> thongBaoLoi = new ArrayList<String>();
-					
-					if(maSanPham.equals("")) {
-						thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần xóa");
-					}
-					
-					if (thongBaoLoi.size() > 0) {
-						formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
-						return;
-					}
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn xóa sản phẩm này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					try {
-						ConnectServer.sanPhamInf.xoaSanPham(Long.parseLong(maSanPham));
-						formQuanTriSanPham.layDanhSachSanPham();
-						formQuanTriSanPham.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+					if (result == JOptionPane.YES_OPTION) {
+						List<String> thongBaoLoi = new ArrayList<String>();
+						
+						if(maSanPham.equals("")) {
+							thongBaoLoi.add(0 ,"Vui lòng chọn sản phẩm cần xóa");
+						}
+						
+						if (thongBaoLoi.size() > 0) {
+							formQuanTriSanPham.thongBaoLoiNhapLieu(thongBaoLoi);
+							return;
+						}
+
+						try {
+							ConnectServer.sanPhamInf.xoaSanPham(Long.parseLong(maSanPham));
+							formQuanTriSanPham.layDanhSachSanPham();
+							formQuanTriSanPham.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Xóa sản phẩm thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
+					
 				}
 			}
 
@@ -251,91 +310,118 @@ public class MouseControllerFormQuanTri implements MouseListener {
 
 				// chức năng thêm nhân viên
 				if (formQuanTriNhanVien.rdbtnThem.isSelected()) {
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn thêm nhân viên này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					try {
-						// kiểm tra thông tin nhập liệu
-						List<String> thongBaoLoi = formQuanTriNhanVien.kienTraThongTinNhapLieu(1);
+					if (result == JOptionPane.YES_OPTION) {
+						try {
+							// kiểm tra thông tin nhập liệu
+							List<String> thongBaoLoi = formQuanTriNhanVien.kienTraThongTinNhapLieu(1);
 
-						// nếu có lỗi thì hiển thị thông báo lỗi
-						if (thongBaoLoi.size() > 0) {
-							formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
-							return;
+							// nếu có lỗi thì hiển thị thông báo lỗi
+							if (thongBaoLoi.size() > 0) {
+								formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
+								return;
+							}
+
+							NhanVien nhanVien = new NhanVien(hoVaTen, soDienThoai, email, diaChi, gioiTinh);
+
+							NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+
+							nhanVienInf.taoNhanVien(nhanVien);
+							formQuanTriNhanVien.layDanhSachNhanVien();
+							formQuanTriNhanVien.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Thêm nhân viên thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
 						}
-
-						NhanVien nhanVien = new NhanVien(hoVaTen, soDienThoai, email, diaChi, gioiTinh);
-
-						NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
-
-						nhanVienInf.taoNhanVien(nhanVien);
-						formQuanTriNhanVien.layDanhSachNhanVien();
-						formQuanTriNhanVien.lamMoiForm();
-
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
 					}
-
+					
 				}
 				// chức năng cập nhật nhân viên
 				if (formQuanTriNhanVien.rdbtnCapNhat.isSelected()) {
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn cập nhật nhân viên này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
+					if (result == JOptionPane.YES_OPTION) {
+						String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
 
-					try {
-						// kiểm tra thông tin nhập liệu
-						List<String> thongBaoLoi = formQuanTriNhanVien.kienTraThongTinNhapLieu(2);
+						try {
+							// kiểm tra thông tin nhập liệu
+							List<String> thongBaoLoi = formQuanTriNhanVien.kienTraThongTinNhapLieu(2);
 
-						// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
-						if (maNhanVien.equals("")) {
-							thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần cập nhật");
+							// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
+							if (maNhanVien.equals("")) {
+								thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần cập nhật");
+							}
+
+							// nếu có lỗi thì hiển thị thông báo lỗi
+							if (thongBaoLoi.size() > 0) {
+								formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
+								return;
+							}
+
+							NhanVien nhanVien = new NhanVien(Long.parseLong(maNhanVien), hoVaTen, soDienThoai, email,
+									diaChi, gioiTinh);
+
+							NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+
+							nhanVienInf.capNhatNhanVien(nhanVien);
+							formQuanTriNhanVien.layDanhSachNhanVien();
+							formQuanTriNhanVien.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Cập nhật viên thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Cập nhật viên thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
 						}
-
-						// nếu có lỗi thì hiển thị thông báo lỗi
-						if (thongBaoLoi.size() > 0) {
-							formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
-							return;
-						}
-
-						NhanVien nhanVien = new NhanVien(Long.parseLong(maNhanVien), hoVaTen, soDienThoai, email,
-								diaChi, gioiTinh);
-
-						NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
-
-						nhanVienInf.capNhatNhanVien(nhanVien);
-						formQuanTriNhanVien.layDanhSachNhanVien();
-						formQuanTriNhanVien.lamMoiForm();
-
-					} catch (RemoteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}
 
 				// chức năng xóa nhân viên
 				if (formQuanTriNhanVien.rdbtnXoa.isSelected()) {
-					String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
+					
+					int result = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc chắn muốn xóa nhân viên này ?", "Xác nhận",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-					List<String> thongBaoLoi = new ArrayList<String>();
+					if (result == JOptionPane.YES_OPTION) {
+						String maNhanVien = formQuanTriNhanVien.textFieldMaNhanVien.getText();
 
-					// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
-					if (maNhanVien.equals("")) {
-						thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần xóa");
-					}
+						List<String> thongBaoLoi = new ArrayList<String>();
 
-					// nếu có lỗi thì hiển thị thông báo lỗi
-					if (thongBaoLoi.size() > 0) {
-						formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
-						return;
-					}
+						// nếu không chọn nhân viên cần cập nhật thì thông báo lỗi
+						if (maNhanVien.equals("")) {
+							thongBaoLoi.add(0, "Vui lòng chọn nhân viên cần xóa");
+						}
 
-					NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+						// nếu có lỗi thì hiển thị thông báo lỗi
+						if (thongBaoLoi.size() > 0) {
+							formQuanTriNhanVien.thongBaoLoiNhapLieu(thongBaoLoi);
+							return;
+						}
 
-					try {
-						nhanVienInf.xoaNhanVien(maNhanVien);
-						formQuanTriNhanVien.layDanhSachNhanVien();
-						formQuanTriNhanVien.lamMoiForm();
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
+						NhanVienInf nhanVienInf = ConnectServer.nhanVienInf;
+
+						try {
+							nhanVienInf.xoaNhanVien(maNhanVien);
+							formQuanTriNhanVien.layDanhSachNhanVien();
+							formQuanTriNhanVien.lamMoiForm();
+							JOptionPane.showMessageDialog(null, "Xóa viên thành công !", "Thông báo",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (RemoteException e1) {
+							JOptionPane.showMessageDialog(null, "Xóa viên thất bại !", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 

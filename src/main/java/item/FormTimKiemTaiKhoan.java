@@ -15,6 +15,8 @@ import util.ConnectServer;
 import view.FormQuanTriTaiKhoan;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.rmi.RemoteException;
 import java.util.List;

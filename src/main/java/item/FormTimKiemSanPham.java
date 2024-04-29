@@ -155,7 +155,6 @@ public class FormTimKiemSanPham extends JDialog {
 							formThemSanPham.setLocationRelativeTo(null);
 							formThemSanPham.setAlwaysOnTop(true);
 							formThemSanPham.setVisible(true);
-							
 							dispose();
 						} catch (RemoteException e1) {
 							e1.printStackTrace();
