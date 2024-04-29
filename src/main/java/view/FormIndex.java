@@ -143,24 +143,28 @@ public class FormIndex extends JFrame {
 		menu.add(btnTrangChu);
 		
 		btnTraCuuThongTin = new JButton("Tra Cứu Thông Tin");
+		btnTraCuuThongTin.setBackground(new Color(255, 255, 255));
 		btnTraCuuThongTin.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnTraCuuThongTin.setBounds(0, 297, 267, 52);
 		btnTraCuuThongTin.addMouseListener(mouseControllerFormIndex);
 		menu.add(btnTraCuuThongTin);
 		
 		btnThanhToanHoaDon = new JButton("Thanh Toán Hóa Đơn");
+		btnThanhToanHoaDon.setBackground(new Color(255, 255, 255));
 		btnThanhToanHoaDon.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnThanhToanHoaDon.setBounds(0, 360, 267, 52);
 		btnThanhToanHoaDon.addMouseListener(mouseControllerFormIndex);
 		menu.add(btnThanhToanHoaDon);
 		
 		btnQuanTri = new JButton("Quản Trị");
+		btnQuanTri.setBackground(new Color(255, 255, 255));
 		btnQuanTri.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnQuanTri.setBounds(0, 423, 267, 52);
 		btnQuanTri.addMouseListener(mouseControllerFormIndex);
 		menu.add(btnQuanTri);
 		
 		btnngXut = new JButton("Đăng Xuất");
+		btnngXut.setBackground(new Color(255, 255, 255));
 		btnngXut.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        int response = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
@@ -170,8 +174,8 @@ public class FormIndex extends JFrame {
 		        }
 		    }
 		});
-		btnngXut.setFont(new Font("Arial", Font.PLAIN, 20));
-		btnngXut.setBounds(20, 707, 227, 40);
+		btnngXut.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnngXut.setBounds(10, 707, 247, 40);
 		menu.add(btnngXut);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);

@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
+import item.FormLoaiSanPham;
 import model.LoaiSanPham;
 import model.SanPham;
 import util.ConnectServer;
@@ -72,43 +73,43 @@ public class FormQuanTriSanPham extends JPanel {
 		panel.setLayout(null);
 
 		JLabel lblMaSP = new JLabel("Mã Sản Phẩm");
-		lblMaSP.setBounds(13, 73, 94, 29);
+		lblMaSP.setBounds(13, 91, 94, 29);
 		panel.add(lblMaSP);
 		lblMaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		txtMaSP = new JTextField();
 		txtMaSP.setEnabled(false);
-		txtMaSP.setBounds(117, 73, 186, 29);
+		txtMaSP.setBounds(117, 91, 186, 29);
 		panel.add(txtMaSP);
 		txtMaSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtMaSP.setColumns(10);
 
 		JLabel lblTenSP = new JLabel("Tên Sản Phẩm");
-		lblTenSP.setBounds(13, 113, 94, 29);
+		lblTenSP.setBounds(13, 131, 94, 29);
 		panel.add(lblTenSP);
 		lblTenSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		txtTenSP = new JTextField();
 		txtTenSP.setEditable(false);
-		txtTenSP.setBounds(117, 113, 186, 29);
+		txtTenSP.setBounds(117, 131, 186, 29);
 		panel.add(txtTenSP);
 		txtTenSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtTenSP.setColumns(10);
 
 		JLabel lblGiaSP = new JLabel("Giá Sản Phẩm");
-		lblGiaSP.setBounds(13, 153, 94, 29);
+		lblGiaSP.setBounds(13, 171, 94, 29);
 		panel.add(lblGiaSP);
 		lblGiaSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		txtGiaSP = new JTextField();
 		txtGiaSP.setEditable(false);
-		txtGiaSP.setBounds(117, 153, 186, 29);
+		txtGiaSP.setBounds(117, 171, 186, 29);
 		panel.add(txtGiaSP);
 		txtGiaSP.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		txtGiaSP.setColumns(10);
 
 		JLabel lblLoaiSP = new JLabel("Loại Sản Phẩm");
-		lblLoaiSP.setBounds(13, 193, 94, 29);
+		lblLoaiSP.setBounds(13, 211, 94, 29);
 		panel.add(lblLoaiSP);
 		lblLoaiSP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
@@ -189,19 +190,19 @@ public class FormQuanTriSanPham extends JPanel {
 
 		JLabel lblThngTinSn = new JLabel("Thông Tin Sản Phẩm");
 		lblThngTinSn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		lblThngTinSn.setBounds(59, 25, 201, 30);
+		lblThngTinSn.setBounds(59, 43, 201, 30);
 		panel.add(lblThngTinSn);
 
 		comboBoxLoaiSanPham = new JComboBox();
 		comboBoxLoaiSanPham.setEnabled(false);
 		comboBoxLoaiSanPham.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		comboBoxLoaiSanPham.setBounds(117, 193, 186, 29);
+		comboBoxLoaiSanPham.setBounds(117, 211, 186, 29);
 		panel.add(comboBoxLoaiSanPham);
 
 		btnChucNang = new JButton("................................");
 		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnChucNang.setEnabled(false);
-		btnChucNang.setBounds(13, 267, 290, 39);
+		btnChucNang.setBounds(13, 285, 290, 39);
 		panel.add(btnChucNang);
 
 		JButton btnLamMoiForm = new JButton("Làm Mới");
@@ -211,8 +212,24 @@ public class FormQuanTriSanPham extends JPanel {
 			}
 		});
 		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnLamMoiForm.setBounds(214, 233, 89, 23);
+		btnLamMoiForm.setBounds(214, 251, 89, 23);
 		panel.add(btnLamMoiForm);
+
+		JButton btnLoaiSanPham = new JButton("Loại sản phẩm");
+		btnLoaiSanPham.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					FormLoaiSanPham formLoaiSanPham = new FormLoaiSanPham();
+					formLoaiSanPham.setVisible(true);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		btnLoaiSanPham.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnLoaiSanPham.setBounds(165, 11, 138, 29);
+		panel.add(btnLoaiSanPham);
 
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
@@ -296,8 +313,8 @@ public class FormQuanTriSanPham extends JPanel {
 		model.setRowCount(0);
 
 		for (SanPham sanPham : listSanPham) {
-			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), dinhDangTienTe(sanPham.getGiaSanPham()),
-					sanPham.getLoaiSanPham() });
+			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(),
+					dinhDangTienTe(sanPham.getGiaSanPham()), sanPham.getLoaiSanPham() });
 		}
 	}
 
@@ -312,8 +329,8 @@ public class FormQuanTriSanPham extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
 		model.setRowCount(0);
 		for (SanPham sanPham : dsSanPham) {
-			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(), dinhDangTienTe(sanPham.getGiaSanPham()),
-					sanPham.getLoaiSanPham() });
+			model.addRow(new Object[] { sanPham.getIdSanPham(), sanPham.getTenSanPham(),
+					dinhDangTienTe(sanPham.getGiaSanPham()), sanPham.getLoaiSanPham() });
 		}
 	}
 
