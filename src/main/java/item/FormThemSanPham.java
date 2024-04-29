@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,6 +24,8 @@ import model.SanPham;
 import view.FormThanhToan;
 
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class FormThemSanPham extends JDialog {
@@ -117,7 +120,7 @@ public class FormThemSanPham extends JDialog {
 
 					long idSanPham = (long) table.getValueAt(selectedRow, 0);
 					String tenSanPham = (String) table.getValueAt(selectedRow, 1);
-					float giaSanPham = (float) table.getValueAt(selectedRow, 2);
+					float giaSanPham = chuyenDinhDangTienTeVeSo((String) table.getValueAt(selectedRow, 2));
 					LoaiSanPham loaiSanPham = (LoaiSanPham) table.getValueAt(selectedRow, 3);
 
 					SanPham sanPham = new SanPham(idSanPham, tenSanPham, giaSanPham);
@@ -151,14 +154,35 @@ public class FormThemSanPham extends JDialog {
 		}
 	}
 
+	// load dữ liệu vào bảng
 	private void loadTable() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 
 		for (SanPham sp : dsSanPham) {
 			model.addRow(
-					new Object[] { sp.getIdSanPham(), sp.getTenSanPham(), sp.getGiaSanPham(), sp.getLoaiSanPham() });
+					new Object[] { sp.getIdSanPham(), sp.getTenSanPham(), dinhDangTienTe(sp.getGiaSanPham()), sp.getLoaiSanPham() });
 		}
+	}
+
+	// Định dạng tiền tệ
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String strCurrencyVN = currencyVN.format(money);
+		return strCurrencyVN;
+	}
+	
+	// Chuyển định dạng tiền tệ về số
+	public float chuyenDinhDangTienTeVeSo(String strCurrencyVN) {
+	    NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+	    try {
+	        Number number = format.parse(strCurrencyVN);
+	        return number.floatValue();
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	        return 0;
+	    }
 	}
 
 }

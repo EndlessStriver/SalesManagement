@@ -3,10 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -122,12 +125,12 @@ public class FormThanhToan extends JPanel {
 		lblThanhTien.setFont(new Font("Segoe UI Black", Font.PLAIN, 24));
 		lblThanhTien.setBounds(10, 570, 290, 33);
 		panel_1.add(lblThanhTien);
-		
+
 		JLabel lblTenNhanVien = new JLabel("Tên nhân viên");
 		lblTenNhanVien.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
 		lblTenNhanVien.setBounds(10, 95, 108, 27);
 		panel_1.add(lblTenNhanVien);
-		
+
 		txtTenNhanVien = new JLabel("");
 		txtTenNhanVien.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtTenNhanVien.setBounds(160, 95, 96, 26);
@@ -240,7 +243,7 @@ public class FormThanhToan extends JPanel {
 			if (model.getValueAt(i, 0).equals(sanPham)) {
 				int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
 				model.setValueAt(soLuong + chiTietHoaDon.getSoLuong(), i, 3);
-				model.setValueAt((float) model.getValueAt(i, 4) * (soLuong + chiTietHoaDon.getSoLuong()), i, 5);
+				model.setValueAt(dinhDangTienTe(chuyenDinhDangTienTeVeSo(model.getValueAt(i, 4).toString()) * (soLuong + chiTietHoaDon.getSoLuong())), i, 5);
 				capNhatThanhTien();
 				return;
 			}
@@ -248,7 +251,8 @@ public class FormThanhToan extends JPanel {
 
 		model.addRow(new Object[] { chiTietHoaDon.getSanPham(), chiTietHoaDon.getSanPham().getTenSanPham(),
 				chiTietHoaDon.getSanPham().getLoaiSanPham(), chiTietHoaDon.getSoLuong(),
-				chiTietHoaDon.getSanPham().getGiaSanPham(), chiTietHoaDon.getTongTien() });
+				dinhDangTienTe(chiTietHoaDon.getSanPham().getGiaSanPham()),
+				dinhDangTienTe(chiTietHoaDon.getTongTien()) });
 	}
 
 	// cập nhật tổng tiền
@@ -256,9 +260,9 @@ public class FormThanhToan extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tableChiTietHoaDon.getModel();
 		float tongTien = 0;
 		for (int i = 0; i < model.getRowCount(); i++) {
-			tongTien += (float) model.getValueAt(i, 5);
+			tongTien += chuyenDinhDangTienTeVeSo(model.getValueAt(i, 5).toString());
 		}
-		lblThanhTien.setText(tongTien + " VND");
+		lblThanhTien.setText(dinhDangTienTe(tongTien));
 	}
 
 	// làm mới
@@ -272,10 +276,31 @@ public class FormThanhToan extends JPanel {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		txtNgayLap.setText(dateFormat.format(new Date()));
 	}
-	
+
 	// cập nhật mã nhân viên
 	public void capNhatMaNhanVien() {
 		txtMaNhanVien.setText(FormIndex.nhanVien.getIdNhanVien() + "");
 		txtTenNhanVien.setText(FormIndex.nhanVien.getTenNhanVien());
 	}
+
+	// Định dạng tiền tệ
+	public String dinhDangTienTe(float money) {
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String strCurrencyVN = currencyVN.format(money);
+		return strCurrencyVN;
+	}
+
+	// Chuyển định dạng tiền tệ về số
+	public float chuyenDinhDangTienTeVeSo(String strCurrencyVN) {
+		NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+		try {
+			Number number = format.parse(strCurrencyVN);
+			return number.floatValue();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }

@@ -169,7 +169,7 @@ public class FormThongTinHoaDon extends JDialog {
 
 		for (ChiTietHoaDon ct : dsChiTiet) {
 			model.addRow(new Object[] { ct.getSanPham(), ct.getSanPham().getTenSanPham(),
-					ct.getSanPham().getLoaiSanPham().getTenLoai(), ct.getSoLuong(), ct.getSanPham().getGiaSanPham(),
+					ct.getSanPham().getLoaiSanPham().getTenLoai(), ct.getSoLuong(), dinhDangTienTe(ct.getSanPham().getGiaSanPham()),
 					dinhDangTienTe(ct.getSoLuong() * ct.getSanPham().getGiaSanPham()) });
 		}
 
