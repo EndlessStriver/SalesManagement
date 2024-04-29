@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.MouseControllerFormQuanTri;
+import item.FormQuyenHan;
 import util.ConnectServer;
 import model.Quyen;
 import model.TaiKhoan;
@@ -76,29 +77,29 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Tên tài khoản");
-		lblNewLabel.setBounds(13, 127, 94, 29);
+		lblNewLabel.setBounds(13, 143, 94, 29);
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		textFieldTenTaiKhoan = new JTextField();
 		textFieldTenTaiKhoan.setEditable(false);
-		textFieldTenTaiKhoan.setBounds(117, 127, 186, 29);
+		textFieldTenTaiKhoan.setBounds(117, 143, 186, 29);
 		panel.add(textFieldTenTaiKhoan);
 		textFieldTenTaiKhoan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldTenTaiKhoan.setColumns(10);
 
 		JLabel lblHoVaTn = new JLabel("Mật khẩu");
-		lblHoVaTn.setBounds(13, 167, 94, 29);
+		lblHoVaTn.setBounds(13, 183, 94, 29);
 		panel.add(lblHoVaTn);
 		lblHoVaTn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		JLabel lblEmail = new JLabel("Quyền hạn");
-		lblEmail.setBounds(13, 203, 94, 29);
+		lblEmail.setBounds(13, 219, 94, 29);
 		panel.add(lblEmail);
 		lblEmail.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
 		JLabel lblGiiTinh = new JLabel("Trạng Thái");
-		lblGiiTinh.setBounds(13, 239, 94, 29);
+		lblGiiTinh.setBounds(13, 255, 94, 29);
 		panel.add(lblGiiTinh);
 		lblGiiTinh.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 
@@ -106,14 +107,14 @@ public class FormQuanTriTaiKhoan extends JPanel {
 		rdbtnKichHoat.setSelected(true);
 		rdbtnKichHoat.setEnabled(false);
 		rdbtnKichHoat.setBackground(new Color(255, 255, 255));
-		rdbtnKichHoat.setBounds(117, 243, 109, 23);
+		rdbtnKichHoat.setBounds(117, 259, 109, 23);
 		panel.add(rdbtnKichHoat);
 		rdbtnKichHoat.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
 		rdbtnTat = new JRadioButton("Tắt");
 		rdbtnTat.setEnabled(false);
 		rdbtnTat.setBackground(new Color(255, 255, 255));
-		rdbtnTat.setBounds(117, 279, 109, 23);
+		rdbtnTat.setBounds(117, 295, 109, 23);
 		panel.add(rdbtnTat);
 		rdbtnTat.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 
@@ -154,37 +155,37 @@ public class FormQuanTriTaiKhoan extends JPanel {
 
 		JLabel lblThngTinTai = new JLabel("Thông Tin Tài Khoản");
 		lblThngTinTai.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		lblThngTinTai.setBounds(57, 25, 201, 30);
+		lblThngTinTai.setBounds(57, 41, 201, 30);
 		panel.add(lblThngTinTai);
 
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		passwordField.setEditable(false);
-		passwordField.setBounds(117, 167, 186, 29);
+		passwordField.setBounds(117, 183, 186, 29);
 		panel.add(passwordField);
 
 		comboBoxQuyenHan = new JComboBox();
 		comboBoxQuyenHan.setEnabled(false);
 		comboBoxQuyenHan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-		comboBoxQuyenHan.setBounds(117, 207, 186, 29);
+		comboBoxQuyenHan.setBounds(117, 223, 186, 29);
 		panel.add(comboBoxQuyenHan);
 
 		btnChucNang = new JButton("................................");
 		btnChucNang.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		btnChucNang.setEnabled(false);
-		btnChucNang.setBounds(13, 339, 290, 39);
+		btnChucNang.setBounds(13, 355, 290, 39);
 		panel.add(btnChucNang);
 
 		JLabel lblMTiKhon = new JLabel("Mã tài khoản");
 		lblMTiKhon.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		lblMTiKhon.setBounds(13, 87, 94, 29);
+		lblMTiKhon.setBounds(13, 103, 94, 29);
 		panel.add(lblMTiKhon);
 
 		textFieldMaTaiKhoan = new JTextField();
 		textFieldMaTaiKhoan.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
 		textFieldMaTaiKhoan.setEditable(false);
 		textFieldMaTaiKhoan.setColumns(10);
-		textFieldMaTaiKhoan.setBounds(117, 87, 186, 29);
+		textFieldMaTaiKhoan.setBounds(117, 103, 186, 29);
 		panel.add(textFieldMaTaiKhoan);
 
 		JButton btnLamMoiForm = new JButton("Làm mới");
@@ -194,8 +195,24 @@ public class FormQuanTriTaiKhoan extends JPanel {
 			}
 		});
 		btnLamMoiForm.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		btnLamMoiForm.setBounds(214, 305, 89, 23);
+		btnLamMoiForm.setBounds(214, 321, 89, 23);
 		panel.add(btnLamMoiForm);
+		
+		JButton btnQuynHn = new JButton("Quyền hạn");
+		btnQuynHn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormQuyenHan formQuyenHan;
+				try {
+					formQuyenHan = new FormQuyenHan();
+					formQuyenHan.setVisible(true);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnQuynHn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		btnQuynHn.setBounds(182, 11, 121, 29);
+		panel.add(btnQuynHn);
 
 		btnChucNang.addMouseListener(mouseControllerFormQuanTri);
 
