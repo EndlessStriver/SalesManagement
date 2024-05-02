@@ -220,7 +220,7 @@ public class FormLoaiSanPham extends JDialog {
 								setVisible(true);
 								layDanhSachLoaiSanPham();
 							} catch (RemoteException e1) {
-								JOptionPane.showMessageDialog(null, "Xóa loại sản phẩm thất bại !", "Lỗi",
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "Lỗi",
 										JOptionPane.ERROR_MESSAGE);
 								setVisible(true);
 							}

@@ -126,8 +126,8 @@ public class FormQuyenHan extends JDialog {
 							ConnectServer.quyenInf.taoQuyen(quyen);
 							JOptionPane.showMessageDialog(null, "Thêm quyền hạn thành công !", "Thông báo",
 									JOptionPane.INFORMATION_MESSAGE);
-							setVisible(true);
 							layDanhSachQuyenHan();
+							setVisible(true);
 						} catch (RemoteException e1) {
 							JOptionPane.showMessageDialog(null, "Thêm quyền hạn thất bại !", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
@@ -220,7 +220,7 @@ public class FormQuyenHan extends JDialog {
 								setVisible(true);
 								layDanhSachQuyenHan();
 							} catch (RemoteException e1) {
-								JOptionPane.showMessageDialog(null, "Xóa quyền hạn thất bại !", "Lỗi",
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "Lỗi",
 										JOptionPane.ERROR_MESSAGE);
 								setVisible(true);
 							}

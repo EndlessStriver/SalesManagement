@@ -280,7 +280,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 							JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công !", "Thông báo",
 									JOptionPane.INFORMATION_MESSAGE);
 						} catch (RemoteException e1) {
-							JOptionPane.showMessageDialog(null, "Xóa sản phẩm thất bại !", "Lỗi",
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -416,10 +416,10 @@ public class MouseControllerFormQuanTri implements MouseListener {
 							nhanVienInf.xoaNhanVien(maNhanVien);
 							formQuanTriNhanVien.layDanhSachNhanVien();
 							formQuanTriNhanVien.lamMoiForm();
-							JOptionPane.showMessageDialog(null, "Xóa viên thành công !", "Thông báo",
+							JOptionPane.showMessageDialog(null, "Xóa nhân viên thành công !", "Thông báo",
 									JOptionPane.INFORMATION_MESSAGE);
 						} catch (RemoteException e1) {
-							JOptionPane.showMessageDialog(null, "Xóa viên thất bại !", "Lỗi",
+							JOptionPane.showMessageDialog(null, "Xóa nhân viên thất bại !", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
