@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import controller.MouseControllerFormQuanTri;
+import model.TaiKhoan;
 import util.ConnectServer;
 
 public class FormQuanTri extends JPanel {
@@ -18,6 +19,7 @@ public class FormQuanTri extends JPanel {
 	public FormQuanTriTaiKhoan formQuanTriTaiKhoan;
 	public FormQuanTriHoaDon formQuanTriHoaDon;
 	public FormQuanTriSanPham formQuanTriSanPham;
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Create the panel.
@@ -37,7 +39,7 @@ public class FormQuanTri extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(new Color(255, 255, 255));
 		tabbedPane.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		tabbedPane.setBounds(0, 0, 1134, 753);
@@ -47,5 +49,15 @@ public class FormQuanTri extends JPanel {
 		tabbedPane.addTab("Quản lý tài khoản", null, formQuanTriTaiKhoan, null);
 		tabbedPane.addTab("Quản lý hóa đơn", null, formQuanTriHoaDon, null);
 		tabbedPane.addTab("Quản lý sản phẩm", null, formQuanTriSanPham, null);
+		
+		kiemQuaQuyenHan();
+	}
+	
+	public void kiemQuaQuyenHan() {
+		TaiKhoan taiKhoan = FormIndex.taiKhoan;
+		if (taiKhoan.getQuyen().getTenQuyen().equals("Quản Lý")) {
+			System.out.println(1111);
+			tabbedPane.setEnabledAt(1, false);
+		}
 	}
 }

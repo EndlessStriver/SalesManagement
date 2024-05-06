@@ -221,6 +221,7 @@ public class FormIndex extends JFrame {
 	    }
 	}
 	
+	// Gán tên nhân viên lên label lblTenNhanVien
 	public void ganTenNhanVien() {
 		lblTenNhanVien.setText(nhanVien.getTenNhanVien());
 	}
