@@ -55,6 +55,7 @@ public class FormThemSanPham extends JDialog {
 	public FormThemSanPham(JPanel myView1, List<SanPham> dsSanPham1) {
 		myView = myView1;
 		dsSanPham = dsSanPham1;
+		setModal(true);
 		setBounds(100, 100, 651, 435);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,6 +88,15 @@ public class FormThemSanPham extends JDialog {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
+					int selectedRow = table.getSelectedRow();
+					
+					if (selectedRow == -1) {
+						JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần thêm!", "Lỗi",
+								JOptionPane.ERROR_MESSAGE);
+						setVisible(true);
+						return;
+					}
+					
 					// hiển thị form nhập số lượng sản phẩm
 					String soSanPham = JOptionPane.showInputDialog(null, "Nhập số lượng sản phẩm:", "Số lượng:",
 							JOptionPane.QUESTION_MESSAGE);
@@ -115,8 +125,6 @@ public class FormThemSanPham extends JDialog {
 
 					// chuyển dữ liệu nhập vào thành kiểu số nguyên
 					int soLuong = Integer.parseInt(soSanPham);
-
-					int selectedRow = table.getSelectedRow();
 
 					long idSanPham = (long) table.getValueAt(selectedRow, 0);
 					String tenSanPham = (String) table.getValueAt(selectedRow, 1);

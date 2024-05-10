@@ -419,7 +419,7 @@ public class MouseControllerFormQuanTri implements MouseListener {
 							JOptionPane.showMessageDialog(null, "Xóa nhân viên thành công !", "Thông báo",
 									JOptionPane.INFORMATION_MESSAGE);
 						} catch (RemoteException e1) {
-							JOptionPane.showMessageDialog(null, "Xóa nhân viên thất bại !", "Lỗi",
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}

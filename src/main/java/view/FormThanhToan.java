@@ -193,8 +193,9 @@ public class FormThanhToan extends JPanel {
 					}
 
 					try {
-
 						ConnectServer.hoaDonInf.taoHoaDon(dsChiTietHoaDon, Long.parseLong(txtMaNhanVien.getText()));
+						JOptionPane.showMessageDialog(null, "Thanh toán thành công !", "Thông báo",
+								JOptionPane.INFORMATION_MESSAGE);
 						lamMoi();
 
 					} catch (RemoteException e1) {
