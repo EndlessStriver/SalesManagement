@@ -119,7 +119,6 @@ public class FormLogin extends JFrame {
 				try {
 					TaiKhoan taiKhoan = ConnectServer.taiKhoanInf.xacThucTaiKhoan(tenDangNhap, matKhau);
 					boolean trangThai = taiKhoan.isTrangThai();
-					
 					if (!trangThai) {
 						JOptionPane.showMessageDialog(null, "Tài khoản chưa được kích hoạt !", "Lỗi", JOptionPane.ERROR_MESSAGE);
 						lamMoiForm();

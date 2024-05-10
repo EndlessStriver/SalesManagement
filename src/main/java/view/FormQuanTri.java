@@ -56,7 +56,6 @@ public class FormQuanTri extends JPanel {
 	public void kiemQuaQuyenHan() {
 		TaiKhoan taiKhoan = FormIndex.taiKhoan;
 		if (taiKhoan.getQuyen().getTenQuyen().equals("Quản Lý")) {
-			System.out.println(1111);
 			tabbedPane.setEnabledAt(1, false);
 		}
 	}
